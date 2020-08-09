@@ -3,7 +3,22 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appName: "lamaterexpress",
+  firebase: {
+    apiKey: "AIzaSyBhyRrOyHAoMd9nkOxN08dAYVFKPWY9oCg",
+    authDomain: "lamaterexpress.firebaseapp.com",
+    databaseURL: "https://lamaterexpress.firebaseio.com",
+    projectId: "lamaterexpress",
+    storageBucket: "lamaterexpress.appspot.com",
+    messagingSenderId: "881908901174",
+    appId: "1:881908901174:web:1d81cb1f31d1da1678bf97",
+    measurementId: "G-YQKY8B0BV5"
+  },
+  url: 'http://localhost:8010',
+  // url: 'https://admin.lamater.net',
+  api: '/api/2020-04/',
+  stripe: 'pk_test_93YuwyRJP23j8pPtIxCdbAre'
 };
 
 /*
