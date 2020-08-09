@@ -121,8 +121,13 @@
               "devServerTarget": "ecommerce-angular-template:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ecommerce-angular-template"
 }

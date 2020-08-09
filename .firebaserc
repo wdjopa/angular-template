@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "lamaterexpress": {
+      "hosting": {
+        "ecommerce-angular-template": [
+          "lamaterexpress"
+        ]
+      }
+    }
+  }
+}
