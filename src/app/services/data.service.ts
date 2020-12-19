@@ -19,11 +19,11 @@ export class DataService {
 
   constructor(private http: HttpClient, private configService: ConfigService, private userService: UserService) { }
 
-  getAllRestaurants(villeId = localStorage.getItem("ville")) {
+  getAllCompanies(villeId = localStorage.getItem("ville")) {
     return this.http.get(this.configService.url + this.configService.api + "restaurants/city/" + villeId);
   }
 
-  getRestaurant(id) {
+  getCompany(id) {
     return this.http.get(this.configService.url + this.configService.api + "companies/details/" + id);
   }
 

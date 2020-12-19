@@ -22,11 +22,11 @@ export class NavigationService {
   }
 
 
-  getAllRestaurants(): any[] {
+  getAllCompanies(): any[] {
     return this.restaurants;
   }
 
-  getRestaurant(id) {
+  getCompany(id) {
     if (this.cart && this.cart.restaurant && this.cart.restaurant.id == id)
       return this.cart.restaurant
 
@@ -79,7 +79,7 @@ export class NavigationService {
     return deg * (Math.PI / 180)
   }
 
-  getRestaurantBySlug(slug) {
+  getCompanyBySlug(slug) {
     if (this.cart && this.cart.restaurant && this.cart.restaurant.slug == slug)
       return this.cart.restaurant
 
@@ -124,7 +124,7 @@ export class NavigationService {
       return
     }
     // On met à jour le restarant courant
-    restaurant = this.getRestaurant(restaurant.id)
+    restaurant = this.getCompany(restaurant.id)
 
     let inside = false; // Permet de vérifier si un produit est déjà dans le panier ou pas
     let confirmation = true; // Confirmation pour le changement de restaurant.
@@ -137,7 +137,7 @@ export class NavigationService {
         // Le client souhaite annuler son panier
         this.cart = { produits: [], total: 0, restaurant: null };
         if (this.currentRestaurant && this.currentRestaurant.id) {
-          let r = this.getRestaurant(this.currentRestaurant.id)
+          let r = this.getCompany(this.currentRestaurant.id)
           r.produits.forEach((product) => {
             product.total = 0
           })
