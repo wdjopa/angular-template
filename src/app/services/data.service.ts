@@ -23,8 +23,10 @@ export class DataService {
     return this.http.get(this.configService.url + this.configService.api + "restaurants/city/" + villeId);
   }
 
-  getCompany(id) {
-    return this.http.get(this.configService.url + this.configService.api + "companies/details/" + id);
+
+  getCompanyByUrl() {
+    alert(document.location.href)
+    return this.http.get(this.configService.url + this.configService.api + "company/details/" + document.location.href);
   }
 
 

@@ -4,6 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { SeoService } from './services/seo.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
+import { NavigationService } from './services/navigation.service';
 
 let deferredPrompt;
 
@@ -18,7 +19,7 @@ export class AppComponent {
   constructor(
     private route: ActivatedRoute, private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seoService: SeoService
+    private seoService: SeoService, private navigationService : NavigationService
   ) {
 
 
@@ -50,6 +51,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    this.navigationService.getCompanyDetails()
+    // this.navigationService.getCompanyDetails().subscribe(company => {
+      
+    // });
+     
 
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),

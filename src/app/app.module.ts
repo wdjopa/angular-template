@@ -26,6 +26,8 @@ import { LoaderComponent } from './modal/loader/loader.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import {  MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppPasswordDirective } from './directives/app-password.directive';
@@ -36,6 +38,7 @@ import { CartGuard } from './guard/cart.guard';
 import { UserService } from './services/user.service';
 import { NavigationService } from './services/navigation.service';
 import { SeoService } from './services/seo.service';
+import { SubheaderComponent } from './partials/subheader/subheader.component';
 
 
 
@@ -91,7 +94,8 @@ const appRoutes: Routes = [
     }
   },
   { path: "panier", component: CartComponent },
-  { path: "caisse", canActivate: [CartGuard, AuthGuard], component: CheckoutComponent },
+  { path: "caisse",  component: CheckoutComponent },
+  // { path: "caisse", canActivate: [CartGuard, AuthGuard],  component: CheckoutComponent },
   { path: "compte/:slug", canActivate: [AuthGuard], component: AccountComponent },
   { path: "compte", canActivate: [AuthGuard], component: AccountComponent },
   { path: "**", component: FourOhFourComponent },
@@ -118,7 +122,8 @@ const appRoutes: Routes = [
     LoaderComponent,
     HeaderComponent,
     FooterComponent,
-    AppPasswordDirective
+    AppPasswordDirective,
+    SubheaderComponent
   ],
 
   entryComponents: [
@@ -130,6 +135,9 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    
+   MatSnackBar ,
+  MatDialog,                                       
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule
   ],

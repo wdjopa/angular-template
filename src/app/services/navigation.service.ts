@@ -10,21 +10,26 @@ import {  MatDialog } from '@angular/material/dialog';
 export class NavigationService {
   public cart: any = { produits: [], total: 0, restaurant: null };
   private restaurants: any[];
+  private company : any;
   private firstRestaurants: any[];
   private currentRestaurant: any = {};
   public cartSubject = new Subject<any>();
   public restaurantsSubject = new Subject<any[]>();
+  public companySubject = new Subject<any>();
   public currentRestaurantSubject = new Subject<any>();
   public dataLoadedSubject = new Subject<boolean>();
   public promptCitySubject = new Subject<boolean>();
 
-  constructor(private dialog: MatDialog, private dataService: DataService, private configService: ConfigService, private _snackBar: MatSnackBar) {
+  constructor( private dataService: DataService, private configService: ConfigService, private _snackBar: MatSnackBar) {
   }
 
 
-  getAllCompanies(): any[] {
-    return this.restaurants;
+  getCompanyDetails(): any {
+    this.dataService.getCompanyByUrl().subscribe(company => {
+      this.company = company;
+    });
   }
+
 
   getCompany(id) {
     if (this.cart && this.cart.restaurant && this.cart.restaurant.id == id)
