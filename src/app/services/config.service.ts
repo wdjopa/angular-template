@@ -12,6 +12,7 @@ export class ConfigService {
 
   url = environment.url;
   api = environment.api;
+  companyId = environment.company_id;
   token = localStorage.getItem("token") ? localStorage.getItem("token") : null
 
   httpOptions = {

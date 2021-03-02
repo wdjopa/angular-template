@@ -1,0 +1,20 @@
+.font-christmas {
+  font-family: "christmas" !important;
+  color: #e0114f !important;
+}
+
+.title {
+  font-size: 50px;
+}
+
+.footer_logo {
+  font-size: 40px;
+  color: white!important;
+}
+
+/* Wide Mobile = 480px */
+@media only screen and (max-width: 767px) {
+  .title {
+    font-size: 30px;
+  }
+}

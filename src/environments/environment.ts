@@ -15,8 +15,9 @@ export const environment = {
     appId: "1:881908901174:web:1d81cb1f31d1da1678bf97",
     measurementId: "G-YQKY8B0BV5"
   },
-  url: 'http://localhost:8010',
-  // url: 'https://admin.lamater.net',
+  //url: 'http://localhost:8010',
+  url: 'https://shop.mystore.africa',
+  company_id: 6,
   api: '/api/2020-04/',
   stripe: 'pk_test_93YuwyRJP23j8pPtIxCdbAre'
 };

@@ -12,4 +12,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  ngAfterViewInit(): void {
+    window["load_slicknav"]()
+  }
 }

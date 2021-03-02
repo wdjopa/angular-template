@@ -12,4 +12,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  ngAfterViewInit(): void {
+    window["nice_select"]();
+  }
+
 }

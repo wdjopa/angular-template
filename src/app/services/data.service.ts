@@ -25,10 +25,10 @@ export class DataService {
 
 
   getCompanyByUrl() {
-    alert(document.location.href)
-    return this.http.get(this.configService.url + this.configService.api + "company/details/" + document.location.href);
+    // alert(document.location.href)
+    //  document.location.href
+    return this.http.get(this.configService.url + this.configService.api + "companies/details/" + this.configService.companyId);
   }
-
 
   updateUser() {
     this.http.get<any>(this.configService.url + this.configService.api + "user/" + this.userService.user.id, this.configService.httpOptions).subscribe((data: any) => {

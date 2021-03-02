@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubheaderComponent } from './subheader.component';
 
@@ -6,7 +6,7 @@ describe('SubheaderComponent', () => {
   let component: SubheaderComponent;
   let fixture: ComponentFixture<SubheaderComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubheaderComponent ]
     })

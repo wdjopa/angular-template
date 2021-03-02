@@ -50,6 +50,13 @@ export class AppComponent {
 
   }
 
+
+  ngAfterViewInit(): void {
+    window["set_bg"]()
+    window["set_hero"]()
+
+  }
+  
   ngOnInit() {
     this.navigationService.getCompanyDetails()
     // this.navigationService.getCompanyDetails().subscribe(company => {

@@ -12,4 +12,10 @@ export class CollectionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  ngAfterViewInit(): void {
+    window["set_collection_slider"]()
+
+  }
+
 }

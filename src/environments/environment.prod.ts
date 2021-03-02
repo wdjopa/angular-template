@@ -11,7 +11,8 @@ export const environment = {
     appId: "1:881908901174:web:1d81cb1f31d1da1678bf97",
     measurementId: "G-YQKY8B0BV5"
   },
-  url: 'https://admin.express.lamaterservice.com',
+  company_id: 6,
+  url: 'https://shop.mystore.africa',
   api: '/api/2020-04/',
   stripe: 'pk_live_VN4FI0vbptnFwzv9Uxtif2rL'
 }

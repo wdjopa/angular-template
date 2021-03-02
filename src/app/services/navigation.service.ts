@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DataService } from './data.service';
 import { ConfigService } from '../services/config.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {  MatDialog } from '@angular/material/dialog';
+// import { MatSnackBar } from '@angular/material/snack-bar';
+// import {  MatDialog } from '@angular/material/dialog';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,13 +20,16 @@ export class NavigationService {
   public dataLoadedSubject = new Subject<boolean>();
   public promptCitySubject = new Subject<boolean>();
 
-  constructor( private dataService: DataService, private configService: ConfigService, private _snackBar: MatSnackBar) {
+  constructor( private dataService: DataService, private configService: ConfigService, 
+    // private _snackBar: MatSnackBar
+    ) {
   }
 
 
   getCompanyDetails(): any {
     this.dataService.getCompanyByUrl().subscribe(company => {
       this.company = company;
+      // this.companySubject
     });
   }
 
@@ -248,9 +251,9 @@ export class NavigationService {
 
 
   openSnackBar(message: string, action: string, duration: number = 2000) {
-    this._snackBar.open(message, action, {
-      duration: duration,
-    });
+    // this._snackBar.open(message, action, {
+    //   duration: duration,
+    // });
   }
 
   saveNoteCart(note) {
