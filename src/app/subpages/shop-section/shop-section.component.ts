@@ -16,7 +16,7 @@ export class ShopSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.products = this.navigationService.getCompanyDetails();
-    console.log(this.navigationService.compa)
+    // console.log(this.navigationService.compa)
   }
 
 
