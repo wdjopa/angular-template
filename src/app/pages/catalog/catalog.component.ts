@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catalog.component.scss']
 })
 export class CatalogComponent implements OnInit {
+  breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }]
 
   constructor() { }
 

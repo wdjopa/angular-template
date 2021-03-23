@@ -1,4 +1,4 @@
-<section class="testimonial spad">
+<section class="testimonial spad" >
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -10,138 +10,27 @@
     </div>
     <div class="row">
       <div class="testimonial__slider owl-carousel">
-        <div class="col-lg-6">
+        <div class="col-lg-6" *ngFor="let avis of all_reviews">
           <div class="testimonial__item">
             <div class="testimonial__author">
               <div class="testimonial__author__pic">
-                <img src="assets/img/testimonial/ta-1.jpg" alt="">
+                <img  style="width: 4rem; height: 4rem;" [src]="storage_url+'/'+avis.client.profile_picture" alt="">
               </div>
               <div class="testimonial__author__text">
-                <h5>Kerry D.Silva</h5>
-                <span>New york</span>
+                <h5>{{avis.client.surname}} {{avis.client.firstname}}</h5>
+                <span>Client</span>
               </div>
             </div>
             <div class="rating">
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star-half_alt"></span>
+              <span class="icon_star" *ngFor="let note of getTotalStars(avis, 0)"></span>
+              <span class="icon_star-half_alt"
+                *ngFor="let note of getTotalStars(avis, 1)"></span>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
+            <p>{{avis.message}}</p>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="testimonial__item">
-            <div class="testimonial__author">
-              <div class="testimonial__author__pic">
-                <img src="assets/img/testimonial/ta-2.jpg" alt="">
-              </div>
-              <div class="testimonial__author__text">
-                <h5>Kerry D.Silva</h5>
-                <span>New york</span>
-              </div>
-            </div>
-            <div class="rating">
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star-half_alt"></span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="testimonial__item">
-            <div class="testimonial__author">
-              <div class="testimonial__author__pic">
-                <img src="assets/img/testimonial/ta-1.jpg" alt="">
-              </div>
-              <div class="testimonial__author__text">
-                <h5>Ophelia Nunez</h5>
-                <span>London</span>
-              </div>
-            </div>
-            <div class="rating">
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star-half_alt"></span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="testimonial__item">
-            <div class="testimonial__author">
-              <div class="testimonial__author__pic">
-                <img src="assets/img/testimonial/ta-2.jpg" alt="">
-              </div>
-              <div class="testimonial__author__text">
-                <h5>Kerry D.Silva</h5>
-                <span>New york</span>
-              </div>
-            </div>
-            <div class="rating">
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star-half_alt"></span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="testimonial__item">
-            <div class="testimonial__author">
-              <div class="testimonial__author__pic">
-                <img src="assets/img/testimonial/ta-1.jpg" alt="">
-              </div>
-              <div class="testimonial__author__text">
-                <h5>Ophelia Nunez</h5>
-                <span>London</span>
-              </div>
-            </div>
-            <div class="rating">
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star-half_alt"></span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="testimonial__item">
-            <div class="testimonial__author">
-              <div class="testimonial__author__pic">
-                <img src="assets/img/testimonial/ta-2.jpg" alt="">
-              </div>
-              <div class="testimonial__author__text">
-                <h5>Kerry D.Silva</h5>
-                <span>New york</span>
-              </div>
-            </div>
-            <div class="rating">
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star"></span>
-              <span class="icon_star-half_alt"></span>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-          </div>
-        </div>
+
+
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import { SeoService } from './services/seo.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { NavigationService } from './services/navigation.service';
+import { DataService } from './services/data.service';
 
 let deferredPrompt;
 
@@ -19,7 +20,8 @@ export class AppComponent {
   constructor(
     private route: ActivatedRoute, private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private seoService: SeoService, private navigationService : NavigationService
+    private seoService: SeoService, private navigationService: NavigationService
+    , private dataService : DataService
   ) {
 
 
@@ -54,15 +56,16 @@ export class AppComponent {
   ngAfterViewInit(): void {
     window["set_bg"]()
     window["set_hero"]()
-
   }
-  
+
+
   ngOnInit() {
     this.navigationService.getCompanyDetails()
+    this.dataService.loginShop()
     // this.navigationService.getCompanyDetails().subscribe(company => {
-      
+
     // });
-     
+
 
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),

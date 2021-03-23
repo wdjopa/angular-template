@@ -13,6 +13,7 @@ export const environment = {
   },
   company_id: 6,
   url: 'https://shop.mystore.africa',
+  storage: 'https://shop.mystore.africa/storage',
   api: '/api/2020-04/',
   stripe: 'pk_live_VN4FI0vbptnFwzv9Uxtif2rL'
 }

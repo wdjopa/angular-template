@@ -35,6 +35,7 @@ export class RegisterComponent implements OnInit {
   edit: boolean = false;
   loading = false;
   success: string;
+  breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }]
 
   constructor(private elRef: ElementRef, private countryService: CountryCodeService, private userService: UserService, private authService: AuthService, private router: Router, private dataService: DataService) {
     var config = environment.firebase;

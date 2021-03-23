@@ -17,6 +17,7 @@ export const environment = {
   },
   //url: 'http://localhost:8010',
   url: 'https://shop.mystore.africa',
+  storage: 'https://shop.mystore.africa/storage',
   company_id: 6,
   api: '/api/2020-04/',
   stripe: 'pk_test_93YuwyRJP23j8pPtIxCdbAre'

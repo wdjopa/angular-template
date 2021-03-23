@@ -1,0 +1,8 @@
+<div class="offcanvas__cart__item header__top__right__cart">
+  <!-- <span>{{totalElement}}</span> -->
+  <a [routerLink]="['/panier']" routerLinkActive="active"><img src="assets/img/icon/cart.png" alt="">
+  </a>
+  <div class="cart__price">Panier: <span>{{cart.subtotal| number: '1.0-0'}} {{company?.devise?.symbol}}</span></div>
+</div>
+<div class="">
+</div>

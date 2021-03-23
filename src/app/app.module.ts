@@ -27,7 +27,7 @@ import { LoaderComponent } from './modal/loader/loader.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 
-// import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 // import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -51,7 +51,10 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { BreadcrumbComponent } from './subpages/breadcrumb/breadcrumb.component';
 import { ShopSectionComponent } from './subpages/shop-section/shop-section.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { RelatedProductsComponent } from './subpages/related-products/related-products.component';
 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CartHeaderComponent } from './partials/components/cart-header/cart-header.component';
 
 
 
@@ -161,7 +164,9 @@ const appRoutes: Routes = [
     GalleryComponent,
     BreadcrumbComponent,
     ShopSectionComponent,
-    ContactComponent
+    ContactComponent,
+    RelatedProductsComponent,
+    CartHeaderComponent,
   ],
 
   entryComponents: [
@@ -174,7 +179,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     IvyCarouselModule,
-    // MatSnackBar,
+    MatCheckboxModule,
+    MatSnackBarModule,
     // MatDialog,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     BrowserAnimationsModule

@@ -23,6 +23,15 @@ export class DataService {
     return this.http.get(this.configService.url + this.configService.api + "restaurants/city/" + villeId);
   }
 
+  loginShop() {
+    this.http.get(this.configService.url + this.configService.api + "shops/" + this.configService.companyId).subscribe((data: any) => {
+      if (data.token) {
+        localStorage.setItem("token_shop", data.token)
+        this.configService.refreshShopToken();
+      }
+      console.log("something went wrong", data)
+    });
+  }
 
   getCompanyByUrl() {
     // alert(document.location.href)
@@ -97,6 +106,10 @@ export class DataService {
 
   checkPassword(password) {
     return this.http.post<any>(this.configService.url + this.configService.api + "clients/checkpassword", { password: password }, this.configService.httpOptions);
+  }
+
+  checkDiscountCode(code, cart_subtotal) {
+    return this.http.post<any>(this.configService.url + this.configService.api + "companies/discount/check", { code, amount: cart_subtotal, company_id : this.configService.companyId}, this.configService.httpOptionsShop);
   }
 
   paymentByToken(token, datas) {

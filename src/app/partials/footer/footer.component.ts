@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ConfigService } from 'src/app/services/config.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +10,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
+  company: any;
+  companySubscription: Subscription;
+  storage_url: string;
+
+
+  constructor(private navigationService: NavigationService, private configService: ConfigService) {
+    this.storage_url = this.configService.storage;
   }
 
+
+
+  ngOnDestroy() {
+    this.companySubscription.unsubscribe()
+  }
+
+  ngOnInit(): void {
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company;
+        console.log(company)
+      }
+    });
+    this.navigationService.emitCompany();
+  }
 }

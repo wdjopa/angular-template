@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent implements OnInit {
-
+  @Input('title') title: string;
+  @Input('breadcrumbs') breadcrumbs: any;
+  @Input("end_breadcrumb") end_breadcrumb: string;
   constructor() { }
 
   ngOnInit(): void {
+    console.log("breadcrumbs", this.breadcrumbs)
   }
 
 }

@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
   err: any = {};
   user: any = {};
   confirmationResult: any;
+  breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }]
+
   constructor(private elRef: ElementRef, private countryService: CountryCodeService, private userService: UserService, private authService: AuthService, private router: Router) {
     if (this.authService.isLoggedIn === true) {
       if (this.authService.goto)

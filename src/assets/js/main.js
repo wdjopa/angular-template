@@ -23,10 +23,8 @@ let time = Date.now();
         Background Set
     --------------------*/
   window.set_bg = () => {
-    console.log("Set BG ", Date.now() - time);
     $(".set-bg").each(function () {
       var bg = $(this).data("setbg");
-      console.log("set bg " + bg);
       $(this).css("background-image", "url(" + bg + ")");
     });
   };
@@ -67,7 +65,6 @@ let time = Date.now();
         Hero Slider
     ------------------------*/
   window.set_hero = () => {
-    console.log("Set Hero ", Date.now() - time);
     $(".hero__slider").owlCarousel({
       loop: true,
       margin: 0,
@@ -231,24 +228,26 @@ let time = Date.now();
   /*-------------------
 		Quantity change
 	--------------------- */
-  var proQty = $(".pro-qty");
-  proQty.prepend('<span class="dec qtybtn">-</span>');
-  proQty.append('<span class="inc qtybtn">+</span>');
-  proQty.on("click", ".qtybtn", function () {
-    var $button = $(this);
-    var oldValue = $button.parent().find("input").val();
-    if ($button.hasClass("inc")) {
-      var newVal = parseFloat(oldValue) + 1;
-    } else {
-      // Don't allow decrementing below zero
-      if (oldValue > 0) {
-        var newVal = parseFloat(oldValue) - 1;
-      } else {
-        newVal = 0;
-      }
-    }
-    $button.parent().find("input").val(newVal);
-  });
+  window.load_pro_qty = () => {
+    // var proQty = $(".pro-qty");
+    // proQty.prepend('<span class="dec qtybtn">-</span>');
+    // proQty.append('<span class="inc qtybtn">+</span>');
+    // proQty.on("click", ".qtybtn", function () {
+    //   var $button = $(this);
+    //   var oldValue = $button.parent().find("input").val();
+    //   if ($button.hasClass("inc")) {
+    //     var newVal = parseFloat(oldValue) + 1;
+    //   } else {
+    //     // Don't allow decrementing below zero
+    //     if (oldValue > 0) {
+    //       var newVal = parseFloat(oldValue) - 1;
+    //     } else {
+    //       newVal = 0;
+    //     }
+    //   }
+    //   $button.parent().find("input").val(newVal);
+    // });
+  };
 
   $(".product__details__thumb").niceScroll({
     cursorborder: "",
