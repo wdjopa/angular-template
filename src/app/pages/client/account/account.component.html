@@ -1,1 +1,21 @@
-<p>account works!</p>
+<section class="class-page spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="class__sidebar">
+          <h5>MON COMPTE</h5>
+
+          <ul class="menu_account">
+            <li [routerLink]="['/compte/commandes']" routerLinkActive="active text-accent">🥙 Mes
+              commandes</li>
+            <li [routerLink]="['/compte/adresses']" routerLinkActive="active text-accent">🏠 Mes adresses</li>
+            <li [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent">🛠 Paramètres </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +13,22 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class HeaderComponent implements OnInit {
 
-  cart: any = { total: 0, produitCommandes : []}
+  cart: any = { total: 0, produitCommandes: [] }
   company: any;
   companySubscription: Subscription;
   error: string;
-
+  userLogged = false;
+  user: any;
+  storage_url: any;
   constructor(private navigationService: NavigationService, private route: ActivatedRoute,
-    private router: Router,
+    private authService: AuthService, private configService: ConfigService, private userService: UserService
   ) {
+    this.storage_url = this.configService.storage;
+
+    if (this.authService.isLoggedIn === true) {
+      this.userLogged = true;
+    }
+
   }
 
   ngOnInit(): void {
@@ -27,6 +38,7 @@ export class HeaderComponent implements OnInit {
       }
     });
     this.navigationService.emitCompany();
+    this.userService.userSubject.subscribe(user => this.user = user);
 
   }
 

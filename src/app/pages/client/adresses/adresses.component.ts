@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-commandes',
-  templateUrl: './commandes.component.html',
-  styleUrls: ['./commandes.component.scss']
+  selector: 'app-adresses',
+  templateUrl: './adresses.component.html',
+  styleUrls: ['./adresses.component.scss']
 })
-export class CommandesComponent implements OnInit {
+export class AdressesComponent implements OnInit {
 
   company: any;
   user: any;
   commandes: any;
-
+  adresses_facturation: any;
+  adresses_livraison: any;
 
   constructor(private userService: UserService, private navigationService: NavigationService) {
+    
   }
 
   ngOnInit(): void {
@@ -28,16 +29,12 @@ export class CommandesComponent implements OnInit {
 
     this.userService.userSubject.subscribe(user => {
       this.user = user;
+      console.clear()
       console.log(this.user)
-      this.commandes = this.user.commandes.filter(command => command.entreprise_id === this.company.id)
+      this.adresses_facturation = this.user.addresses.filter(adresse => adresse.is_billing === 1)
+      this.adresses_livraison = this.user.addresses.filter(adresse => adresse.is_shipping === 1)
     });
-  }
-
-  JSONParse(data) {
-
-    let a = JSON.parse(data)
-    return a
-
+    this.userService.refreshUser()
   }
 
 }

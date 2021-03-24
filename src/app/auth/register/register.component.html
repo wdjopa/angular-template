@@ -5,21 +5,22 @@
 <section class="checkout spad">
   <div class="container">
     <div class="checkout__form">
-      <form action="#">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
         <div class="row">
           <div class="col-md-12">
+            <h6 class="alert-danger text-accent alert" *ngIf="err.message">{{err.message}}</h6>
             <!-- <h6 class="checkout__title">Informations personnelles</h6> -->
             <div class="row">
               <div class="col-lg-6">
                 <div class="checkout__input">
                   <p>Prénom<span></span></p>
-                  <input type="text" placeholder="Votre prénom">
+                  <input ngModel name="prenom" type="text" placeholder="Votre prénom">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="checkout__input">
                   <p>Nom<span>*</span></p>
-                  <input type="text" placeholder="Votre nom">
+                  <input ngModel name="nom" type="text" placeholder="Votre nom">
                 </div>
               </div>
             </div>
@@ -28,13 +29,13 @@
                 <div class="checkout__input">
                   <p>Numéro de Tél<span>*</span></p>
                   <small>Avec indicatif</small>
-                  <input type="tel" placeholder="Ex : +237 6 55 55 55 44 ">
+                  <input ngModel name="tel" type="tel" placeholder="Ex : +237 6 55 55 55 44 ">
                 </div>
               </div>
               <div class="col-lg-12">
                 <div class="checkout__input">
                   <p>Email<span>*</span></p>
-                  <input type="email" placeholder="Votre adresse email">
+                  <input ngModel name="email" type="email" placeholder="Votre adresse email">
                 </div>
               </div>
             </div>
@@ -42,13 +43,13 @@
               <div class="col-lg-12">
                 <div class="checkout__input">
                   <p>Mot de passe<span>*</span></p>
-                  <input type="password" placeholder="Votre mot de passe (8 lettres min)">
+                  <input ngModel name="password" type="password" placeholder="Votre mot de passe (8 lettres min)">
                 </div>
               </div>
               <div class="col-lg-12">
                 <div class="checkout__input">
                   <p>Confirmation de mot de passe<span>*</span></p>
-                  <input type="password" placeholder="Identique au précédent">
+                  <input ngModel name="confirm_password" type="password" placeholder="Identique au précédent">
                 </div>
               </div>
             </div>
@@ -89,9 +90,11 @@
             </div> -->
             <div class="checkout__input__checkbox">
               <label for="acc">
-                J'accepte les <a href="">conditions générales d'utilisation</a> et <a href="">la charte de protection des
+                <span>*</span> J'accepte les <a href="">conditions générales d'utilisation</a> et <a href="">la charte
+                  de
+                  protection des
                   données</a>.
-                <input type="checkbox" id="acc">
+                <input type="checkbox" ngModel name="accept_cgu" id="acc">
                 <span class="checkmark"></span>
               </label>
               <!-- <p>Create an account by entering the information below. If you are a returning customer
@@ -113,7 +116,7 @@
               <input type="text" placeholder="Notes about your order, e.g. special notes for delivery.">
             </div> -->
             <div class="checkout__input text-right">
-                <button class="btn primary-btn text-light">M'INSCRIRE</button>
+              <button type="submit" class="btn primary-btn text-light">M'INSCRIRE</button>
             </div>
           </div>
         </div>

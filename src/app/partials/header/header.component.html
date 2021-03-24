@@ -27,7 +27,26 @@
           <li>ENG</li>
         </ul>
       </li>
-      <li>
+      <li *ngIf="userLogged">
+        <a [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent">Hello
+          {{user.surname}}</a>
+        <span class="arrow_carrot-down"></span>
+        <ul>
+          <li class="py-2">
+            <a [routerLink]="['/compte/commandes']" class="text-light">Commandes</a>
+          </li>
+          <li class="py-2">
+            <a [routerLink]="['/compte/adresses']" class="text-light">Adresses</a>
+          </li>
+          <li class="py-2">
+            <a [routerLink]="['/compte/parametres']" class="text-light">Paramètres</a>
+          </li>
+          <li class="py-2">
+            <a [routerLink]="['/deconnexion']" class="text-light">Déconnexion</a>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="!userLogged">
         <a href="#">Inscription/Connexion</a>
         <span class="arrow_carrot-down"></span>
         <ul>
@@ -66,7 +85,26 @@
                     <li>ENG</li>
                   </ul>
                 </li>
-                <li>
+                <li *ngIf="userLogged">
+                  <a [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent">Hello
+                    {{user.surname}}</a>
+                  <span class="arrow_carrot-down"></span>
+                  <ul>
+                    <li class="py-2">
+                      <a [routerLink]="['/compte/commandes']" class="text-light">Commandes</a>
+                    </li>
+                    <li class="py-2">
+                      <a [routerLink]="['/compte/adresses']" class="text-light">Adresses</a>
+                    </li>
+                    <li class="py-2">
+                      <a [routerLink]="['/compte/parametres']" class="text-light">Paramètres</a>
+                    </li>
+                    <li class="py-2">
+                      <a [routerLink]="['/deconnexion']" class="text-light">Déconnexion</a>
+                    </li>
+                  </ul>
+                </li>
+                <li *ngIf="!userLogged">
                   <a href="#">Inscription/Connexion</a>
                   <span class="arrow_carrot-down"></span>
                   <ul>
@@ -81,9 +119,9 @@
               </ul>
             </div>
             <div class="header__logo">
-              <a href="/"><img src="https://delicesmilly.com/img/logo.png" alt="Logo les Délices de Milly"
-                  style="width: 50px;border-radius: 200px;"> <span class="font-christmas title">&nbsp; Les Délices de
-                  Milly</span></a>
+              <a href="/"><img [src]="storage_url+'/'+company?.logo" [alt]="'Logo de '+company?.nom"
+                  style="width: 50px;border-radius: 200px;"> <span class="font-christmas title">&nbsp;
+                  {{company?.nom}}</span></a>
             </div>
             <div class="header__top__right">
               <div class="header__top__right__links">

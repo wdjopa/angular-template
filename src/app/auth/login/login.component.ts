@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { CountryCodeService } from '../../services/country-code.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CountryCodeService } from 'src/app/services/country-code.service';
 
 @Component({
   selector: 'app-login',
@@ -66,10 +66,10 @@ export class LoginComponent implements OnInit {
       if (this.login.includes("@")) {
         this.user.email = this.login;
       } else {
-        this.user.tel = this.indicatif + this.login;
+        this.user.tel = this.login;
       }
       this.user.password = this.password;
-      this.user.fromApi = "true";
+      this.user.fromApi = true;
       this.authService.login(this.user)
       this.authService.nextSubject.subscribe((result: any) => {
         this.load = false;

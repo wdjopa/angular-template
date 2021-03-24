@@ -1,1 +1,34 @@
-<p>commandes works!</p>
+<h4 class="font-christmas border-bottom" style="font-weight: 300; font-size: 50px">Commandes</h4>
+
+<div class="bg-white p-3 mt-3" *ngFor='let commande of commandes'>
+  <h3>Commande {{commande.reference}}</h3>
+  <small> Passée le {{commande.created_at | date}}</small>
+  <h5>Statut de la livraison : {{commande.shipping_state === 0? "Non livré" : "Livré"}}</h5>
+  <h5>Statut du paiement : {{commande.payment_state === 0 ? "Non payé" : "Payé"}}</h5>
+  <br>
+  <h4> 🥞 Contenu de la commande</h4>
+  <div class="p-2">
+    <ul class="list" style="list-style-type: none;">
+      <li *ngFor="let produit of commande.produits">
+        <span>{{produit.pivot.quantite}} x {{produit.name}} ({{produit.pivot.prix}} {{commande.company.devise.symbol}})</span>
+        <br>
+        <small> {{JSONParse(produit.pivot.properties).note}} </small>
+        <small> {{JSONParse(produit.pivot.properties).complement.variants}} </small>
+      </li>
+    </ul>
+  </div>
+  <br>
+  <h4>🚲 Adresse de livraison</h4>
+  <div class="p-2" *ngFor="let adresse of commande.addresses">
+    {{adresse.given_name}}
+    {{adresse.family_name}}
+    <br>
+    {{adresse.attributes.tel}}
+    <br>
+    
+    {{adresse.street}},
+    {{adresse.city}},
+    {{adresse.country}},
+    ({{adresse.label}})
+  </div>
+</div>

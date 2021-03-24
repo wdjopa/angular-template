@@ -94,14 +94,7 @@ export class DataService {
   addAddress(adresse) {
     // console.log(JSON.stringify(adresse))
     adresse.fromApi = true;
-    this.http.post<any>(this.configService.url + this.configService.api + "clients/" + this.userService.user.id + "/adresses", adresse, this.configService.httpOptions).subscribe((data: any) => {
-      console.log(data)
-      if (data.success) {
-        this.userService.user.adresses = data.quartiers
-        this.userService.emitUser()
-        this.UserSubject.next({ message: "L'adresse a bien été ajoutée" })
-      }
-    })
+    return this.http.post<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
   }
 
   checkPassword(password) {

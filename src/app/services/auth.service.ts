@@ -95,7 +95,7 @@ export class AuthService {
       if (data.status && data.status == "error") {
         this.nextSubject.next({ state: "error", err: data.message })
       } else {
-        window["subscribe"](user.id);
+        // window["subscribe"](user.id);
         localStorage.setItem("token", data.access_token);
         this.configService.token = data.access_token;
         this.configService.httpOptions = {
@@ -139,7 +139,7 @@ export class AuthService {
             'Authorization': 'Bearer ' + data.access_token
           })
         };
-        window["subscribe"](user.id);
+        // window["subscribe"](user.id);
 
         this.navigationService.openSnackBar(`Coucou ${data.user.surname + ' ' + data.user.firstname} ❤`, "FEMER")
         // console.log(this.configService.httpOptions)
@@ -153,7 +153,7 @@ export class AuthService {
         this.userService.user = user;
         this.userService.emitUser(user, true);
         that.nextSubject.next({ state: "user connected", user: user })
-        window["menu"]()
+        // window["menu"]()
       }
     }, (err) => {
       that.nextSubject.next({ state: "error server", error: err })
@@ -166,8 +166,8 @@ export class AuthService {
     this.userService.emitUser(null, true);
     localStorage.removeItem("token")
     this.router.navigate(['/accueil'])
-    window["menu"]()
-    // window.location.reload();
+    //window["menu"]()
+    //window.location.reload();
 
   }
 

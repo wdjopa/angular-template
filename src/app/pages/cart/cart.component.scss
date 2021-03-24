@@ -8,3 +8,16 @@
 form input {
   text-transform: uppercase;
 }
+
+.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty{
+    width: auto;
+}
+.table thead th {
+  border-bottom: none;
+  border-top: none;
+}
+
+.table tbody td {
+  border-bottom: none;
+  border-top: none;
+}
