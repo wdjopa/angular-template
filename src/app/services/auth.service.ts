@@ -53,6 +53,11 @@ export class AuthService {
     }
   }
 
+
+  resetPassword(email, sender_name) {
+    return this.http.post<any>(this.configService.url + this.configService.api + "clients/reset_password" , { email, sender: sender_name })
+  }
+
   signUp(user, appVerifier) {
     let phone = user.tel;
     let that = this;

@@ -8,12 +8,12 @@
             <span>Traiteur évenementiel</span>
             <h2>Un évènement à venir ?<br />Nous sommes prêts</h2>
           </div>
-          <form action="#">
-            <input type="text" placeholder="Votre nom">
-            <input type="text" placeholder="Numéro de téléphone">
-            <input type="datetime-local" placeholder="Date de l'évènement ">
+          <form #f="ngForm" (ngSubmit)="OnSubmit(f)">
+            <input type="text" name="name" ngModel placeholder="Votre nom">
+            <input type="tel" name="tel" ngModel placeholder="Numéro de téléphone">
+            <input type="datetime-local" ngModel name="date" placeholder="Date de l'évènement ">
             <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
-            <input type="text" placeholder="Des précisions ?">
+            <input type="text" name="precisions" ngModel placeholder="Des précisions ?">
             <small>Vous serez recontacté très vite</small>
             <button type="submit" class="site-btn">Enregistrer</button>
           </form>

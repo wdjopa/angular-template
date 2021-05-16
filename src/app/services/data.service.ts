@@ -45,6 +45,7 @@ export class DataService {
     });
   }
 
+
   getVillesWithRestaurants() {
     return this.http.get(this.configService.url + this.configService.api + "villesAvecRestaurants", this.configService.httpOptions)
   }
@@ -94,14 +95,13 @@ export class DataService {
   getBlogInfos(){
     return this.http.get(this.configService.url + this.configService.api + "companies/" + this.configService.companyId + "/blogs/infos");
   }
-  getBlogPosts(route = undefined , per_page = "&per_page=1") {
+  getBlogPosts(route = undefined , per_page = "&per_page=5") {
     if (!route) route = this.configService.url + this.configService.api + "companies/" + this.configService.companyId + "/blogs?"
     return this.http.get(route + per_page);
   }
   getBlogPostBySlug(blog_slug = undefined) {
     return this.http.get(this.configService.url + this.configService.api + "companies/blogs/by_slug" + (blog_slug ? '/' + blog_slug : ""));
   }
-
 
 
   getCommands(id = undefined) {

@@ -35,7 +35,6 @@ export class CollectionDetailComponent implements OnInit {
         this.products = this.collection.produits.map(product =>{
           let url = product.medias.length > 0 ? product.medias[0].link : null;
           product.url = url ? url : 'https://shop.mystore.africa/logobusiness.svg';
-          console.log("url : "+url)
           return product;
         }
         );

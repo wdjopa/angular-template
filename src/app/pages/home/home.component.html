@@ -11,7 +11,8 @@
 <!-- Collections Section End -->
 
 <!-- Collection Section Begin -->
-<app-collection-detail [collection]='97'></app-collection-detail>
+<app-collection-detail *ngFor="let collection of company?.datas?.settings?.homescreen?.collections" [collection]='collection'>
+</app-collection-detail>
 <!-- Collection Section End -->
 
 <!-- Reservation Section Begin -->

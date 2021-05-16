@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CountryCodeService } from 'src/app/services/country-code.service';
 import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -26,8 +27,12 @@ export class LoginComponent implements OnInit {
   confirmationResult: any;
   breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }]
   authSubscription: Subscription;
-  
-  constructor(private elRef: ElementRef, private countryService: CountryCodeService, private userService: UserService, private authService: AuthService, private router: Router) {
+  dataSubscription: Subscription;
+
+  company: any;
+  companySubscription: Subscription;
+
+  constructor(private elRef: ElementRef, private countryService: CountryCodeService, private navigationService: NavigationService,  private userService: UserService, private authService: AuthService, private router: Router) {
     if (this.authService.isLoggedIn === true) {
       if (this.authService.goto)
         router.navigate(["" + this.authService.goto]);
@@ -37,11 +42,43 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSubscription = this.authService.nextSubject.subscribe(ret => {
+      if (ret.err) {
+        console.log(ret.err)
+        if (ret.err.email) {
+          this.err.message = "Cet email est déjà utilisé. Veuillez vous connecter."
+        } else if (ret.err.tel) {
+          this.err.message = "Ce numéro de téléphone est déjà utilisé. Veuillez vous connecter."
+        }
+        else {
+          this.err.message = "Un problème est survenu lors de votre inscription. Si le problème persiste, contactez-nous au " + this.company.tel
+        }
+        this.err.field = "registration"
+      } else {
+        if (ret.user) {
+          
+        }
+      }
+
+    })
+
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company
+      }
+    });
     this.numeros = this.countryService.countryList;
   }
 
   ngOnDestroy(){
+
+    if (this.companySubscription)
+      this.companySubscription.unsubscribe()
+    if (this.authSubscription)
     this.authSubscription.unsubscribe()
+
+    if (this.dataSubscription)
+      this.dataSubscription.unsubscribe()
   }
 
   OnSubmit(form: NgForm) {

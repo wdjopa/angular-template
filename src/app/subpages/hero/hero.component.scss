@@ -1,0 +1,9 @@
+.hero {
+  height: 700px;
+}
+
+@media only screen and (max-width: 767px) {
+  .hero {
+    height: 500px;
+  }
+}

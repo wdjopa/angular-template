@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
 
   company: any;
   companySubscription: Subscription;
-
+  dataSubscription: Subscription;
 
   constructor(private elRef: ElementRef, private navigationService: NavigationService, private userService: UserService, private authService: AuthService, private router: Router, private dataService: DataService) {
     var config = environment.firebase;
@@ -58,6 +58,24 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSubscription = this.authService.nextSubject.subscribe(ret => {
+      if (ret.err){
+        console.log(ret.err)
+        if(ret.err.email){
+          this.err.message = "Cet email est déjà utilisé. Veuillez vous connecter."
+        }else if(ret.err.tel){
+          this.err.message = "Ce numéro de téléphone est déjà utilisé. Veuillez vous connecter."
+        }
+        else{
+          this.err.message = "Un problème est survenu lors de votre inscription. Si le problème persiste, contactez-nous au "+this.company.tel
+        }
+        this.err.field = "registration"
+      }else{
+        if(ret.user){
+
+        }
+      }
+    })
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company
@@ -68,22 +86,30 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnDestroy(){
+    if (this.companySubscription)
     this.companySubscription.unsubscribe()
+    if (this.dataSubscription)
+    this.dataSubscription.unsubscribe()
   }
   onSubmit(form: NgForm) {
     this.err = {}
     const { prenom, nom, password, confirm_password, email, tel, accept_cgu } = form.value;
-    if (password === confirm_password && password.length > 8) {
-
+    if (password != confirm_password || password.length < 4) {
+      this.err.field = "password"
+      this.err.message = "Vos mots de passe sont différents."
+      return;
     }
 
     if (!accept_cgu) {
       this.err.field = "accept_cgu"
       this.err.message = "Vous devez accepter les CGU pour pouvoir vous inscrire."
+      return;
     }
 
     if (nom != "" && email != "" && tel != "" && password != "") {
-      this.authService.saveUser({ firstname: nom, surname: prenom, email, tel, password, phone_verified: false, fromApi: true, entreprise: this.company.id, other: { legal: { accept_cgu: true, for_company: this.company, date: new Date(), } } });
+      let data_user = { firstname: nom, surname: prenom, email, tel, password, phone_verified: false, fromApi: true, entreprise: this.company.id, other: { legal: { accept_cgu: true, for_company: this.company.id, date: new Date(), } } };
+      // console.log(JSON.stringify(data_user))
+      this.authService.saveUser(data_user);
       
     } else {
       this.err.field = "all"

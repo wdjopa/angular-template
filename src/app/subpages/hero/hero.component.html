@@ -1,5 +1,28 @@
 <section class="hero">
-  <div class="hero__slider owl-carousel">
+    <app-carousel [slides]="company?.datas?.settings?.homescreen?.carousel"></app-carousel>
+  <!-- <owl-carousel-o [options]="customOptions">
+
+    <ng-container *ngFor="let slide of company?.datas?.settings?.homescreen?.carousel;let index = index; ">
+      <ng-template 
+       carouselSlide [id]="index">
+        <div [ngStyle]="{'background-image': 'url(\''+slide.image+'\')', 'background-size':'cover'}" class="hero__slider">
+          <div class="container">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-8">
+                <div class="hero__textd">
+                  <h2>{{slide.text}}</h2>
+                  <a [href]="slide.action_link" class="primary-btn">{{slide.action_text}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+
+  </owl-carousel-o> -->
+
+  <!-- <div class="hero__slider owl-carousel">
     <div *ngFor="let carousel of company?.datas?.settings?.homescreen?.carousel" class="hero__item"
       [ngStyle]="{'background-image': 'url(\''+carousel.image+'\')', 'background-size':'cover'}">
       <div class="container">
@@ -13,17 +36,5 @@
         </div>
       </div>
     </div>
-    <!-- <div class="hero__item set-bg" data-setbg="./assets/img/crepes_choco_coco.jpg">
-      <div class="container">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-8">
-            <div class="hero__text">
-              <h2>Envie de douceurs ?</h2>
-              <a href="#" class="primary-btn">Nos crêpes</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  </div>
+  </div> -->
 </section>

@@ -64,6 +64,10 @@ import { ThankYouComponent } from './pages/thank-you/thank-you.component';
 import { BlogsComponent } from './pages/blogs/blogs.component';
 import { SocialLinksComponent } from './components/social-links/social-links.component';
 import { DetailComponent } from './pages/blogs/detail/detail.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { PasswordForgottenComponent } from './pages/password-forgotten/password-forgotten.component';
+
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
 }
@@ -85,6 +89,7 @@ const appRoutes: Routes = [
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
+  { path: "password_forgotten", component: PasswordForgottenComponent },
   { path: "deconnexion", canActivate: [AuthGuard], component: LogoutComponent },
   {
     path: "connexion", component: LoginComponent, data: {
@@ -212,6 +217,8 @@ const appRoutes: Routes = [
     BlogsComponent,
     SocialLinksComponent,
     DetailComponent,
+    CarouselComponent,
+    PasswordForgottenComponent,
   ],
 
   entryComponents: [
@@ -226,6 +233,7 @@ const appRoutes: Routes = [
     IvyCarouselModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    CarouselModule,
     // MatDialog,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     LottieModule.forRoot({ player: playerFactory }),

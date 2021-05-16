@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 
@@ -25,5 +26,10 @@ export class ReservationComponent implements OnInit {
   }
   ngOnDestroy() {
     this.companySubscription.unsubscribe();
+  }
+  OnSubmit(form: NgForm) {
+    const { name, tel, date, precisions } = form.value;
+    let message = `Bonjour, je souhaite organiser un évènement avec vous. Je m'appelle ${name} et ce sera le ${date}. Vous pourrez me contacter au : ${tel}. Quelques précisions : ${precisions}`
+    window.open('https://wa.me/'+this.company.tel+"?text="+message, "_blank");
   }
 }

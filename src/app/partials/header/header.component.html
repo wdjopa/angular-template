@@ -2,10 +2,10 @@
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
   <div class="offcanvas__cart">
-    <div class="offcanvas__cart__links">
-      <a href="#" class="search-switch"><img src="./assets/img/icon/search.png" alt=""></a>
+    <!-- <div class="offcanvas__cart__links"> -->
+      <!-- <a href="#" class="search-switch"><img src="./assets/img/icon/search.png" alt=""></a> -->
       <!-- <a href="#"><img src="./assets/img/icon/heart.png" alt=""></a> -->
-    </div>
+    <!-- </div> -->
     <app-cart-header></app-cart-header>
   </div>
   <!-- <div class="offcanvas__logo">
@@ -33,16 +33,18 @@
         <span class="arrow_carrot-down"></span>
         <ul>
           <li class="py-2">
-            <a [routerLink]="['/compte/commandes']" class="text-light">Commandes</a>
+            <a [routerLink]="['/compte/commandes']" routerLinkActive="active text-accent"
+              class="text-light">Commandes</a>
           </li>
           <li class="py-2">
-            <a [routerLink]="['/compte/adresses']" class="text-light">Adresses</a>
+            <a [routerLink]="['/compte/adresses']" routerLinkActive="active text-accent" class="text-light">Adresses</a>
           </li>
+          <!-- <li class="py-2">
+            <a [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent"
+              class="text-light">Paramètres</a>
+          </li> -->
           <li class="py-2">
-            <a [routerLink]="['/compte/parametres']" class="text-light">Paramètres</a>
-          </li>
-          <li class="py-2">
-            <a [routerLink]="['/deconnexion']" class="text-light">Déconnexion</a>
+            <a [routerLink]="['/deconnexion']" routerLinkActive="active text-accent" class="text-light">Déconnexion</a>
           </li>
         </ul>
       </li>
@@ -96,9 +98,9 @@
                     <li class="py-2">
                       <a [routerLink]="['/compte/adresses']" class="text-light">Adresses</a>
                     </li>
-                    <li class="py-2">
+                    <!-- <li class="py-2">
                       <a [routerLink]="['/compte/parametres']" class="text-light">Paramètres</a>
-                    </li>
+                    </li> -->
                     <li class="py-2">
                       <a [routerLink]="['/deconnexion']" class="text-light">Déconnexion</a>
                     </li>
@@ -145,12 +147,12 @@
       <div class="col-lg-12">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li routerLink="/accueil" routerLinkActive="active"><a routerLink="/accueil"
-                routerLinkActive="active">Accueil</a></li>
+            <li routerLink="/accueil" routerLinkActive="active text-accent-phone"><a routerLink="/accueil"
+                routerLinkActive="active text-accent-phone">Accueil</a></li>
             <!-- <li routerLink="/about" routerLinkActive="active"><a routerLink="/about" routerLinkActive="active">À
                 propos</a></li> -->
-            <li routerLink="/catalogue" routerLinkActive="active"><a routerLink="/catalogue"
-                routerLinkActive="active">Produits</a></li>
+            <li routerLink="/catalogue" routerLinkActive="active text-accent-phone"><a routerLink="/catalogue"
+                routerLinkActive="active text-accent-phone">Produits</a></li>
             <!-- <li><a href="#">Pages</a>
               <ul class="dropdown">
                 <li><a href="./shop-details.html">Shop Details</a></li>
@@ -161,10 +163,11 @@
                 <li><a href="./blogs-details.html">Blog Details</a></li>
               </ul>
             </li> -->
-            <li routerLink="/blogs" routerLinkActive="active"><a routerLink="/blogs" routerLinkActive="active">Blogs</a>
+            <li routerLink="/blogs" routerLinkActive="active text-accent-phone"><a routerLink="/blogs"
+                routerLinkActive="active text-accent-phone">Blogs</a>
             </li>
-            <li routerLink="/contact" routerLinkActive="active"><a routerLink="/contact"
-                routerLinkActive="active">Contact</a></li>
+            <li routerLink="/contact" routerLinkActive="active text-accent-phone"><a routerLink="/contact"
+                routerLinkActive="active text-accent-phone">Contact</a></li>
           </ul>
         </nav>
       </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  companySubscription: Subscription;
+  company: any;
+  about: any = {};
+  constructor(private navigationService: NavigationService) {
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company;
+        setTimeout(() => {
+          window["nice_select"]();
+        }, 1000);
 
-  ngOnInit(): void {
+      }
+    });
   }
 
+  ngOnInit(): void {
+    this.navigationService.emitCompany()
+  }
 
+  ngOnDestroy() {
+    this.companySubscription.unsubscribe();
+  }
   ngAfterViewInit(): void {
     window["nice_select"]();
   }
