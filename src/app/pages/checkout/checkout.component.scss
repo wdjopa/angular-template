@@ -1,0 +1,37 @@
+.paymentModeLogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border: none;
+  font-weight: 600;
+  opacity: 0.8;
+  border: 1px solid transparent;
+}
+
+.paymentModeLogo:hover {
+  border-color: #e0114f55 !important;
+}
+
+
+.paymentModeLogo.active {
+  opacity: 1;
+  border-color: #e0114f !important;
+}
+
+.paymentModeLogo img {
+  height: 100px;
+}
+
+.select_address {
+  cursor: pointer;
+}
+
+.select_address.active {
+  border-color: #e0114f !important;
+}
+
+.select_address:hover {
+  border-color: #e0114f !important;
+}

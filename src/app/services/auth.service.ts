@@ -26,7 +26,7 @@ export class AuthService {
       this.isAuth = false;
       this.userService.emitUser(null, true);
     } else {
-      this.http.get(this.configService.url + this.configService.api + "user", this.configService.httpOptions).subscribe((data: any) => {
+      this.http.get(this.configService.url + this.configService.api + "clients", this.configService.httpOptions).subscribe((data: any) => {
         if (data.message && data.message.toLowerCase() == "unauthenticated") {
           this.isAuth = false;
           localStorage.removeItem("token")

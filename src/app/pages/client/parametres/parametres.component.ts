@@ -28,8 +28,6 @@ export class ParametresComponent implements OnInit {
 
     this.userService.userSubject.subscribe(user => {
       this.user = user;
-      console.clear()
-      console.log(this.user)
       this.adresses_facturation = this.user.addresses.filter(adresse => adresse.is_billing === 1)
       this.adresses_livraison = this.user.addresses.filter(adresse => adresse.is_shipping === 1)
     });

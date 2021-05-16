@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-reservation',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationComponent implements OnInit {
 
-  constructor() { }
+  companySubscription: Subscription;
+  company: any;
 
-  ngOnInit(): void {
+  constructor(private navigationService: NavigationService) {
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company;
+      }
+    });
   }
 
+  ngOnInit(): void {
+    this.navigationService.emitCompany()
+  }
+  ngOnDestroy() {
+    this.companySubscription.unsubscribe();
+  }
 }

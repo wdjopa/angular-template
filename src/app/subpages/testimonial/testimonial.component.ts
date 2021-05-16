@@ -30,8 +30,7 @@ export class TestimonialComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company;
-        this.all_reviews = company.avis
-        console.log(company)
+        this.all_reviews = company.avis.filter(avis => avis.client)
         setTimeout(()=>{
           window["set_testimonial_slider"]()
         }, 1000)

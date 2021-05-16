@@ -7,7 +7,7 @@
       <div class="col-lg-6">
         <div class="product__details__img">
           <div class="product__details__big__img">
-            <img class="big_img" [src]="produit.medias[0].link" alt="">
+            <img class="big_img" [src]="produit.medias.length > 0 ? produit.medias[0].link : ''" alt="">
           </div>
           <div class="product__details__thumb">
             <div *ngFor="let media of produit.medias" class="pt__item active">

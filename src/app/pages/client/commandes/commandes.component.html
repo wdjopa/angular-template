@@ -12,8 +12,8 @@
       <li *ngFor="let produit of commande.produits">
         <span>{{produit.pivot.quantite}} x {{produit.name}} ({{produit.pivot.prix}} {{commande.company.devise.symbol}})</span>
         <br>
-        <small> {{JSONParse(produit.pivot.properties).note}} </small>
-        <small> {{JSONParse(produit.pivot.properties).complement.variants}} </small>
+        <small> {{produit.pivot?.properties?.note}} </small>
+        <small> {{produit.pivot?.properties}} </small>
       </li>
     </ul>
   </div>

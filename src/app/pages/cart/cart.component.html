@@ -2,7 +2,8 @@
 </app-breadcrumb>
 
 <!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad" *ngIf="cart.produitCommandes.length <= 0 ">
+<section class="shopping-cart spad"
+  *ngIf="!(cart && cart.produitCommandes && cart.produitCommandes.length > 0 && company != undefined)">
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
@@ -97,14 +98,14 @@
                 *ngIf="company.tarif_livraison">{{company.tarif_livraison | number: '1.0-0'}}
                 {{company.devise.symbol}}</span>
                 <span class="text-accent"
-                  *ngIf="!company.tarif_livraison">OFFERT</span>
+                  *ngIf="!company.tarif_livraison">OFFERTE</span>
               </li>
             <li><br></li>
             <li>
               <h4 class="text-dark">Total</h4> <span class="text-accent">{{cart.total | number: '1.0-0'}}
                 {{company.devise.symbol}}</span></li>
           </ul>
-          <a [routerLink]="['/checkout']" class="primary-btn">Procéder au paiement</a>
+          <a [routerLink]="['/caisse']" class="primary-btn">Procéder au paiement</a>
         </div>
       </div>
     </div>

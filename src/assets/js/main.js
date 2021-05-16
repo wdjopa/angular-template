@@ -197,18 +197,20 @@ let time = Date.now();
   /*------------------
         Barfiller
     --------------------*/
-  $("#bar1").barfiller({
-    barColor: "#111111",
-    duration: 2000,
-  });
-  $("#bar2").barfiller({
-    barColor: "#111111",
-    duration: 2000,
-  });
-  $("#bar3").barfiller({
-    barColor: "#111111",
-    duration: 2000,
-  });
+  window.bars = () => {
+    $("#bar1").barfiller({
+      barColor: "#111111",
+      duration: 2000,
+    });
+    $("#bar2").barfiller({
+      barColor: "#111111",
+      duration: 2000,
+    });
+    $("#bar3").barfiller({
+      barColor: "#111111",
+      duration: 2000,
+    });
+  };
 
   /*------------------
 		Single Product

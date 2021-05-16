@@ -59,6 +59,15 @@ import { AdressesComponent } from 'src/app/pages/client/adresses/adresses.compon
 import { ParametresComponent } from 'src/app/pages/client/parametres/parametres.component';
 import { AdressesAddComponent } from './pages/client/adresses-add/adresses-add.component';
 
+import { LottieModule } from 'ngx-lottie';
+import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
+import { SocialLinksComponent } from './components/social-links/social-links.component';
+import { DetailComponent } from './pages/blogs/detail/detail.component';
+export function playerFactory() {
+  return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
+}
+
 
 
 const appRoutes: Routes = [
@@ -119,7 +128,24 @@ const appRoutes: Routes = [
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
+
+  {
+    path: "blogs", component: BlogsComponent, data: {
+      title: 'Nos articles de blog',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
+    }
+  },
+  {
+    path: "blogs/:blog_slug", component: DetailComponent, data: {
+      title: 'Article',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
+    }
+  },
+
   { path: "panier", component: CartComponent },
+  { path: "thank-you", component: ThankYouComponent },
   {
     path: "contact", component: ContactComponent, data: {
       title: 'Contact',
@@ -127,7 +153,7 @@ const appRoutes: Routes = [
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
-  { path: "caisse", component: CheckoutComponent },
+  { path: "caisse", canActivate: [AuthGuard], component: CheckoutComponent },
   // { path: "caisse", canActivate: [CartGuard, AuthGuard],  component: CheckoutComponent },
   // { path: "compte/:slug", canActivate: [AuthGuard], component: AccountComponent },
   {
@@ -182,6 +208,10 @@ const appRoutes: Routes = [
     AdressesComponent,
     ParametresComponent,
     AdressesAddComponent,
+    ThankYouComponent,
+    BlogsComponent,
+    SocialLinksComponent,
+    DetailComponent,
   ],
 
   entryComponents: [
@@ -198,6 +228,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     // MatDialog,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    LottieModule.forRoot({ player: playerFactory }),
     BrowserAnimationsModule
   ],
   providers: [

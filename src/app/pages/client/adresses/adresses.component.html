@@ -40,7 +40,8 @@
   </span>
 
 </h4>
-<div class="bg-white p-3 mt-3" *ngFor='let adresse of adresses_facturation'>
+<div class="bg-white p-3 mt-3" *ngFor='let adresse of adresses_facturation'
+  [routerLink]="['/compte/adresses/edit/'+adresse.id]">
   <h4>{{adresse.label}}</h4>
   <div class="p-2">
     {{adresse.given_name}}

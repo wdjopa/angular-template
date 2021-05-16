@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit {
   ) {
     this.storage_url = this.configService.storage;
 
-    if (this.authService.isLoggedIn === true) {
-      this.userLogged = true;
-    }
+    // if (this.authService.isLoggedIn === true) {
+    //   this.userLogged = true;
+    // }
 
   }
 
@@ -37,12 +37,20 @@ export class HeaderComponent implements OnInit {
         this.company = company
       }
     });
-    this.navigationService.emitCompany();
-    this.userService.userSubject.subscribe(user => this.user = user);
-
+    this.userService.userSubject.subscribe(user => {
+      if (user.email) {
+        console.log("user in header", user)
+        this.userLogged = true;
+        this.user = user
+      }else{
+        this.userLogged = false;
+      }
+    });
+    this.userService.refreshUser()
   }
 
   ngAfterViewInit(): void {
     window["load_slicknav"]()
+    this.navigationService.emitCompany();
   }
 }

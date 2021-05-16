@@ -50,7 +50,6 @@ export class RelatedProductsComponent implements OnInit {
         this.company = company
         let produits = company.produits.filter(produit => produit.id === parseInt(product_id))
 
-        console.log("emit related products 2")
         this.navigationService.emitRelatedProducts(produits[0]);
       }
     });

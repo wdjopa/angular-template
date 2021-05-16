@@ -91,10 +91,41 @@ export class DataService {
     });
   }
 
+  getBlogInfos(){
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + this.configService.companyId + "/blogs/infos");
+  }
+  getBlogPosts(route = undefined , per_page = "&per_page=1") {
+    if (!route) route = this.configService.url + this.configService.api + "companies/" + this.configService.companyId + "/blogs?"
+    return this.http.get(route + per_page);
+  }
+  getBlogPostBySlug(blog_slug = undefined) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/blogs/by_slug" + (blog_slug ? '/' + blog_slug : ""));
+  }
+
+
+
+  getCommands(id = undefined) {
+    return this.http.get(this.configService.url + this.configService.api + "clients/commands" + (id ? '/' + id : ""), this.configService.httpOptions);
+  }
+
+  getAddresses(id = undefined) {
+    return this.http.get(this.configService.url + this.configService.api + "clients/addresses" + (id ? '/' + id : ""), this.configService.httpOptions);
+  }
+
   addAddress(adresse) {
     // console.log(JSON.stringify(adresse))
     adresse.fromApi = true;
     return this.http.post<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
+  }
+
+  editAddress(adresse) {
+    adresse.fromApi = true;
+    return this.http.put<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
+  }
+
+  delAddress(adresse) {
+    adresse.fromApi = true;
+    return this.http.delete<any>(this.configService.url + this.configService.api + "clients/addresses?address_id=" + adresse.id, this.configService.httpOptions)
   }
 
   checkPassword(password) {
@@ -102,7 +133,7 @@ export class DataService {
   }
 
   checkDiscountCode(code, cart_subtotal) {
-    return this.http.post<any>(this.configService.url + this.configService.api + "companies/discount/check", { code, amount: cart_subtotal, company_id : this.configService.companyId}, this.configService.httpOptionsShop);
+    return this.http.post<any>(this.configService.url + this.configService.api + "companies/discount/check", { code, amount: cart_subtotal, company_id: this.configService.companyId }, this.configService.httpOptionsShop);
   }
 
   paymentByToken(token, datas) {
@@ -117,6 +148,12 @@ export class DataService {
     this.http.get<any>(this.configService.url + this.configService.api + "payment_intent/" + amount + "/" + currency.toLowerCase(), this.configService.httpOptions).subscribe((data: any) => {
       this.PaymentSubject.next(data)
     })
+  }
+
+
+  newCommand(command) {
+    return this.http.post(this.configService.url + this.configService.api + "commands", { ...command }, this.configService.httpOptions)
+
   }
 
   // commandWithBlockchain({amount}){
@@ -141,7 +178,7 @@ export class DataService {
     // console.log(JSON.stringify(adresse))
 
     this.http.post<any>(this.configService.url + this.configService.api + "clients/adresse/" + this.userService.user.id + "/delete", { fromApi: true, quartier_id: adresse.quartier.id, pivot_id: adresse.id }, this.configService.httpOptions).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         this.userService.user.adresses = data.quartiers
         this.userService.emitUser()
@@ -171,13 +208,13 @@ export class DataService {
   }
 
   checkIdentifiantExist(id) {
-    console.log(this.configService.httpOptions)
+    // console.log(this.configService.httpOptions)
     return this.http.get<any>(this.configService.url + this.configService.api + "wallet/checkid/" + id, this.configService.httpOptions)
   }
 
   // Lance la requete pour l'ouverture d'un compte
   openUserAccount(id) {
-    console.log("Identifiant ", id)
+    // console.log("Identifiant ", id)
     return this.http.post<any>(this.configService.url + this.configService.api + "wallet/create", { fromApi: true, identifiant: id }, this.configService.httpOptions);
   }
 

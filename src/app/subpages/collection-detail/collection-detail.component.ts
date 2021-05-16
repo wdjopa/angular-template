@@ -30,29 +30,29 @@ export class CollectionDetailComponent implements OnInit {
   ngOnInit(): void {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
-        let collections = company.collections.filter(collection => collection.id === this.collection_id)
-        this.collection = collections[0]
-        this.products = this.collection.produits;
+        // alert("ici")
+        this.collection = company.collections.filter(collection => collection.id === this.collection_id)[0]
+        this.products = this.collection.produits.map(product =>{
+          let url = product.medias.length > 0 ? product.medias[0].link : null;
+          product.url = url ? url : 'https://shop.mystore.africa/logobusiness.svg';
+          console.log("url : "+url)
+          return product;
+        }
+        );
         this.company = company;
-        console.log(this.collection)
+        // console.log(this.collection)
       }
     });
     this.navigationService.emitCompany();
 
-    setTimeout(() => {
-      // window["nice_select"]();
-      // this.resetJSMethod();
-    }, 2000);
+    // setTimeout(() => {
+    //   // window["nice_select"]();
+    //   // this.resetJSMethod();
+    // }, 2000);
   }
 
   addToCart(id) {
-    console.log(id)
+    // console.log(id)
   }
 
-
-  getUrl(product) {
-    let url = product.medias.length > 0 ? product.medias[0].link : 'https://delicesmilly.com/img/logo.png'
-    return "url('" + url + "')";
-
-  }
 }

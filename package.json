@@ -1,6 +1,7 @@
 {
   "name": "ecommerce-angular-template",
-  "version": "0.0.0",
+  "author":"Wilfried Djopa <wdjopa@lamater.tech>",
+  "version": "1.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,7 +26,9 @@
     "@angular/router": "~11.0.5",
     "angular-responsive-carousel": "^2.0.2",
     "firebase": "^7.13.1",
+    "lottie-web": "^5.7.8",
     "ngx-drag-scroll": "^11.0.0-beta.1",
+    "ngx-lottie": "^6.4.0",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

@@ -24,22 +24,29 @@ export class CartComponent implements OnInit {
     private router: Router) {
   }
 
+  ngOnDestroy(){
+    this.cartSubscription.unsubscribe()
+  }
   ngOnInit(): void {
-    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
-      if (company) {
-        this.company = company
-      }
-    });
-    this.navigationService.emitCompany();
-    // this.cartSubscription = 
-    this.navigationService.cartSubject.subscribe(panier => {
-      this.cart = { ...panier};
+    this.cartSubscription = this.navigationService.cartSubject.subscribe(panier => {
+      this.cart = { ...panier };
       this.discount_code = this.cart?.discount?.code || ''
       this.totalElement = panier.produitCommandes.reduce((total, pdC) => {
         return total + pdC.quantity
       }, 0)
     })
-    // this.navigationService.emitCart();
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company
+      }
+    });
+    // this.cartSubscription = 
+  }
+
+  ngAfterViewInit(): void {
+    this.navigationService.emitCompany();
+    this.navigationService.emitCart();
+
   }
 
   applyDiscountCode() {
@@ -66,7 +73,6 @@ export class CartComponent implements OnInit {
     if (!found) {
       cart.produitCommandes.push(productInCart)
     }
-    console.log(cart)
     this.navigationService.updateCart(cart);
   }
 

@@ -23,6 +23,11 @@ export class ProduitComponent implements OnInit {
   ) {
   }
 
+  ngOnDestroy(): void {
+    this.companySubscription.unsubscribe()
+  }
+
+
   ngOnInit(): void {
     let id = this.route.snapshot.params['produit'];
     this.route.params.subscribe(params => {
@@ -80,6 +85,8 @@ export class ProduitComponent implements OnInit {
       }
     })
     if(!found){
+      this.produitCommande.add_to_cart_date = new Date();
+
       cart.produitCommandes.push(this.produitCommande)
     } 
     this.navigationService.openSnackBar("Votre produit a bien été ajouté au panier", "FERMER")
@@ -127,14 +134,13 @@ export class ProduitComponent implements OnInit {
       if (variante.name === variant.name) return variante;
       else return variant;
     })
+
+    this.produitCommande.properties = this.selected_variants;
+    // console.log(this.produit, this.selected_variants)
   }
 
   ngAfterViewInit(): void {
     window["load_pro_qty"]()
-  }
-
-  ngOnDestroy(): void {
-    this.companySubscription.unsubscribe()
   }
 
 }

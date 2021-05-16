@@ -15,8 +15,8 @@
       <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
         <a [routerLink]="'/produits/'+product.id">
           <div class="product__item">
-            <div class="product__item__pic set-bg" [attr.data-setbg]=""
-              [ngStyle]="{'background-image': getUrl(product) }">
+            <div class="product__item__pic set-bg" [attr.data-setbg]="" 
+              [ngStyle]="{'background-image' : 'url('+product.url+')'}">
               <div class="product__label">
                 <span>{{ product.collections[0]}}</span>
               </div>

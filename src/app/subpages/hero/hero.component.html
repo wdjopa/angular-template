@@ -1,18 +1,19 @@
 <section class="hero">
   <div class="hero__slider owl-carousel">
-    <div class="hero__item set-bg" data-setbg="./assets/img/crepes_choco.jpg">
+    <div *ngFor="let carousel of company?.datas?.settings?.homescreen?.carousel" class="hero__item"
+      [ngStyle]="{'background-image': 'url(\''+carousel.image+'\')', 'background-size':'cover'}">
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-8">
             <div class="hero__text">
-              <h2>Faites plaisir à ceux qui comptent !</h2>
-              <a href="#" class="primary-btn">Voir nos packs</a>
+              <h2>{{carousel.text}}</h2>
+              <a [href]="carousel.action_link" class="primary-btn">{{carousel.action_text}}</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="hero__item set-bg" data-setbg="./assets/img/crepes_choco_coco.jpg">
+    <!-- <div class="hero__item set-bg" data-setbg="./assets/img/crepes_choco_coco.jpg">
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-lg-8">
@@ -23,6 +24,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>

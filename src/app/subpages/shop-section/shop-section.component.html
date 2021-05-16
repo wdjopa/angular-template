@@ -19,12 +19,12 @@
         </div>
         <div class="col-lg-5 col-md-5">
           <div class="shop__option__right">
-            <select class="nice-select">
-              <option value="">Alphabétique décroissant </option>
-              <option value="">Alphabétique croissant</option>
+            <select class="nice-select" (change)="updateList($event.target.value)">
               <option value="">Automatique </option>
-              <option value="">Prix décroissant</option>
-              <option value="">Prix croissant</option>
+              <option value="name_desc">Alphabétique décroissant </option>
+              <option value="name_asc">Alphabétique croissant</option>
+              <option value="price_desc">Prix décroissant</option>
+              <option value="price_asc">Prix croissant</option>
             </select>
             <!-- <a href="#"><i class="fa fa-list"></i></a>
             <a href="#"><i class="fa fa-reorder"></i></a> -->

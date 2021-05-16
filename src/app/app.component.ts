@@ -50,6 +50,8 @@ export class AppComponent {
       // });
     });
 
+    this.dataService.loginShop()
+    this.navigationService.getCompanyDetails()
   }
 
 
@@ -60,8 +62,6 @@ export class AppComponent {
 
 
   ngOnInit() {
-    this.navigationService.getCompanyDetails()
-    this.dataService.loginShop()
     // this.navigationService.getCompanyDetails().subscribe(company => {
 
     // });

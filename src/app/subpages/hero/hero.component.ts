@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-hero',
@@ -7,14 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeroComponent implements OnInit {
 
-  constructor() { }
+  companySubscription: Subscription;
+  company: any;
 
-  ngOnInit(): void {
+  constructor(private navigationService: NavigationService) {
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company;
+        // window["set_bg"]()
+        setTimeout(() => {
+          window["set_hero"]()
+        }, 2000);
+
+      }
+    });
   }
 
+  ngOnInit(): void {
+    this.navigationService.emitCompany()
+  }
+
+  ngOnDestroy() {
+    this.companySubscription.unsubscribe();
+  }
   ngAfterViewInit(): void {
-    window["set_bg"]()
-    window["set_hero"]()
+    if (this.company) {
+      window["set_hero"]()
+    }
 
   }
 

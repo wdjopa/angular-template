@@ -7,6 +7,7 @@
   </span>
 </h4>
 
+
 <section class="checkout">
   <div class="container">
     <div class="checkout__form">
@@ -17,60 +18,73 @@
             <!-- <h6 class="checkout__title">Informations personnelles</h6> -->
             <div class="checkout__input">
               <p>Type d'adresse<span>*</span></p>
-              <select name="address_type" ngModel id="" required>
-                <option value="shipping">Livraison</option>
-                <option value="billing">Facturation</option>
+              <select name="address_type" [(ngModel)]="address_type" id="" required>
+                <option [selected]="address.is_shipping == 1" value="shipping">Livraison</option>
+                <option [selected]="address.is_billing == 1" value="billing">Facturation</option>
               </select>
             </div>
 
             <div class="checkout__input">
               <p>Label<span>*</span></p>
-              <input ngModel name="label" type="text" [value]="address.label">
+              <input [(ngModel)]="address.label" name="label" type="text" [value]="address?.label || ''">
             </div>
 
             <div class="row">
               <div class="col-lg-6">
                 <div class="checkout__input">
                   <p>Prénom<span>*</span></p>
-                  <input ngModel name="prenom" type="text" required>
+                  <input [(ngModel)]="address.given_name" name="prenom" type="text" [value]="address?.given_name || ''">
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="checkout__input">
                   <p>Nom<span>*</span></p>
-                  <input ngModel name="nom" type="text" required>
+                  <input [(ngModel)]="address.family_name" name="nom" type="text" required
+                    [value]="address?.family_name || ''">
                 </div>
               </div>
             </div>
             <div class="checkout__input">
               <p>Tel<span>*</span></p>
-              <input ngModel name="tel" type="tel" required>
+              <input [(ngModel)]="address.attributes.tel" name="tel" type="tel" required
+                [value]="address?.attributes?.tel || ''">
             </div>
             <div class="checkout__input">
               <p>Adresse<span>*</span></p>
-              <input ngModel name="line1" type="text" placeholder="Adresse ligne 1, quartier"
-                class="checkout__input__add" required>
-              <input ngModel name="line2" type="text" placeholder="Apartment, suite, unite etc (optionel)">
+              <input [(ngModel)]="address.street" name="line1" type="text" placeholder="Adresse ligne 1, quartier"
+                class="checkout__input__add" required [value]="address?.street || ''">
+              <input [(ngModel)]="address.additionnal_address" name="line2" type="text"
+                placeholder="Apartment, suite, unite etc (optionel)" [value]="address?.additionnal_address || ''">
             </div>
             <div class="checkout__input">
               <p>Code Postal / ZIP<span>*</span></p>
-              <input ngModel name="postal" type="text">
+              <input [(ngModel)]="address.postal_code" name="postal" type="text" [value]="address?.postal_code || ''">
             </div>
             <div class="checkout__input">
               <p>Ville<span>*</span></p>
-              <input ngModel name="city" type="text">
+              <input [(ngModel)]="address.city" name="city" type="text" [value]="address?.city || ''">
             </div>
             <div class="checkout__input">
               <p>Pays<span>*</span></p>
-              <input ngModel name="country" type="text">
-            </div>
-
-            <div class="checkout__input text-right" *ngIf="edition">
-              <button type="button" (click)="deleteAddress()" class="btn primary-btn text-light">SUPPRIMER</button>
+              <input [(ngModel)]="address.country" name="country" type="text" [value]="address?.country || ''">
             </div>
 
             <div class="checkout__input text-right">
-              <button type="submit" class="btn primary-btn text-light">{{edition ? "MODIFIER" : "AJOUTER"}}</button>
+              <button type="button" *ngIf="edition" (click)="deleteAddress()" class="btn btn-danger mr-2">
+                <small>
+                  SUPPRIMER CETTE ADRESSE
+                </small>
+              </button>
+              <button type="submit" class="btn btn-success text-light" *ngIf="edition">
+                <small>
+                  MODIFIER
+                </small>
+              </button>
+              <button type="submit" class="btn btn-success text-light" *ngIf="!edition">
+                <small>
+                  AJOUTER
+                </small>
+              </button>
             </div>
           </div>
         </div>

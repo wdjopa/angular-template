@@ -13,7 +13,7 @@ export class ShopSectionComponent implements OnInit {
   products: any[] = [];
   company: any;
   companySubscription: Subscription;
-  filters: any = {search : "", collection: ""};
+  filters: any = { search: "", collection: "" };
 
 
   constructor(private navigationService: NavigationService) {
@@ -27,7 +27,7 @@ export class ShopSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
-      if(company){
+      if (company) {
 
         this.products = company.produits;
         this.company = company;
@@ -41,7 +41,47 @@ export class ShopSectionComponent implements OnInit {
     }, 2000);
   }
 
+  updateList(value) {
+    if (value === "") {
+      this.products = this.company.produits;
+    } else {
+      switch (value) {
+        case "name_asc":
+          this.products = this.company.produits.sort((a, b) => {
+            if (a.name > b.name)
+              return 1
+            else return -1
+          })
+          break;
+        case "name_desc":
+          this.products = this.company.produits.sort((a, b) => {
+            if (a.name < b.name)
+              return 1
+            else return -1
+          })
+          break;
+        case "price_desc":
+          this.products = this.company.produits.sort((a, b) => {
+            if (a.price < b.price)
+              return 1
+            else return -1
+          })
+          break;
+        case "price_asc":
+          this.products = this.company.produits.sort((a, b) => {
+            if (a.price > b.price)
+              return 1
+            else return -1
+          })
+          break;
 
+        default:
+          break;
+      }
+    }
+    this.filters.order = value
+
+  }
 
   updateCollection(value) {
     if (value === "") {
@@ -74,7 +114,7 @@ export class ShopSectionComponent implements OnInit {
   }
 
   addToCart(id) {
-    console.log(id)
+    // console.log(id)
   }
 
 

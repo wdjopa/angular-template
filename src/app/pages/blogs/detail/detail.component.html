@@ -1,0 +1,124 @@
+<div class="blog-hero set-bg" [attr.data-setbg]="post?.url"
+  [ngStyle]="{'background-image' : post?.url}">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-7">
+        <div class="blog__hero__text">
+          <div class="label" *ngIf="post.tags.length > 0">{{post.tags[0].name}}</div>
+          <h2>{{post.title}}</h2>
+          <ul>
+            <li>Par <span>{{post.author}}</span></li>
+            <li>{{post.updated_at | date}}</li>
+            <!-- <li>112 Views</li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="blog-details spad">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-8">
+        <div class="blog__details__content">
+          <div class="blog__details__share">
+            <app-social-links></app-social-links>
+          </div>
+          <div class="blog__details__text" [innerHTML]="post.text">
+          </div>
+          <!-- <div class="blog__details__print">
+            <a href="#" class="primary-btn"><i class="fa fa-print"></i> Print recipe</a>
+          </div> -->
+          <div class="blog__details__tags">
+            <span>Tags</span>
+            <a *ngFor="let tag of post.tags">{{tag.name}}</a>
+          </div>
+          <div class="blog__details__btns d-none">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="blog__details__btns__item">
+                  <a href="#"><span class="arrow_carrot-left"></span> Article précédent</a>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="blog__details__btns__item blog__details__btns__item--next">
+                  <a href="#">Article suivant <span class="arrow_carrot-right"></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="blog__details__author">
+            <div class="blog__details__author__pic">
+              <img [src]="storage_url+'/'+company?.logo" alt="">
+            </div>
+            <div class="blog__details__author__text">
+              <h6>{{company?.nom}}</h6>
+              <div class="blog__details__author__social">
+                <app-social-links></app-social-links>
+              </div>
+              <p>{{company?.description}}</p>
+            </div>
+          </div>
+          <!-- <div class="blog__details__comment d-none">
+            <h5>03 Comment</h5>
+            <a href="#" class="primary-btn">Leave a comment</a>
+            <div class="blog__details__comment__item">
+              <div class="blog__details__comment__item__pic">
+                <img
+                  src="data:image/webp;base64,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"
+                  alt="" data-pagespeed-url-hash="3190227824"
+                  onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+              </div>
+              <div class="blog__details__comment__item__text">
+                <h6>Dylan Stewart</h6>
+                <span>26 Feb 2020</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua vel facilisis.</p>
+                <div class="blog__details__comment__btns">
+                  <a href="#">Reply</a>
+                  <a href="#">Like</a>
+                </div>
+              </div>
+            </div>
+            <div class="blog__details__comment__item blog__details__comment__item--reply">
+              <div class="blog__details__comment__item__pic">
+                <img
+                  src="data:image/webp;base64,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"
+                  alt="" data-pagespeed-url-hash="3484727745"
+                  onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+              </div>
+              <div class="blog__details__comment__item__text">
+                <h6>Derrick Patrick</h6>
+                <span>26 Feb 2020</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua vel facilisis.</p>
+                <div class="blog__details__comment__btns">
+                  <a href="#">Reply</a>
+                  <a href="#">Like</a>
+                </div>
+              </div>
+            </div>
+            <div class="blog__details__comment__item">
+              <div class="blog__details__comment__item__pic">
+                <img src="img/blog/details/comment-3.jpg" alt="" data-pagespeed-url-hash="3779227666"
+                  onload="pagespeed.CriticalImages.checkImageForCriticality(this);">
+              </div>
+              <div class="blog__details__comment__item__text">
+                <h6>Michael Luna</h6>
+                <span>26 Feb 2020</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua vel facilisis.</p>
+                <div class="blog__details__comment__btns">
+                  <a href="#">Reply</a>
+                  <a href="#">Like</a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

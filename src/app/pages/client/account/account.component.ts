@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AccountComponent implements OnInit {
 
   user: any;
-
+  userSubscription : Subscription;
 
   constructor(private userService: UserService, private authService: AuthService, private router: Router) {
     // if (this.authService.isLoggedIn === true) {
@@ -23,7 +24,9 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.userSubject.subscribe(user => this.user = user);
+    this.userSubscription = this.userService.userSubject.subscribe(user => this.user = user);
   }
-
+  ngOnDestroy(){
+    this.userSubscription.unsubscribe()
+  }
 }

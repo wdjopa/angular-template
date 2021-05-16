@@ -66,6 +66,10 @@ export class RegisterComponent implements OnInit {
     this.navigationService.emitCompany();
   }
 
+
+  ngOnDestroy(){
+    this.companySubscription.unsubscribe()
+  }
   onSubmit(form: NgForm) {
     this.err = {}
     const { prenom, nom, password, confirm_password, email, tel, accept_cgu } = form.value;

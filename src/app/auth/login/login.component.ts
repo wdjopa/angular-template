@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CountryCodeService } from 'src/app/services/country-code.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   user: any = {};
   confirmationResult: any;
   breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }]
-
+  authSubscription: Subscription;
+  
   constructor(private elRef: ElementRef, private countryService: CountryCodeService, private userService: UserService, private authService: AuthService, private router: Router) {
     if (this.authService.isLoggedIn === true) {
       if (this.authService.goto)
@@ -36,6 +38,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.numeros = this.countryService.countryList;
+  }
+
+  ngOnDestroy(){
+    this.authSubscription.unsubscribe()
   }
 
   OnSubmit(form: NgForm) {
@@ -71,7 +77,7 @@ export class LoginComponent implements OnInit {
       this.user.password = this.password;
       this.user.fromApi = true;
       this.authService.login(this.user)
-      this.authService.nextSubject.subscribe((result: any) => {
+      this.authSubscription = this.authService.nextSubject.subscribe((result: any) => {
         this.load = false;
         this.enableAll()
         if (result.state == "user connected") {

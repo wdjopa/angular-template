@@ -20,8 +20,6 @@ export class FooterComponent implements OnInit {
     this.storage_url = this.configService.storage;
   }
 
-
-
   ngOnDestroy() {
     this.companySubscription.unsubscribe()
   }
@@ -30,7 +28,6 @@ export class FooterComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company;
-        console.log(company)
       }
     });
     this.navigationService.emitCompany();

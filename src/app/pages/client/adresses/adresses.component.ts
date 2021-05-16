@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -12,29 +14,41 @@ export class AdressesComponent implements OnInit {
   company: any;
   user: any;
   commandes: any;
-  adresses_facturation: any;
-  adresses_livraison: any;
+  adresses_facturation: any = [];
+  adresses_livraison: any = [];
+  companySubscription: Subscription;
+  userSubscription: Subscription;
+  constructor(private userService: UserService, private navigationService: NavigationService, private dataService: DataService) {
 
-  constructor(private userService: UserService, private navigationService: NavigationService) {
-    
   }
 
+  ngOnDestroy(){
+    this.userSubscription.unsubscribe()
+    this.companySubscription.unsubscribe()
+  }
   ngOnInit(): void {
-    this.navigationService.companySubject.subscribe(company => {
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company
       }
     });
     this.navigationService.emitCompany();
-
-    this.userService.userSubject.subscribe(user => {
+    this.userSubscription = this.userService.userSubject.subscribe(user => {
       this.user = user;
-      console.clear()
-      console.log(this.user)
-      this.adresses_facturation = this.user.addresses.filter(adresse => adresse.is_billing === 1)
-      this.adresses_livraison = this.user.addresses.filter(adresse => adresse.is_shipping === 1)
+      // console.clear()
+      this.getAddresses()
+      // if (this.user.addresses) {
+      //   this.adresses_facturation = this.user.addresses.filter(adresse => adresse.is_billing === 1)
+      //   this.adresses_livraison = this.user.addresses.filter(adresse => adresse.is_shipping === 1)
+      // }
     });
     this.userService.refreshUser()
+  }
+  getAddresses() {
+    this.dataService.getAddresses().subscribe((addresses:any) => {
+      this.adresses_facturation = addresses.filter(adresse => adresse.is_billing === 1)
+      this.adresses_livraison = addresses.filter(adresse => adresse.is_shipping === 1)
+    })
   }
 
 }

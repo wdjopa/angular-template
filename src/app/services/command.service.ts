@@ -42,7 +42,7 @@ export class CommandService {
       mode: results[3].result.payment.mode,
       intent: payment_intent
     }
-    command.source = "express";
+    command.source = "website";
     command.livraison = results[2].result.shipping.price
     command.total = total
     console.log(command)

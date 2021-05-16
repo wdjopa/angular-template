@@ -31,7 +31,6 @@ export class NavigationService {
   }
   getCompanyDetails(): any {
     this.dataService.getCompanyByUrl().subscribe(company => {
-      console.log("company", company)
       this.company = company;
       this.emitCompany();
       this.updateCart(this.cart)
@@ -64,7 +63,6 @@ export class NavigationService {
         }
       }
     }
-    console.log("current", this.currentCompany)
     this.currentCompanySubject.next(this.currentCompany);
     this.currentCompany = {}
   }
@@ -98,7 +96,7 @@ export class NavigationService {
 
     this.saveCart()
     this.cartUpdated();
-    
+
   }
 
   openSnackBar(message: string, action: string, duration: number = 2000) {
@@ -118,7 +116,8 @@ export class NavigationService {
   }
 
   readCart() {
-    this.cart = JSON.parse(localStorage.getItem('cart'));
+    if (localStorage.getItem("cart"))
+      this.cart = JSON.parse(localStorage.getItem('cart'));
   }
 
   cartUpdated(read = true) {
@@ -137,7 +136,6 @@ export class NavigationService {
   }
 
   emitCompany() {
-    console.log("emit company ", this.company)
     this.companySubject.next(this.company);
   }
 

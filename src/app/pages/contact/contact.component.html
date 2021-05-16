@@ -26,41 +26,40 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="contact__text">
-          <h3>Contact With us</h3>
+          <h3>Contactez nous</h3>
            <ul>
              <li>
                <span class="icon_pin_alt"></span>&nbsp;
                Yaoundé, Cameroun
              </li>
-             <li><span class="icon_headphones"></span>&nbsp;
-                   +237 6 95 76 25 95 
+             <li><span class="icon_phone"></span>&nbsp;
+              <a [href]="'tel:'+company?.tel" style="color: #e0114f">{{company?.tel}}</a>
              </li>
-             <li>
+             <li *ngIf="company?.email">
                  <span class="icon_mail_alt"></span> &nbsp;
-               <a style="color: #e0114f" href="mailto:contact@delicesmilly.com">contact@delicesmilly.com</a>
+               <a style="color: #e0114f" [href]="'mailto:'+company?.email">{{company?.email}}</a>
              </li>
            </ul>
-          <ul>
-            <li>Representatives or Advisors are available:</li>
-            <li>Mon-Fri: 5:00am to 9:00pm</li>
-            <li>Sat-Sun: 6:00am to 9:00pm</li>
+          <ul *ngIf="company?.datas?.settings?.horaires?.length > 0">
+            <li>Horaires de livraison:</li>
+            <li *ngFor="let horaire of company?.datas?.settings?.horaires">{{horaire.day}} : {{horaire.hours}}</li>
           </ul>
           <img src="./assets/img/cake-piece.png" alt="">
         </div>
       </div>
       <div class="col-lg-8">
         <div class="contact__form">
-          <form action="#">
+          <form action="#" #f="ngForm" (ngSubmit)="OnSubmit(f)">
             <div class="row">
               <div class="col-lg-6">
                 <input type="text" placeholder="Name">
               </div>
               <div class="col-lg-6">
-                <input type="text" placeholder="Email">
+                <input type="email" placeholder="Email">
               </div>
               <div class="col-lg-12">
                 <textarea placeholder="Message"></textarea>
-                <button type="submit" class="site-btn">Send Us</button>
+                <button type="submit" class="site-btn">Envoyer</button>
               </div>
             </div>
           </form>
