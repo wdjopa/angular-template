@@ -19,6 +19,10 @@ let time = Date.now();
     $("#preloder").delay(200).fadeOut("slow");
   });
 
+  window.set_styles = (css) => {
+    $("style").append(css);
+  };
+
   /*------------------
         Background Set
     --------------------*/

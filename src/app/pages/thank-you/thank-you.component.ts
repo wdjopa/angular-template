@@ -12,6 +12,10 @@ export class ThankYouComponent implements OnInit {
     path: '/assets/animations/thanks.json',
   };
 
+  styles: Partial<CSSStyleDeclaration> = {
+    maxWidth: '500px',
+    margin: '0 auto',
+  };
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -17,8 +19,10 @@ export class ProduitComponent implements OnInit {
   selected_variants: any = {};
   unitPrice: any = 0;
   breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }, { "name": "Nos produits", "link": "/catalogue" }]
+  loading: boolean = false;
+  bigImg: any = {};
 
-  constructor(private navigationService: NavigationService, private route: ActivatedRoute,
+  constructor(private navigationService: NavigationService, private route: ActivatedRoute, private dataService: DataService, private metaTagService: Meta, private titleService: Title,
     private router: Router,
   ) {
   }
@@ -32,18 +36,22 @@ export class ProduitComponent implements OnInit {
     let id = this.route.snapshot.params['produit'];
     this.route.params.subscribe(params => {
       id = params['produit'];
-      this.navigationService.emitCompany();
+      // this.navigationService.emitCompany();
+      this.loading = true;
+      this.dataService.getProduct(id).subscribe((product: any) => {
+        this.bigImg = product.medias.length > 0 ? product.medias[0] : ''
+        this.loading = false;
+        this.titleService.setTitle("Produit | " + product.name);
+        this.metaTagService.addTags([
+          { name: 'description', content: 'Commandez nos produits | ' + product.name + ". " + product.description },
+          { name: 'keywords', content: 'Ecommerce, MyStore, ' + product.name.split(" ").join(", ") + product?.description?.split(" ").join(", ") },
+          { name: 'og:title', content: product.name },
+          { name: 'og:image', content: product.medias[0].link },
+          { name: 'date', content: product.created_at, scheme: 'YYYY-MM-DD' },
+          { name: 'og:description', content: 'Consultez notre catalogue de produits' },
+        ]);
 
-      // this.initialiseState(); // reset and set based on new parameter this time
-    });
-    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
-      if (company) {
-        this.company = company
-        let produits = company.produits.filter(produit => produit.id === parseInt(id))
-        if (produits.length === 0) {
-          this.router.navigate(["/catalogue"]);
-        }
-        this.produit = produits[0]
+        this.produit = product
         this.produit.variants.forEach(variant => {
           let options = variant.options.map(option => {
             return { ...option, disabled: false }
@@ -53,8 +61,24 @@ export class ProduitComponent implements OnInit {
         this.produitCommande.produit = this.produit
         this.produitCommande.price = this.produit.price;
         this.unitPrice = this.produit.price;
-        console.log("emit related products")
         this.navigationService.emitRelatedProducts(this.produit);
+      }, (err) => {
+        this.loading = false;
+      })
+      // this.initialiseState(); // reset and set based on new parameter this time
+    });
+
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company
+        this.metaTagService.addTags([
+          { name: 'robots', content: 'index, follow' },
+          { name: 'author', content: 'MyStore.africa' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { name: 'og:site_name', content: company.name },
+          { name: 'og:url', content: window.location.href },
+
+        ]);
       }
     });
     this.navigationService.emitCompany();
@@ -84,11 +108,11 @@ export class ProduitComponent implements OnInit {
         found = true;
       }
     })
-    if(!found){
+    if (!found) {
       this.produitCommande.add_to_cart_date = new Date();
 
       cart.produitCommandes.push(this.produitCommande)
-    } 
+    }
     this.navigationService.openSnackBar("Votre produit a bien été ajouté au panier", "FERMER")
     this.navigationService.updateCart(cart);
   }
@@ -138,7 +162,9 @@ export class ProduitComponent implements OnInit {
     this.produitCommande.properties = this.selected_variants;
     // console.log(this.produit, this.selected_variants)
   }
-
+  setBigImg(id) {
+    this.bigImg = this.produit.medias.filter(media => media.id === id)[0]
+  }
   ngAfterViewInit(): void {
     window["load_pro_qty"]()
   }

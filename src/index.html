@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Cake Template">
-  <meta name="keywords" content="Cake, unica, creative, html">
+  <!-- <meta name="description" content="Cake Template">
+  <meta name="keywords" content="Cake, unica, creative, html"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Les Délices de Milly</title>
+  <title>MyStore Website Template | Anular Shopping website</title>
   <base href="/" />
-  <meta property="og:type" content="Food" />
-  <meta property="og:title" content="Les meilleures crêpes - Les Délices de Milly" />
+  <meta property="og:type" content="Ecommerce platform" />
+  <!-- <meta property="og:title" content="Les meilleures crêpes - Les Délices de Milly" />
   <meta property="og:description" content="Passez votre commande chez Les Délices de Milly" />
   <meta property="og:url" content="https://delicesmilly.com/" />
-  <meta property="og:image" content="https://delicesmilly.com/img/logo.png" />
-  <meta property="og:site_name" content="Les plus délicieux pancakes & crêpes - Les Délices de Milly" />
+  <meta property="og:image" content="https://via.placeholder.com/400?text=no%20icon" />
+  <meta property="og:site_name" content="Les plus délicieux pancakes & crêpes - Les Délices de Milly" /> -->
 
-  <link rel="icon" href="https://delicesmilly.com/img/logo.png" type="image/png">
+
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
@@ -56,6 +56,13 @@
   <script src="assets/js/owl.carousel.min.js"></script>
   <script src="assets/js/jquery.nicescroll.min.js"></script>
   <script src="assets/js/main.js"></script>
+  <script>
+    window.update_logo = (link) => {
+      $("head").append(`
+      <link rel="icon" href="${link ? link : 'https://via.placeholder.com/400?text=no%20icon'}" type="image/png">`)
+    }
+
+  </script>
 </body>
 
 </html>

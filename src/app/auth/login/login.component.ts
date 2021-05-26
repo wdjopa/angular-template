@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CountryCodeService } from 'src/app/services/country-code.service';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
   company: any;
   companySubscription: Subscription;
 
-  constructor(private elRef: ElementRef, private countryService: CountryCodeService, private navigationService: NavigationService,  private userService: UserService, private authService: AuthService, private router: Router) {
+  constructor(private elRef: ElementRef, private countryService: CountryCodeService, private navigationService: NavigationService, private titleService: Title, private metaTagService: Meta,  private userService: UserService, private authService: AuthService, private router: Router) {
     if (this.authService.isLoggedIn === true) {
       if (this.authService.goto)
         router.navigate(["" + this.authService.goto]);
@@ -65,6 +66,20 @@ export class LoginComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company
+        this.titleService.setTitle("Connexion | " + this.company.name);
+        this.metaTagService.addTags([
+          { name: 'description', content: 'Connectez-vous pour accéder à votre compte | ' + this.company.name + ". " + this.company.description },
+          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'robots', content: 'index, follow' },
+          { name: 'author', content: 'MyStore.africa' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { name: 'og:title', content: 'Commandez vos produits chez ' + this.company.name },
+          { name: 'og:site_name', content: this.company.name },
+          { name: 'og:description', content: 'Connectez-vous pour accéder à votre compte ' },
+          { name: 'og:url', content: window.location.href },
+          { name: 'og:image', content: this.company.logo },
+          { name: 'date', content: this.company.created_at, scheme: 'YYYY-MM-DD' },
+        ]);
       }
     });
     this.numeros = this.countryService.countryList;

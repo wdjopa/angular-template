@@ -121,9 +121,9 @@
               </ul>
             </div>
             <div class="header__logo">
-              <a href="/"><img [src]="storage_url+'/'+company?.logo" [alt]="'Logo '"
-                  style="width: 50px;border-radius: 200px;"> <span class="font-christmas title">&nbsp;
-                  {{company?.nom}}</span></a>
+              <a href="/"><img *ngIf="company?.logo" [src]="company?.logo" [alt]="'Logo '"
+                  style="width: 50px;border-radius: 200px;"> <span class="font-customer title">&nbsp;
+                  {{company?.name}}</span></a>
             </div>
             <div class="header__top__right">
               <div class="header__top__right__links">
@@ -163,7 +163,7 @@
                 <li><a href="./blogs-details.html">Blog Details</a></li>
               </ul>
             </li> -->
-            <li routerLink="/blogs" routerLinkActive="active text-accent-phone"><a routerLink="/blogs"
+            <li *ngIf="posts && posts.length > 0" routerLink="/blogs" routerLinkActive="active text-accent-phone"><a routerLink="/blogs"
                 routerLinkActive="active text-accent-phone">Blogs</a>
             </li>
             <li routerLink="/contact" routerLinkActive="active text-accent-phone"><a routerLink="/contact"
@@ -174,4 +174,10 @@
     </div>
   </div>
 </header>
+
+<div class="basket-box shadow pointer" [routerLink]="['/panier']">
+  <div class="basket-content" [attr.data-count]="totalElement">
+    <i class="fa fa-shopping-cart"></i>
+  </div>
+</div>
 <!-- Header Section End -->

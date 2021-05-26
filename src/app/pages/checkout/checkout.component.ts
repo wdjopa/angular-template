@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PaymentComponent } from 'src/app/modal/payment/payment.component';
 import { DataService } from 'src/app/services/data.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
@@ -29,8 +31,10 @@ export class CheckoutComponent implements OnInit {
   shippingAddress: any = {};
   payment: any = { mode: '' }
   loading: boolean = false;
+  paymentModes: any = [];
+  show = false;
 
-  constructor(private userService: UserService, private navigationService: NavigationService, private route: ActivatedRoute, private dataService: DataService,
+  constructor(private cdRef: ChangeDetectorRef, public dialog: MatDialog, private userService: UserService, private navigationService: NavigationService, private route: ActivatedRoute, private dataService: DataService,
     private router: Router) {
   }
 
@@ -49,6 +53,15 @@ export class CheckoutComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company
+        this.paymentModes = Object.keys(company.datas.payments).map(payment_id => {
+          const payment = company.datas.payments[payment_id]
+          return {
+            ...payment,
+            id: payment_id,
+            name: payment.full_name || payment_id,
+          }
+        }).filter(c => c.accept)
+
       }
     });
     this.userSubscription = this.userService.userSubject.subscribe(user => {
@@ -59,9 +72,20 @@ export class CheckoutComponent implements OnInit {
 
   }
 
+  ngAfterViewChecked() {
+    let s = this.cart && this.cart.produitCommandes && this.cart.produitCommandes.length > 0 && this.company != undefined;
+    if (s != this.show) {
+      this.show = s;
+      this.cdRef.detectChanges();
+    }
+
+  }
+
   selectPaymentMode(mode) {
     if (!this.loading)
       this.payment.mode = mode;
+
+
   }
 
   selectAddress(address) {
@@ -121,9 +145,23 @@ export class CheckoutComponent implements OnInit {
           this.loading = false;
           this.navigationService.openSnackBar("Une erreur est survenue lors du passage de votre commande", "FERMER")
         } else {
-          this.router.navigate(["/thank-you"]);
           this.navigationService.openSnackBar("Votre commande a été passée avec succès", "FERMER", 20000)
           this.navigationService.emptyCart();
+
+          const dialogRef = this.dialog.open(PaymentComponent, {
+            width: '450px',
+            data: { command, company: this.company, payment: this.paymentModes.filter(p => p.id === this.payment.mode)[0] }
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            if(result.success){
+              this.navigationService.openSnackBar("Votre paiement a été effectué avec succès", "FERMER", 2000)
+            }else{
+              this.navigationService.openSnackBar("Votre paiement n'a pas abouti. Vous pourrez réessayer dans vos commandes", "FERMER", 2000)
+            }
+            this.router.navigate(["/thank-you"]);
+          });
           // this.dataService.updateUser();
         }
       }, (error) => {

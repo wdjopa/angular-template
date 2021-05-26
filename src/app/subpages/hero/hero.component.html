@@ -1,4 +1,4 @@
-<section class="hero">
+<section class="hero" *ngIf="company?.datas?.settings?.homescreen?.carousel">
     <app-carousel [slides]="company?.datas?.settings?.homescreen?.carousel"></app-carousel>
   <!-- <owl-carousel-o [options]="customOptions">
 

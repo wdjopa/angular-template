@@ -10,16 +10,16 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class ShopSectionComponent implements OnInit {
 
-  products: any[] = [];
+  products: any;
+  collections: any[] = [];
   company: any;
   companySubscription: Subscription;
   filters: any = { search: "", collection: "" };
-
-
-  constructor(private navigationService: NavigationService) {
+  pagination: any = {};
+  productsSubscription: Subscription;
+  collectionsSubscription : Subscription;
+  constructor(private navigationService: NavigationService, private dataService: DataService) {
   }
-
-
 
   ngOnDestroy() {
     this.companySubscription.unsubscribe()
@@ -28,17 +28,40 @@ export class ShopSectionComponent implements OnInit {
   ngOnInit(): void {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
-
-        this.products = company.produits;
+        // this.products = company.produits;
         this.company = company;
+
       }
     });
     this.navigationService.emitCompany();
 
-    setTimeout(() => {
-      // window["nice_select"]();
-      this.resetJSMethod();
-    }, 2000);
+    this.getCollections()
+    this.getProducts()
+  }
+
+  getCollections(route = undefined) {
+    this.productsSubscription = this.dataService.getCollections(undefined, 1000).subscribe((response: any) => {
+      this.collections = response.data
+    })
+  }
+
+  getProducts(route = undefined) {
+    this.productsSubscription = this.dataService.getProducts(route).subscribe((response: any) => {
+      this.products = response.data.map(product => {
+        return { ...product, url: 'url(' + (product.medias.length > 0 ? product.medias[0].thumb : '') + ')' }
+      });
+      this.pagination = { "links": response.links, "meta": response.meta, "total_pages": new Array(response.meta.last_page).fill(0).map((_, i) => i + 1) };
+    })
+  }
+
+  resetJSMethod() {
+    // window["set_bg"]();
+    // window["set_hero"]()
+  }
+
+  getUrl(product) {
+    let url = product.medias.length > 0 ? product.medias[0].thumb : 'https://via.placeholder.com/400?text=no%20icon'
+    return "url('" + url + "')";
   }
 
   updateList(value) {
@@ -102,16 +125,6 @@ export class ShopSectionComponent implements OnInit {
     this.filters.search = value
   }
 
-  resetJSMethod() {
-    // window["set_bg"]();
-    // window["set_hero"]()
-  }
-
-  getUrl(product) {
-    let url = product.medias.length > 0 ? product.medias[0].link : 'https://delicesmilly.com/img/logo.png'
-    return "url('" + url + "')";
-
-  }
 
   addToCart(id) {
     // console.log(id)

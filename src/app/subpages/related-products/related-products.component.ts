@@ -48,9 +48,11 @@ export class RelatedProductsComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company
-        let produits = company.produits.filter(produit => produit.id === parseInt(product_id))
-
-        this.navigationService.emitRelatedProducts(produits[0]);
+        if(company.produits){
+          let produits = company.produits?.filter(produit => produit.id === parseInt(product_id))
+          if(produits.length > 0)
+          this.navigationService.emitRelatedProducts(produits[0]);
+        }
       }
     });
     product_id = this.route.snapshot.params['produit'];
@@ -58,7 +60,7 @@ export class RelatedProductsComponent implements OnInit {
   }
 
   getUrl(product) {
-    let url = product.medias.length > 0 ? product.medias[0].link : 'https://delicesmilly.com/img/logo.png'
+    let url = product.medias.length > 0 ? product.medias[0].link : 'https://via.placeholder.com/400?text=no%20icon'
     return "url('" + url + "')";
   }
 

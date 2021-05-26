@@ -122,7 +122,6 @@ ol {
 }
 
 .section-title span {
-  color: #e0114f;
   font-size: 50px;
   display: block;
   margin-bottom: 10px;
@@ -325,7 +324,7 @@ ol {
   Header
 -----------------------*/
 .header {
-  background: #e0114f;
+  /* background: #e0114f; */
 }
 
 .header__top {
@@ -498,12 +497,12 @@ ol {
 
 .header__menu ul li.active a {
   background: #FFF;
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .header__menu ul li:hover a {
   background: #ffe3ec;
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .header__menu ul li:hover .dropdown {
@@ -597,7 +596,6 @@ ol {
   top: 15px;
   height: calc(100% - 30px);
   width: calc(100% - 30px);
-  border: 1px dashed #e0114f;
   content: "";
   opacity: 0.3;
 }
@@ -701,8 +699,8 @@ ol {
   bottom: -48px;
   width: 15px;
   height: 15px;
-  border: 1px solid #e0114f;
-  border-color: transparent #e0114f #e0114f transparent;
+  /* border: 1px solid #e0114f; */
+  /* border-color: transparent #e0114f #e0114f transparent; */
   content: "";
   -webkit-transform: rotate(-135deg);
   -ms-transform: rotate(-135deg);
@@ -714,7 +712,7 @@ ol {
 }
 
 .categories__item:hover {
-  background: #e0114f;
+  /* background: #e0114f; */
 }
 
 .categories__item:hover:after {
@@ -730,7 +728,7 @@ ol {
 }
 
 .categories__item__icon span {
-  color: #e0114f;
+  /* color: #e0114f; */
   -webkit-transition: all, 0.2s;
   -o-transition: all, 0.2s;
   transition: all, 0.2s;
@@ -750,7 +748,7 @@ ol {
   Class
 -----------------------*/
 .class {
-  background: rgba(224, 17, 79, 0.1);
+  /* background: #e0114f1a; */
   position: relative;
   padding-bottom: 0;
 }
@@ -845,7 +843,7 @@ ol {
   display: inline-block;
   width: 70px;
   height: 70px;
-  background: #e0114f;
+  /* background: #e0114f; */
   font-size: 24px;
   color: #ffffff;
   line-height: 70px;
@@ -923,7 +921,7 @@ ol {
   Testimonial
 -----------------------*/
 .testimonial {
-  background: #fce7ed;
+  /* background: #fce7ed; */
   padding-top: 90px;
   padding-bottom: 70px;
 }
@@ -1135,14 +1133,14 @@ ol {
 }
 
 .product__item:hover .product__item__pic .product__label span {
-  background: #e0114f;
+  /* background: #e0114f; */
   color: #ffffff;
 }
 
 .product__item:hover .product__item__text .product__item__price {
   opacity: 0;
   visibility: hidden;
-  color: #e0114f !important;
+  /* color: #e0114f !important; */
 }
 
 .product__item:hover .product__item__text .cart_add {
@@ -1221,7 +1219,7 @@ ol {
   font-size: 16px;
   font-weight: 600;
   display: inline-block;
-  border-bottom: 2px solid #e0114f;
+  /* border-bottom: 2px solid #e0114f; */
   padding-bottom: 4px;
 }
 
@@ -1363,7 +1361,7 @@ ol {
 
 .footer__newslatter form button {
   font-size: 20px;
-  color: #e0114f;
+  /* color: #e0114f; */
   background: transparent;
   border: none;
   position: absolute;
@@ -1386,11 +1384,11 @@ ol {
 }
 
 .copyright__text i {
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .copyright__text a {
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .copyright__widget {
@@ -1436,7 +1434,7 @@ ol {
   font-size: 50px;
   color: #000000;
   font-weight: 700;
-  font-style: italic;
+  /* font-style: italic; */
   font-family: "Josefin Sans", serif;
 }
 
@@ -1529,7 +1527,7 @@ ol {
   display: inline-block;
   width: 70px;
   height: 70px;
-  background: #e0114f;
+  /* background: #e0114f; */
   font-size: 24px;
   color: #ffffff;
   line-height: 70px;
@@ -1856,7 +1854,7 @@ ol {
   font-size: 20px;
   border: 1px solid #e1e1e1;
   display: inline-block;
-  color: #e0114f;
+  /* color: #e0114f; */
   padding: 14px;
   line-height: 16px;
 }
@@ -2133,7 +2131,7 @@ ol {
 }
 
 .cart__total {
-  background: #fce7ed;
+  /* background: #fce7ed; */
   padding: 35px 40px 40px;
 }
 
@@ -2185,7 +2183,7 @@ ol {
 }
 
 .coupon__code span {
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .coupon__code a {
@@ -2212,7 +2210,7 @@ ol {
 }
 
 .checkout__input p span {
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .checkout__input input {
@@ -2270,7 +2268,7 @@ ol {
 }
 
 .checkout__input__checkbox label input:checked~.checkmark {
-  border-color: #e0114f;
+  /* border-color: #e0114f; */
 }
 
 .checkout__input__checkbox label input:checked~.checkmark:after {
@@ -2311,7 +2309,7 @@ ol {
 }
 
 .checkout__order {
-  background: #fce7ed;
+  /* background: #fce7ed; */
   padding: 30px;
 }
 
@@ -2394,7 +2392,7 @@ ol {
 }
 
 .checkout__total__all li span {
-  color: #e0114f;
+  /* color: #e0114f; */
   float: right;
 }
 
@@ -2502,7 +2500,7 @@ ol {
 }
 
 .class__item:hover .class__item__pic .label {
-  background: #e0114f;
+  /* background: #e0114f; */
 }
 
 .class__item:hover .class__item__text h5 a {
@@ -2559,12 +2557,12 @@ ol {
 
 .class__item__text .read_more {
   font-size: 16px;
-  color: #e0114f;
+  /* color: #e0114f; */
   font-weight: 600;
 }
 
 .class__sidebar {
-  background: #fce7ed;
+  /* background: #fce7ed; */
   padding: 30px;
 }
 
@@ -2671,7 +2669,7 @@ ol {
   font-size: 14px;
   color: #ffffff;
   font-weight: 600;
-  background: #e0114f;
+  /* background: #e0114f; */
   display: inline-block;
   padding: 4px 15px 2px;
 }
@@ -2733,7 +2731,7 @@ ol {
   letter-spacing: 2px;
   text-transform: uppercase;
   padding-bottom: 3px;
-  border-bottom: 2px solid #e0114f;
+  /* border-bottom: 2px solid #e0114f; */
 }
 
 /*---------------------
@@ -2812,7 +2810,7 @@ ol {
   top: 5px;
   height: 14px;
   width: 10px;
-  background: #e0114f4d;
+  /* background: #e0114f4d; */
   content: "";
 }
 
@@ -2852,7 +2850,7 @@ ol {
 }
 
 .blog__sidebar__item .blog__sidebar__item__categories ul li:hover a span {
-  color: #e0114f;
+  /* color: #e0114f; */
 }
 
 .blog__sidebar__item .blog__sidebar__item__categories ul li a {
@@ -2915,7 +2913,7 @@ ol {
 }
 
 .blog__sidebar__item form label input:checked~.checkmark {
-  border-color: #e0114f;
+  /* border-color: #e0114f; */
 }
 
 .blog__sidebar__item form label input:checked~.checkmark:after {
@@ -2939,7 +2937,7 @@ ol {
   top: -3px;
   width: 14px;
   height: 7px;
-  border: solid #e0114f;
+  /* border: solid #e0114f; */
   border-width: 1.5px 1.5px 0px 0px;
   -webkit-transform: rotate(127deg);
   -ms-transform: rotate(127deg);
@@ -3199,7 +3197,7 @@ ol {
 
 .blog__details__print .primary-btn {
   background: transparent;
-  border: 1px solid #e0114f;
+  /* border: 1px solid #e0114f; */
   color: #111111;
 }
 
@@ -3269,7 +3267,7 @@ ol {
 
 .blog__details__author {
   position: relative;
-  background: #fce7ed;
+  /* background: #fce7ed; */
   overflow: hidden;
   padding: 50px;
   margin-bottom: 85px;

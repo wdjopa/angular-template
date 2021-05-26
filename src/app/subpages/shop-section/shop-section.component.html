@@ -8,7 +8,7 @@
             <form action="#">
               <select class="nice-select" (change)="updateCollection($event.target.value)">
                 <option value="">Collections</option>
-                <option *ngFor="let collection of company?.collections" [value]="collection.name">
+                <option *ngFor="let collection of collections" [value]="collection.name">
                   {{collection.name}}
                 </option>
               </select>
@@ -33,6 +33,16 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="!products">
+       	<ngx-skeleton-loader count="16" animation="pulse" [theme]="{
+    'border-radius': '5px',
+    height: '320px',
+    width: '265px',
+    'background-color': '#323232',
+    border: '1px solid #323232',
+    'animation-duration': '2s'
+  }"></ngx-skeleton-loader>
+      </div>
       <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
         <a [routerLink]="'/produits/'+product.id">
           <div class="product__item">
@@ -44,9 +54,10 @@
             </div>
             <div class="product__item__text">
               <h6><a href="#">{{product.name}}</a></h6>
-              <div class="product__item__price" style="color: #e0114f">{{product.price}} {{company.devise.symbol}}</div>
+              <div class="product__item__price text-accent">{{product.price | number }}
+                {{company.devise.symbol}}</div>
               <div class="cart_add">
-                <span (click)="addToCart(product.id)">Ajouter au panier</span>
+                <span (click)="addToCart(product.id)">Voir le produit</span>
               </div>
             </div>
           </div>
@@ -56,6 +67,8 @@
     <div class="shop__last__option">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
+          <bottom-pagination (getRequest)="getProducts($event)" [pagination]="pagination">
+          </bottom-pagination>
           <!-- 
           <div class="shop__pagination">
             <a href="#">1</a>
@@ -65,6 +78,7 @@
         </div>
     -->
         </div>
+
         <div *ngIf="products" class="col-lg-6 col-md-6 col-sm-6">
           <div class="shop__last__text">
             <p>{{products.length}} produits affichés</p>

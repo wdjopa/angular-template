@@ -5,7 +5,7 @@
         <div class="instagram__text">
           <div class="section-title">
             <span>Suivez-nous </span>
-            <h5>Du contenu appétissant et amusant pour vous. Ne manques pas nos promotions, suivez-nous sur les réseaux.</h5>
+            <h5>Du contenu intéressant et amusant pour vous. Ne manques pas nos promotions, suivez-nous sur les réseaux.</h5>
           </div>
          <h5 class="mt-2" *ngFor="let social of socials">
            <i [class]="'fa fa-'+social.network"></i><a class="text-accent" [href]="social.link">
@@ -20,7 +20,7 @@
             <div class="instagram__pic">
               <img
                 [src]="image"
-                [alt]="'image instagram de '+company?.nom">
+                [alt]="'image instagram de '+company?.name">
             </div>
           </div>
           

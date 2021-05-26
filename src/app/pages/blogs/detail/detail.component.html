@@ -51,10 +51,10 @@
           </div>
           <div class="blog__details__author">
             <div class="blog__details__author__pic">
-              <img [src]="storage_url+'/'+company?.logo" alt="">
+              <img [src]="company?.logo" alt="">
             </div>
             <div class="blog__details__author__text">
-              <h6>{{company?.nom}}</h6>
+              <h6>{{company?.name}}</h6>
               <div class="blog__details__author__social">
                 <app-social-links></app-social-links>
               </div>

@@ -1,17 +1,20 @@
 <app-breadcrumb [title]="produit?.name" [breadcrumbs]='breadcrumbs' [end_breadcrumb]="'Produit ' + produit?.name">
 </app-breadcrumb>
 <!-- Shop Details Section Begin -->
-<section *ngIf="produit" class="product-details spad">
-  <div class="container">
+<section  class="product-details spad">
+  <div class="container my-5 py-5 " *ngIf="loading">
+    Loading ...
+    </div>
+    <div class="container" *ngIf="produit && !loading">
     <div class="row">
       <div class="col-lg-6">
         <div class="product__details__img">
           <div class="product__details__big__img">
-            <img class="big_img" [src]="produit.medias.length > 0 ? produit.medias[0].link : ''" alt="">
+            <img class="big_img" [src]="bigImg.link" [alt]="produit?.name">
           </div>
           <div class="product__details__thumb">
-            <div *ngFor="let media of produit.medias" class="pt__item active">
-              <img data-imgbigurl="img/shop/details/product-big-2.jpg" [src]="media.link" alt="">
+            <div *ngFor="let media of produit.medias" class="pt__item" (click)="setBigImg(media.id)">
+              <img [src]="media.thumb" [alt]="produit?.name">
             </div>
           </div>
         </div>

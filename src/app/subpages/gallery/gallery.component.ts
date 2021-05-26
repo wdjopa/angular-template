@@ -16,12 +16,12 @@ export class GalleryComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company;
-        this.socials = Object.keys(this.company.datas.settings.social).map(network => {
+        this.socials = this.company?.datas?.settings?.social ? Object.keys(this.company?.datas?.settings?.social).map(network => {
           return {
             network: network,
-            link: this.company.datas.settings.social[network]
+            link: this.company?.datas?.settings?.social[network]
           }
-        });
+        }) : [];
       }
     });
   }

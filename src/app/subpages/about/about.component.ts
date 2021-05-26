@@ -16,7 +16,7 @@ export class AboutComponent implements OnInit {
   constructor(private navigationService: NavigationService) {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
-        this.about = company.datas.settings?.homescreen?.about;
+        this.about = company?.datas?.settings?.homescreen?.about || {};
         setTimeout(() => {
           window["bars"]()
         }, 1000);

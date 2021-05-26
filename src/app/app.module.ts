@@ -28,12 +28,13 @@ import { HeaderComponent } from 'src/app/partials/header/header.component';
 import { FooterComponent } from 'src/app/partials/footer/footer.component';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-// import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppPasswordDirective } from 'src/app/directives/app-password.directive';
 
 import { DataService } from 'src/app/services/data.service';
+import { PaymentsService } from 'src/app/services/payments.service';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { CartGuard } from 'src/app/guard/cart.guard';
 import { UserService } from 'src/app/services/user.service';
@@ -58,6 +59,7 @@ import { CartHeaderComponent } from 'src/app/partials/components/cart-header/car
 import { AdressesComponent } from 'src/app/pages/client/adresses/adresses.component';
 import { ParametresComponent } from 'src/app/pages/client/parametres/parametres.component';
 import { AdressesAddComponent } from './pages/client/adresses-add/adresses-add.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 import { LottieModule } from 'ngx-lottie';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
@@ -67,6 +69,8 @@ import { DetailComponent } from './pages/blogs/detail/detail.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { PasswordForgottenComponent } from './pages/password-forgotten/password-forgotten.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PaymentComponent } from './modal/payment/payment.component';
 
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
@@ -76,16 +80,16 @@ export function playerFactory() {
 
 const appRoutes: Routes = [
   {
-    path: "", component: HomeComponent, data: {
+    path: "", redirectTo: '/accueil', pathMatch: 'full' , data: {
       title: 'Accueil',
-      description: 'Osez commander chez La Mater Express - Plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Osez commander chez MyStore Ecommerce Website - Plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "accueil", component: HomeComponent, data: {
       title: 'Accueil',
-      description: 'Osez commander chez La Mater Express - Plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Osez commander chez MyStore Ecommerce Website - Plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
@@ -94,42 +98,42 @@ const appRoutes: Routes = [
   {
     path: "connexion", component: LoginComponent, data: {
       title: 'Connexion',
-      description: 'Connectez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Connectez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "inscription", component: RegisterComponent, data: {
       title: 'Inscription',
-      description: 'Inscrivez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Inscrivez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "collections", component: CollectionsComponent, data: {
       title: 'Nos collections',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "collection/:collection", component: CollectionComponent, data: {
       title: 'Collection',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "catalogue", component: CatalogComponent, data: {
       title: 'Tous nos produits',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "produits/:produit", component: ProduitComponent, data: {
       title: 'Produit detail',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
@@ -137,14 +141,14 @@ const appRoutes: Routes = [
   {
     path: "blogs", component: BlogsComponent, data: {
       title: 'Nos articles de blog',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "blogs/:blog_slug", component: DetailComponent, data: {
       title: 'Article',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
@@ -154,11 +158,16 @@ const appRoutes: Routes = [
   {
     path: "contact", component: ContactComponent, data: {
       title: 'Contact',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | La Mater Express',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
-  { path: "caisse", canActivate: [AuthGuard], component: CheckoutComponent },
+  {
+    path: "caisse", canActivate: [AuthGuard], component: CheckoutComponent, data: {
+      title: 'Checkout',
+      description: 'Finalisez votre paiement | MyStore Ecommerce Website',
+      ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
+    }},
   // { path: "caisse", canActivate: [CartGuard, AuthGuard],  component: CheckoutComponent },
   // { path: "compte/:slug", canActivate: [AuthGuard], component: AccountComponent },
   {
@@ -219,13 +228,17 @@ const appRoutes: Routes = [
     DetailComponent,
     CarouselComponent,
     PasswordForgottenComponent,
+    PaginationComponent,
+    PaymentComponent
   ],
 
   entryComponents: [
     LoaderComponent,
+    PaymentComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
+    NgxSkeletonLoaderModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -234,7 +247,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatSnackBarModule,
     CarouselModule,
-    // MatDialog,
+    MatDialogModule,
     RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     LottieModule.forRoot({ player: playerFactory }),
     BrowserAnimationsModule
@@ -246,6 +259,7 @@ const appRoutes: Routes = [
     NavigationService,
     AuthGuard,
     CartGuard,
+    PaymentsService
   ],
   bootstrap: [AppComponent]
 })

@@ -11,6 +11,10 @@ export const environment = {
     appId: "1:881908901174:web:1d81cb1f31d1da1678bf97",
     measurementId: "G-YQKY8B0BV5"
   },
+  mail_url: "https://mail.api.lamaterservice.com",
+  host: "mail.lamater.tech",
+  user: "contact@lamater.tech",
+  password: "w]m3K55SG9",
   company_id: 6,
   url: 'https://shop.mystore.africa',
   storage: 'https://shop.mystore.africa/storage',

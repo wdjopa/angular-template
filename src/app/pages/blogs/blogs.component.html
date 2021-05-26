@@ -21,14 +21,10 @@
             <a [routerLink]="['/blogs/'+post.slug]" routerLinkActive="router-link-active">LIRE PLUS</a>
           </div>
         </div>
-
-        <div class="shop__pagination">
-          <a (click)="getBlogPosts(pagination.links.prev)" *ngIf="pagination.links?.prev"><span
-              class="arrow_carrot-left"></span></a>
-          <a (click)="getBlogPosts(pagination.meta.path+'?page='+page)" *ngFor="let page of pagination.total_pages" [ngClass]="{'text-accent': page === pagination.meta.current_page}">{{page}}</a>
-          <a (click)="getBlogPosts(pagination.links.next)" *ngIf="pagination.links?.next"><span
-              class="arrow_carrot-right"></span></a>
-        </div>
+        <!-- <bottom-pagination (getRequest)="getBlogPosts($event)"
+          [pagination]="pagination">
+        </bottom-pagination> -->
+      {{pagination | json}}
       </div>
       <div class="col-lg-4">
         <div class="blog__sidebar">

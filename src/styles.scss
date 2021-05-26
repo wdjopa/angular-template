@@ -29,6 +29,7 @@ $ecommerce-angular-template-theme: mat-light-theme($ecommerce-angular-template-p
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 /* You can add global styles to this file, and also import other style files */
+$main-color: #e0114f;
 
 html,
 body {
@@ -37,23 +38,45 @@ body {
 
 body {
   margin: 0;
-  font-family: "montserrat", Roboto, "Helvetica Neue", sans-serif;
-}
-.text-accent {
-  color: #e0114f !important;
-}
-
-.text-dark {
-  color: #222222 !important;
-  
-}
-
-.pointer {
-  cursor: pointer;
+  font-family: "montserrat",
+    Roboto,
+    "Helvetica Neue",
+    sans-serif;
 }
 
 @media only screen and (max-width: 767px) {
   .text-accent-phone {
-    color: #e0114f !important;
+    color: $main-color !important;
   }
+}
+
+.font-customer {
+  font-family: "christmas" !important;
+  color: $main-color !important;
+}
+
+.text-accent {
+  color: $main-color !important;
+}
+
+.text_carousel:after {
+  border: 1px dashed $main-color;
+}
+.text-dark {
+  color: #222222 !important;
+
+}
+.pointer {
+  cursor: pointer;
+}
+
+footer::after {
+  content: "";
+  display: inline-block;
+  background: orange;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  width: 100%;
 }

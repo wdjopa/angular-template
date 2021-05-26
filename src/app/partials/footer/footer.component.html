@@ -1,12 +1,16 @@
 <!-- Footer Section Begin -->
 <!-- <div> -->
-<footer class="footer set-bg" data-setbg="./assets/img/footer-bg.jpg">
+<footer class="footer set-bg"  [style.backgroundImage]="'url('+company?.datas?.settings?.footer?.image+')'">
   <div class="container" *ngIf="company">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-sm-6">
-        <div class="footer__newslatter">
-          <h6>À propos de nous</h6>
-          <p>{{company?.description}}</p>
+        <div class="footer__widget" >
+          <h6>HORAIRES DE TRAVAIL</h6>
+          <ul *ngIf="company?.datas?.settings?.horaires?.length > 0">
+            <!-- <li>Horaires de livraison:</li> -->
+            <li *ngFor="let horaire of company?.datas?.settings?.horaires">{{horaire.day}} : {{horaire.hours}}</li>
+          </ul>
+          <!-- <p>{{company?.description}}</p> -->
         </div>
         <!-- 
           <div class="footer__widget">
@@ -21,10 +25,11 @@
       <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="footer__about">
           <div class="footer__logo">
-            <a href="/"><img [src]="storage_url+'/'+company?.logo" [alt]="'Logo de '+company?.nom"
-                style="width: 50px;border-radius: 200px;"> <span class="font-christmas footer_logo">&nbsp;
-                {{company?.nom}}</span></a>
+            <a [routerLink]="['/accueil']" ><img *ngIf="company.logo" [src]="company?.logo" [alt]="'Logo de '+company?.name"
+                style="width: 50px;border-radius: 200px;"> <span class="font-customer footer_logo">&nbsp;
+                {{company?.name}}</span></a>
           </div>
+          <p>{{company?.description}}</p>
           <p>Suivez-nous sur les réseaux</p>
           <div class="footer__social">
             <a *ngIf='company?.datas?.settings?.social?.facebook'
@@ -67,7 +72,10 @@
             Copyright &copy;<script>
               document.write(new Date().getFullYear());
 
-            </script> All rights reserved | <a href="https://delicesmilly.com">Les Délices de Milly</a> by <a href="https://lamater.tech"
+            </script> All rights reserved | <a
+              [href]="company?.website?.includes('http') ? company?.website:
+              'https://'+company?.website">{{company?.name}}</a> by <a
+              href="https://lamater.tech"
               class="">La Mater Tech</a>
           </p>
         </div>

@@ -12,6 +12,10 @@ export class ConfigService {
 
   storage = environment.storage;
   url = environment.url;
+  mail_url = environment.mail_url;
+  host = environment.host;
+  user = environment.user;
+  password = environment.password;
   api = environment.api;
   companyId = environment.company_id;
   token = localStorage.getItem("token") ? localStorage.getItem("token") : null

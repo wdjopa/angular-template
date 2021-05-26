@@ -23,8 +23,14 @@ export class DataService {
     return this.http.get(this.configService.url + this.configService.api + "restaurants/city/" + villeId);
   }
 
-  loginShop() {
-    this.http.get(this.configService.url + this.configService.api + "shops/" + this.configService.companyId).subscribe((data: any) => {
+  sendMail({ from, to, subject, message }) {
+    return this.http.post(this.configService.mail_url + "/sendmail", {
+      from, to, subject, message, host: this.configService.host, user: this.configService.user, password: this.configService.password
+    })
+  }
+
+  loginShop(id) {
+    this.http.get(this.configService.url + this.configService.api + "shops/" + id).subscribe((data: any) => {
       if (data.token) {
         localStorage.setItem("token_shop", data.token)
         this.configService.refreshShopToken();
@@ -36,7 +42,9 @@ export class DataService {
   getCompanyByUrl() {
     // alert(document.location.href)
     //  document.location.href
-    return this.http.get(this.configService.url + this.configService.api + "companies/details/" + this.configService.companyId);
+    let website_url = document.location.href.split("//")[1].split("/")[0]
+    let options = "?url="+website_url
+    return this.http.get(this.configService.url + this.configService.api + "companies/byurl" + options);
   }
 
   updateUser() {
@@ -92,11 +100,32 @@ export class DataService {
     });
   }
 
-  getBlogInfos(){
-    return this.http.get(this.configService.url + this.configService.api + "companies/" + this.configService.companyId + "/blogs/infos");
+  getProducts(route = undefined, per_page = "&per_page=16", company_id = localStorage.getItem("company_id")) {
+    if (!route) {
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/products"
+      per_page = "?per_page=16"
+    }
+    return this.http.get(route + per_page);
   }
-  getBlogPosts(route = undefined , per_page = "&per_page=5") {
-    if (!route) route = this.configService.url + this.configService.api + "companies/" + this.configService.companyId + "/blogs?"
+  getProduct(id, company_id = localStorage.getItem("company_id")) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id+ "/products/" + id);
+  }
+
+  getCollections(route = undefined, per_page = 16, company_id = localStorage.getItem("company_id")) {
+    if (!route) {
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections"
+    }
+    return this.http.get(route + (route.includes("?") ? "&per_page=" : '?per_page=')+per_page);
+  }
+  getCollection(id, company_id = localStorage.getItem("company_id")) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id);
+  }
+
+  getBlogInfos(company_id = localStorage.getItem("company_id")) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/blogs/infos");
+  }
+  getBlogPosts(route = undefined, per_page = "&per_page=5", company_id = localStorage.getItem("company_id")) {
+    if (!route) { per_page = "?per_page=5"; route = this.configService.url + this.configService.api + "companies/" + company_id + "/blogs" }
     return this.http.get(route + per_page);
   }
   getBlogPostBySlug(blog_slug = undefined) {
@@ -132,8 +161,8 @@ export class DataService {
     return this.http.post<any>(this.configService.url + this.configService.api + "clients/checkpassword", { password: password }, this.configService.httpOptions);
   }
 
-  checkDiscountCode(code, cart_subtotal) {
-    return this.http.post<any>(this.configService.url + this.configService.api + "companies/discount/check", { code, amount: cart_subtotal, company_id: this.configService.companyId }, this.configService.httpOptionsShop);
+  checkDiscountCode(code, cart_subtotal, company_id = localStorage.getItem("company_id")) {
+    return this.http.post<any>(this.configService.url + this.configService.api + "companies/discount/check", { code, amount: cart_subtotal, company_id }, this.configService.httpOptionsShop);
   }
 
   paymentByToken(token, datas) {

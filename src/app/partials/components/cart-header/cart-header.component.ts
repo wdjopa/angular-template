@@ -9,13 +9,12 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./cart-header.component.scss']
 })
 export class CartHeaderComponent implements OnInit {
-
-  cart: any = { total: 0, produitCommandes: [] }
   company: any;
   companySubscription: Subscription;
+  totalElement: number;
+  cart: any = { total: 0, produitCommandes: [] }
   cartSubscription: Subscription;
   error: string;
-  totalElement: number;
 
   constructor(private navigationService: NavigationService, private route: ActivatedRoute,
     private router: Router) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,8 +24,8 @@ export class DetailComponent implements OnInit {
   storage_url: string;
 
 
-  constructor(private userService: UserService, private navigationService: NavigationService, private configService: ConfigService,private dataService: DataService, private route: ActivatedRoute) {
-  
+  constructor(private userService: UserService, private navigationService: NavigationService, private titleService: Title, private metaTagService: Meta, private configService: ConfigService, private dataService: DataService, private route: ActivatedRoute) {
+
     this.storage_url = this.configService.storage;
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
@@ -54,6 +55,20 @@ export class DetailComponent implements OnInit {
     this.postSubscription = this.dataService.getBlogPostBySlug(blog_slug).subscribe((post: any) => {
       post.url = 'url(' + (post.medias.length > 0 ? post.medias[0].link : '') + ')'
       this.post = post;
+      this.titleService.setTitle("Blog - " + post.title);
+      this.metaTagService.addTags([
+        { name: 'description', content: post.title + " - " + post.properties.resume },
+        { name: 'keywords', content: 'Ecommerce, MyStore, Blogging, ' + post.title.split(" ").join(", ") + post.properties.resume.split(" ").join(", ") },
+        { name: 'og:title', content: post.title },
+        { name: 'og:image', content: post.medias[0].link },
+        { name: 'date', content: post.created_at, scheme: 'YYYY-MM-DD' },
+        { name: 'og:description', content: 'Consultez notre catalogue de produits' },
+        { name: 'robots', content: 'index, follow' },
+        { name: 'author', content: post.author },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'og:site_name', content: post.title },
+        { name: 'og:url', content: window.location.href },
+      ]);
     })
   }
 

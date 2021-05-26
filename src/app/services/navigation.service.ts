@@ -30,7 +30,8 @@ export class NavigationService {
   ) {
   }
   getCompanyDetails(): any {
-    this.dataService.getCompanyByUrl().subscribe(company => {
+    this.dataService.getCompanyByUrl().subscribe((company:any) => {
+      localStorage.setItem("company_id", company.id)
       this.company = company;
       this.emitCompany();
       this.updateCart(this.cart)
@@ -53,18 +54,18 @@ export class NavigationService {
 
     localStorage.removeItem("cart");
     this.cartUpdated(false);
-    if (this.companies.length > 0) {
-      for (let company of this.companies) {
-        if (company.id === this.currentCompany.id) {
-          company.produits.forEach(element => {
-            element.total = 0 // On met tous les compteurs de sélection à 0
-          });
-          this.currentCompany = company;
-        }
-      }
-    }
-    this.currentCompanySubject.next(this.currentCompany);
-    this.currentCompany = {}
+    // if (this.companies.length > 0) {
+    //   for (let company of this.companies) {
+    //     if (company.id === this.currentCompany.id) {
+    //       company.produits.forEach(element => {
+    //         element.total = 0 // On met tous les compteurs de sélection à 0
+    //       });
+    //       this.currentCompany = company;
+    //     }
+    //   }
+    // }
+    // this.currentCompanySubject.next(this.currentCompany);
+    // this.currentCompany = {}
   }
 
   updateCart(cart) {
@@ -145,15 +146,15 @@ export class NavigationService {
   }
 
   emitRelatedProducts(product) {
-    this.company.produits.forEach(produit => {
-      product.collections.map(collection_name => {
-        if (produit.collections.includes(collection_name)) {
-          let { avis, collections, produits, medias, quartiers, reductions, villes, ...minimum_company } = this.company
-          produit.company = minimum_company
-          this.relatedProducts.push(produit);
-        }
-      })
-    })
+    // this.company.produits.forEach(produit => {
+    //   product.collections.map(collection_name => {
+    //     if (produit.collections.includes(collection_name)) {
+    //       let { avis, collections, produits, medias, quartiers, reductions, villes, ...minimum_company } = this.company
+    //       produit.company = minimum_company
+    //       this.relatedProducts.push(produit);
+    //     }
+    //   })
+    // })
     this.relatedProductsSubject.next(this.relatedProducts.slice());
   }
 

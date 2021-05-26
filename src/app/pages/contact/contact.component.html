@@ -28,16 +28,16 @@
         <div class="contact__text">
           <h3>Contactez nous</h3>
            <ul>
-             <li>
+             <li *ngIf="company?.datas?.settings?.address">
                <span class="icon_pin_alt"></span>&nbsp;
-               Yaoundé, Cameroun
+               {{company?.datas?.settings?.address}}
              </li>
              <li><span class="icon_phone"></span>&nbsp;
-              <a [href]="'tel:'+company?.tel" style="color: #e0114f">{{company?.tel}}</a>
+              <a [href]="'tel:'+company?.tel" class="text-accent">{{company?.tel}}</a>
              </li>
              <li *ngIf="company?.email">
                  <span class="icon_mail_alt"></span> &nbsp;
-               <a style="color: #e0114f" [href]="'mailto:'+company?.email">{{company?.email}}</a>
+               <a class="text-accent" [href]="'mailto:'+company?.email">{{company?.email}}</a>
              </li>
            </ul>
           <ul *ngIf="company?.datas?.settings?.horaires?.length > 0">
@@ -52,13 +52,13 @@
           <form action="#" #f="ngForm" (ngSubmit)="OnSubmit(f)">
             <div class="row">
               <div class="col-lg-6">
-                <input type="text" placeholder="Name">
+                <input type="text" name="name" ngModel placeholder="Name">
               </div>
               <div class="col-lg-6">
-                <input type="email" placeholder="Email">
+                <input type="email" name="email" ngModel placeholder="Email">
               </div>
               <div class="col-lg-12">
-                <textarea placeholder="Message"></textarea>
+                <textarea name="message" ngModel placeholder="Message"></textarea>
                 <button type="submit" class="site-btn">Envoyer</button>
               </div>
             </div>

@@ -8,6 +8,7 @@ import { DataService } from '../../services/data.service';
 import { environment } from 'src/environments/environment';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { Subscription } from 'rxjs';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
   companySubscription: Subscription;
   dataSubscription: Subscription;
 
-  constructor(private elRef: ElementRef, private navigationService: NavigationService, private userService: UserService, private authService: AuthService, private router: Router, private dataService: DataService) {
+  constructor(private elRef: ElementRef, private navigationService: NavigationService, private userService: UserService, private titleService: Title, private metaTagService: Meta, private authService: AuthService, private router: Router, private dataService: DataService) {
     var config = environment.firebase;
     // if (apps.length === 0) {
     //   initializeApp(config);
@@ -79,6 +80,20 @@ export class RegisterComponent implements OnInit {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company
+        this.titleService.setTitle("Connexion | " + this.company.name);
+        this.metaTagService.addTags([
+          { name: 'description', content: 'Inscrivez-vous pour gérer vos commandes et vos adresses chez ' + this.company.name + ". " + this.company.description },
+          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'robots', content: 'index, follow' },
+          { name: 'author', content: 'MyStore.africa' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { name: 'og:title', content: 'Commandez vos produits chez ' + this.company.name },
+          { name: 'og:site_name', content: this.company.name },
+          { name: 'og:description', content: 'Inscrivez-vous pour gérer vos commandes et vos adresses.' },
+          { name: 'og:url', content: window.location.href },
+          { name: 'og:image', content: this.company.logo },
+          { name: 'date', content: this.company.created_at, scheme: 'YYYY-MM-DD' },
+        ]);
       }
     });
     this.navigationService.emitCompany();

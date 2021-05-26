@@ -1,0 +1,62 @@
+<h5 class="text-accent border-bottom pb-2">Finalisation du paiement</h5>
+<div *ngIf="data.payment.id === 'paypal'">
+  <br>
+  <br>
+  Paiement via Paypal
+  <br>
+  <div *ngIf="price_in_eur >= 0 || price_in_usd >= 0">
+    <div *ngIf="price_in_eur >= 0">
+      <br>
+      <a target="_blank" [href]="data.payment.link+'/'+price_in_eur+'eur'"
+        class="btn primary-btn  w-100 text-light">Payer en euro : {{price_in_eur}}€</a>
+    </div>
+    <div *ngIf="price_in_usd >= 0">
+      <br>
+      <a target="_blank" [href]="data.payment.link+'/'+price_in_usd+'usd'"
+        class="btn primary-btn w-100 text-light">Payer en dollars américains : {{price_in_usd}}$</a>
+    </div>
+  </div>
+  <div *ngIf="!(price_in_eur >= 0 || price_in_usd >= 0)">
+    <br>
+    <a target="_blank" [href]="data.payment.link" class="btn primary-btn btn-sm w-100 text-light">Payer via Paypal</a>
+  </div>
+</div>
+<div *ngIf="data.payment.id === 'mobilemoney'">
+  <br>
+  Paiement via Mobile money
+  <br>
+  <br>
+  <div *ngIf="price_in_xaf >= 0">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" >
+      <div class="row">
+        <div class="col-md-12">
+          <h6 class="alert-danger text-accent alert" *ngIf="err.message">{{err.message}}</h6>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="checkout__input">
+                <p>N° de Tel<span>*</span></p>
+                <input ngModel [disabled]="loading" name="tel" type="tel" placeholder="Numéro de téléphone mobile money">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="checkout__input">
+                <p>Opérateur<span>*</span></p>
+                <select [disabled]="loading"  class="nice-select w-100" ngModel name="operateur">
+                  <option value="">- Sélectionnez votre opérateur -</option>
+                  <option *ngFor="let item of ['MTN', 'ORANGE']" [value]="item">{{item}}</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-sm-12 mt-4">
+              <button type="submit" class="btn primary-btn w-100 text-light" [disabled]="loading">Payer ({{price_in_xaf}} FCFA)</button>
+            </div>
+            <br>
+            <br>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

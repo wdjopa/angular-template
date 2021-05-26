@@ -19,19 +19,19 @@
   opacity: 1;
   border-color: #e0114f !important;
 }
-
-.paymentModeLogo img {
-  height: 100px;
-}
-
-.select_address {
-  cursor: pointer;
-}
-
 .select_address.active {
   border-color: #e0114f !important;
 }
 
 .select_address:hover {
   border-color: #e0114f !important;
+}
+
+.paymentModeLogo img {
+  height: 80px;
+  padding: 10px;
+}
+
+.select_address {
+  cursor: pointer;
 }
