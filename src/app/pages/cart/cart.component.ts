@@ -24,12 +24,20 @@ export class CartComponent implements OnInit {
     private router: Router) {
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.cartSubscription.unsubscribe()
   }
   ngOnInit(): void {
     this.cartSubscription = this.navigationService.cartSubject.subscribe(panier => {
       this.cart = { ...panier };
+      this.cart.produitCommandes = this.cart.produitCommandes.map(pC => {
+        let properties_printed = pC.properties ? Object.keys(pC.properties).map(prop => {
+          return prop + ": " + Object.keys(pC.properties[prop]).join(", ")
+        }) : undefined
+        return {
+          ...pC, properties_printed
+        }
+      })
       this.discount_code = this.cart?.discount?.code || ''
       this.totalElement = panier.produitCommandes.reduce((total, pdC) => {
         return total + pdC.quantity
@@ -65,7 +73,7 @@ export class CartComponent implements OnInit {
     let cart = this.navigationService.cart;
     let found = false;
     cart.produitCommandes.forEach(pC => {
-      if (pC.produit.id === productInCart.produit.id && pC.complement === productInCart.complement) {
+      if (pC.produit.id === productInCart.produit.id && pC.complement === productInCart.complement && pC.price === productInCart.price) {
         pC.quantity++
         found = true;
       }
@@ -80,7 +88,7 @@ export class CartComponent implements OnInit {
     let cart = this.navigationService.cart;
     let new_cart_pc = []
     cart.produitCommandes.forEach((pC) => {
-      if (pC.produit.id === productInCart.produit.id && pC.complement === productInCart.complement) {
+      if (pC.produit.id === productInCart.produit.id && pC.complement === productInCart.complement && pC.price === productInCart.price) {
         pC.quantity--
       }
       if (pC.quantity > 0)
@@ -95,7 +103,7 @@ export class CartComponent implements OnInit {
     let cart = this.navigationService.cart;
     let new_cart_pc = []
     cart.produitCommandes.forEach((pC) => {
-      if (pC.produit.id !== productInCart.produit.id)
+      if (pC.produit.id !== productInCart.produit.id && pC.complement === productInCart.complement && pC.price === productInCart.price)
         new_cart_pc.push(pC)
     })
     cart.produitCommandes = new_cart_pc;

@@ -20,6 +20,9 @@
     <br>
     <a target="_blank" [href]="data.payment.link" class="btn primary-btn btn-sm w-100 text-light">Payer via Paypal</a>
   </div>
+              <button type="button" (click)="close()" class="btn w-100" style="padding: 14px 30px;"
+                [disabled]="loading">Fermer</button>
+
 </div>
 <div *ngIf="data.payment.id === 'mobilemoney'">
   <br>
@@ -50,7 +53,9 @@
             <br>
             <br>
             <div class="col-sm-12 mt-4">
-              <button type="submit" class="btn primary-btn w-100 text-light" [disabled]="loading">Payer ({{price_in_xaf}} FCFA)</button>
+              <button type="submit" class="btn primary-btn w-100 text-light" [disabled]="loading">Payer
+                ({{price_in_xaf}} FCFA)</button>
+              <button type="button" (click)="close()" class="btn w-100" style="padding: 14px 30px;" [disabled]="loading">Fermer</button>
             </div>
             <br>
             <br>

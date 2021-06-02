@@ -103,7 +103,8 @@ export class CheckoutComponent implements OnInit {
     this.navigationService.emitCompany();
     this.navigationService.emitCart();
   }
-  onSubmit(form: NgForm) {
+
+  makeAnOrder(form: NgForm) {
     if (this.loading)
       return;
 
@@ -146,22 +147,30 @@ export class CheckoutComponent implements OnInit {
           this.navigationService.openSnackBar("Une erreur est survenue lors du passage de votre commande", "FERMER")
         } else {
           this.navigationService.openSnackBar("Votre commande a été passée avec succès", "FERMER", 20000)
-          this.navigationService.emptyCart();
 
-          const dialogRef = this.dialog.open(PaymentComponent, {
-            width: '450px',
-            data: { command, company: this.company, payment: this.paymentModes.filter(p => p.id === this.payment.mode)[0] }
-          });
+          if (this.paymentModes.filter(p => p.id === this.payment.mode)[0].id == 'cash') {
 
-          dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            if(result.success){
-              this.navigationService.openSnackBar("Votre paiement a été effectué avec succès", "FERMER", 2000)
-            }else{
-              this.navigationService.openSnackBar("Votre paiement n'a pas abouti. Vous pourrez réessayer dans vos commandes", "FERMER", 2000)
-            }
+            this.navigationService.emptyCart();
             this.router.navigate(["/thank-you"]);
-          });
+          } else {
+
+            const dialogRef = this.dialog.open(PaymentComponent, {
+              width: '450px',
+              disableClose: true,
+              data: { command, company: this.company, payment: this.paymentModes.filter(p => p.id === this.payment.mode)[0] }
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+              if (result.success) {
+                this.navigationService.openSnackBar("Votre paiement a été effectué avec succès", "FERMER", 2000)
+              } else {
+                this.navigationService.openSnackBar("Votre paiement n'a pas abouti. Vous pourrez réessayer dans vos commandes", "FERMER", 2000)
+              }
+              this.navigationService.emptyCart();
+              this.router.navigate(["/thank-you"]);
+            });
+          }
           // this.dataService.updateUser();
         }
       }, (error) => {

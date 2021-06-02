@@ -40,6 +40,10 @@ export class PaymentComponent implements OnInit {
     this.dialogRef.close({ success: false });
   }
 
+  close(){
+    this.dialogRef.close({ success: false });
+  }
+
   onSubmit(form: NgForm) {
     this.err = {}
     this.loading = true;

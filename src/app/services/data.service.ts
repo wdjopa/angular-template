@@ -43,7 +43,7 @@ export class DataService {
     // alert(document.location.href)
     //  document.location.href
     let website_url = document.location.href.split("//")[1].split("/")[0]
-    let options = "?url="+website_url
+    let options = "?url=" + website_url
     return this.http.get(this.configService.url + this.configService.api + "companies/byurl" + options);
   }
 
@@ -100,6 +100,13 @@ export class DataService {
     });
   }
 
+  getCompanyCollections(route = undefined, per_page = "&per_page=16", {company_id, collection_id }) {
+    if (!route) {
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections/"+collection_id
+      per_page = "?per_page=16"
+    }
+    return this.http.get(route + per_page);
+  }
   getProducts(route = undefined, per_page = "&per_page=16", company_id = localStorage.getItem("company_id")) {
     if (!route) {
       route = this.configService.url + this.configService.api + "companies/" + company_id + "/products"
@@ -108,14 +115,14 @@ export class DataService {
     return this.http.get(route + per_page);
   }
   getProduct(id, company_id = localStorage.getItem("company_id")) {
-    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id+ "/products/" + id);
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/products/" + id);
   }
 
   getCollections(route = undefined, per_page = 16, company_id = localStorage.getItem("company_id")) {
     if (!route) {
       route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections"
     }
-    return this.http.get(route + (route.includes("?") ? "&per_page=" : '?per_page=')+per_page);
+    return this.http.get(route + (route.includes("?") ? "&per_page=" : '?per_page=') + per_page);
   }
   getCollection(id, company_id = localStorage.getItem("company_id")) {
     return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id);

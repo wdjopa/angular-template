@@ -117,7 +117,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: "collection/:collection", component: CollectionComponent, data: {
+    path: "collections/:collection", component: CollectionComponent, data: {
       title: 'Collection',
       description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'

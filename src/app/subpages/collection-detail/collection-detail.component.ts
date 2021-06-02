@@ -26,20 +26,23 @@ export class CollectionDetailComponent implements OnInit {
 
 
   ngOnDestroy() {
+    if (this.companySubscription)
     this.companySubscription.unsubscribe()
+    if (this.collectionSubscription)
+    this.collectionSubscription.unsubscribe()
   }
 
   ngOnInit(): void {
-    this.collectionSubscription = this.dataService.getCollection(this.collection_id).subscribe(collection => {
-      this.collection = collection
-      this.products = this.collection.produits.map(product => {
+    this.collectionSubscription = this.dataService.getCollection(this.collection_id).subscribe((ret: any) => {
+      this.collection = ret.collection
+      this.products = ret.products.map(product => {
         let url = product.medias.length > 0 ? product.medias[0].link : null;
         product.url = url ? url : 'https://shop.mystore.africa/logobusiness.svg';
         return product;
-      }
-      );
+      });
+      console.log("Collection ---",ret, this.products)
     }, err => {
-
+      console.error("Get collection", err)
     })
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {

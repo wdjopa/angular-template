@@ -103,7 +103,7 @@ export class ProduitComponent implements OnInit {
     let cart = this.navigationService.cart;
     let found = false;
     cart.produitCommandes.forEach(pC => {
-      if (pC.produit.id === this.produitCommande.produit.id && pC.complement === this.produitCommande.complement) {
+      if (pC.produit.id === this.produitCommande.produit.id && pC.complement === this.produitCommande.complement && pC.price === this.produitCommande.price) {
         pC.quantity += this.produitCommande.quantity
         found = true;
       }
@@ -127,7 +127,7 @@ export class ProduitComponent implements OnInit {
     } else {
       delete this.selected_variants[variante.name][option.name]
     }
-    // console.log(Object.keys(this.selected_variants[variante.name]), variante.max_choices)
+    console.log(this.selected_variants, variante.max_choices)
 
     if (Object.keys(this.selected_variants[variante.name]).length >= variante.max_choices) {
       variante.options = variante.options.map(opt => {
