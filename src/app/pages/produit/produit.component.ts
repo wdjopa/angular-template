@@ -90,7 +90,7 @@ export class ProduitComponent implements OnInit {
     if (this.produitCommande.quantity < 1) {
       this.produitCommande.quantity = 1
     }
-    this.updatePrice()
+    // this.updatePrice()
     //  ; produitCommande.quantity =
     //   produitCommande.quantity < 0 ? 0 : produitCommande.quantity
   }
@@ -102,15 +102,16 @@ export class ProduitComponent implements OnInit {
   addToCart() {
     let cart = this.navigationService.cart;
     let found = false;
-    cart.produitCommandes.forEach(pC => {
-      if (pC.produit.id === this.produitCommande.produit.id && pC.complement === this.produitCommande.complement && pC.price === this.produitCommande.price) {
+    cart.produitCommandes = cart.produitCommandes.map(pC => {
+      console.log("produits panier : ", pC)
+      if (pC.produit.id === this.produitCommande.produit.id && JSON.stringify(pC.properties) === JSON.stringify(this.produitCommande.properties)) {
         pC.quantity += this.produitCommande.quantity
         found = true;
       }
+      return pC;
     })
     if (!found) {
       this.produitCommande.add_to_cart_date = new Date();
-
       cart.produitCommandes.push(this.produitCommande)
     }
     this.navigationService.openSnackBar("Votre produit a bien été ajouté au panier", "FERMER")

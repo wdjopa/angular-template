@@ -57,7 +57,7 @@
           <p>Ne manquez plus nos offres et promotions. Inscrivez-vous à notre newsletter en enregistrant votre email/
             numéro de téléphone.</p>
           <form action="#">
-            <input type="text" placeholder="Email ou portable">
+            <input type="text" ngModel name="contact" placeholder="Email ou portable">
             <button type="submit"><i class="fa fa-send-o"></i></button>
           </form>
         </div>
@@ -69,14 +69,15 @@
       <div class="row">
         <div class="col-lg-7">
           <p class="copyright__text text-white">
-            Copyright &copy;<script>
+            <!-- Copyright &copy;<script>
               document.write(new Date().getFullYear());
 
-            </script> All rights reserved | <a
+            </script>  -->
+            All rights reserved, <a
               [href]="company?.website?.includes('http') ? company?.website:
-              'https://'+company?.website">{{company?.name}}</a> by <a
-              href="https://lamater.tech"
-              class="">La Mater Tech</a>
+              'https://'+company?.website">{{company?.name}}</a>. Boutique propulsée par <a
+              href="https://mystore.africa"
+              class="text-white" target="_blank" style="text-decoration: underline;">MyStore</a>.
           </p>
         </div>
         <!-- <div class="col-lg-5">

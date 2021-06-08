@@ -102,11 +102,15 @@ export class CartComponent implements OnInit {
   removeProduct(productInCart) {
     let cart = this.navigationService.cart;
     let new_cart_pc = []
-    cart.produitCommandes.forEach((pC) => {
-      if (pC.produit.id !== productInCart.produit.id && pC.complement === productInCart.complement && pC.price === productInCart.price)
-        new_cart_pc.push(pC)
+    cart.produitCommandes = cart.produitCommandes.filter((pC) => {
+      if (pC.produit.id === productInCart.produit.id && pC.price === productInCart.price){
+        return false;
+      }
+      return true;
+      // if (pC.produit.id !== productInCart.produit.id && pC.complement === productInCart.complement && pC.price === productInCart.price)
+      //   new_cart_pc.push(pC)
     })
-    cart.produitCommandes = new_cart_pc;
+    // cart.produitCommandes = new_cart_pc;
     this.navigationService.updateCart(cart);
   }
 
