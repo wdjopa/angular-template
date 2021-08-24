@@ -14,6 +14,9 @@ export class ContactComponent implements OnInit {
 
   companySubscription: Subscription;
   company: any;
+  response: boolean;
+  loading: boolean = false;
+
 
   constructor(private navigationService: NavigationService, private dataService: DataService, private configService: ConfigService) {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
@@ -29,6 +32,7 @@ export class ContactComponent implements OnInit {
 
 
   OnSubmit(form: NgForm) {
+    this.loading = true;
     const { name, email, message } = form.value;
     this.dataService.sendMail({
       from: "Website Contact <" + this.configService.user + ">", to: this.company.email, subject: "Contact Page", message: `
@@ -39,10 +43,15 @@ export class ContactComponent implements OnInit {
       <br/>
       Message : ${message}
       </p>
-    ` }).subscribe(a => {
-        console.log(a)
+    ` }).subscribe((a: any) => {
+        if (a.status) {
+          this.response = true
+          form.reset()
+        }
+        this.loading = false;
+
       }, (err) => {
-        console.log(err)
+        this.loading = false;
         window.open('https://wa.me/' + this.company.tel + "?text=" + message, "_blank");
       })
     // let _message = `Bonjour, je souhaite organiser un évènement avec vous. Je m'appelle ${name} et ce sera le ${date}. Vous pourrez me contacter au : ${tel}. Quelques précisions : ${precisions}`

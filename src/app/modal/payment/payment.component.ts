@@ -33,7 +33,7 @@ export class PaymentComponent implements OnInit {
       this.price_in_usd = data?.command?.montant;
       this.price_in_eur = data.company?.datas?.settings?.currencies_converter["xaf-to-eur"] * data?.command?.montant;
     }
-    console.log("PaymentComponent > ", data)
+    // console.log("PaymentComponent > ", data)
   }
 
   onNoClick(): void {

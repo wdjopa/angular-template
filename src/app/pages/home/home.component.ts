@@ -13,19 +13,20 @@ export class HomeComponent implements OnInit {
   companySubscription: Subscription;
   company: any;
   about: any = {};
-  title = 'Add Song - Angular Universal CRUD App';
+  title = '';
 
   constructor(private navigationService: NavigationService, private titleService: Title,
     private metaTagService: Meta) {
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
         this.company = company;
+        this.title = 'Commandez vos produits chez ' + this.company.name;
         this.titleService.setTitle(this.title);
         this.metaTagService.addTags([
           { name: 'description', content: 'Commandez vos produits chez ' + this.company.name+". "+this.company.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:title', content: 'Commandez vos produits chez '+this.company.name },
           { name: 'og:site_name', content: this.company.name },

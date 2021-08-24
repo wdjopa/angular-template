@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.dataSubscription = this.authService.nextSubject.subscribe(ret => {
       if (ret.err){
-        console.log(ret.err)
+        // console.log(ret.err)
         if(ret.err.email){
           this.err.message = "Cet email est déjà utilisé. Veuillez vous connecter."
         }else if(ret.err.tel){
@@ -83,9 +83,9 @@ export class RegisterComponent implements OnInit {
         this.titleService.setTitle("Connexion | " + this.company.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Inscrivez-vous pour gérer vos commandes et vos adresses chez ' + this.company.name + ". " + this.company.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:title', content: 'Commandez vos produits chez ' + this.company.name },
           { name: 'og:site_name', content: this.company.name },
@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit {
 
     if (nom != "" && email != "" && tel != "" && password != "") {
       let data_user = { firstname: nom, surname: prenom, email, tel, password, phone_verified: false, fromApi: true, entreprise: this.company.id, other: { legal: { accept_cgu: true, for_company: this.company.id, date: new Date(), } } };
-      // console.log(JSON.stringify(data_user))
+      // // console.log(JSON.stringify(data_user))
       this.authService.saveUser(data_user);
       
     } else {

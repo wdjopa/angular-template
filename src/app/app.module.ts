@@ -82,14 +82,14 @@ const appRoutes: Routes = [
   {
     path: "", redirectTo: '/accueil', pathMatch: 'full' , data: {
       title: 'Accueil',
-      description: 'Osez commander chez MyStore Ecommerce Website - Plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Osez commander chez Genuka Ecommerce Website - Plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "accueil", component: HomeComponent, data: {
       title: 'Accueil',
-      description: 'Osez commander chez MyStore Ecommerce Website - Plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Osez commander chez Genuka Ecommerce Website - Plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
@@ -98,42 +98,42 @@ const appRoutes: Routes = [
   {
     path: "connexion", component: LoginComponent, data: {
       title: 'Connexion',
-      description: 'Connectez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Connectez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "inscription", component: RegisterComponent, data: {
       title: 'Inscription',
-      description: 'Inscrivez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Inscrivez-vous et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "collections", component: CollectionsComponent, data: {
       title: 'Nos collections',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "collections/:collection", component: CollectionComponent, data: {
       title: 'Collection',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "catalogue", component: CatalogComponent, data: {
       title: 'Tous nos produits',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "produits/:produit", component: ProduitComponent, data: {
       title: 'Produit detail',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
@@ -141,14 +141,14 @@ const appRoutes: Routes = [
   {
     path: "blogs", component: BlogsComponent, data: {
       title: 'Nos articles de blog',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "blogs/:blog_slug", component: DetailComponent, data: {
       title: 'Article',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
@@ -158,14 +158,14 @@ const appRoutes: Routes = [
   {
     path: "contact", component: ContactComponent, data: {
       title: 'Contact',
-      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | MyStore Ecommerce Website',
+      description: 'Découvrez et commandez parmi plus de 1000 plats et menus livrés chez vous | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }
   },
   {
     path: "caisse", canActivate: [AuthGuard], component: CheckoutComponent, data: {
       title: 'Checkout',
-      description: 'Finalisez votre paiement | MyStore Ecommerce Website',
+      description: 'Finalisez votre paiement | Genuka Ecommerce Website',
       ogImage: 'https://express.lamaterservice.com/assets/img/banner/banner-3.jpg'
     }},
   // { path: "caisse", canActivate: [CartGuard, AuthGuard],  component: CheckoutComponent },

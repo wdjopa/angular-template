@@ -127,7 +127,7 @@ export class ShopSectionComponent implements OnInit {
 
 
   addToCart(id) {
-    // console.log(id)
+    // // console.log(id)
   }
 
 

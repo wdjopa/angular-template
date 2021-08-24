@@ -36,9 +36,9 @@ export class PasswordForgottenComponent implements OnInit {
         this.titleService.setTitle("Mot de passe oublié | "+this.company.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Commandez vos produits chez ' + this.company.name + ". " + this.company.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:title', content: 'Commandez vos produits chez ' + this.company.name },
           { name: 'og:site_name', content: this.company.name },
@@ -59,7 +59,7 @@ export class PasswordForgottenComponent implements OnInit {
     this.email = form.value["email"].trim();
     this.authService.resetPassword(this.email, this.company.name).subscribe(arg => {
       this.load = false;
-      console.log("reset password", arg)
+      // console.log("reset password", arg)
       this.success.message = "Un email vous a été envoyé à l'adresse " + this.email + ". Pensez à vérifier vos spams.";
     }, (err) => {
       this.load = false;

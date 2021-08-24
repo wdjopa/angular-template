@@ -58,7 +58,7 @@ export class DetailComponent implements OnInit {
       this.titleService.setTitle("Blog - " + post.title);
       this.metaTagService.addTags([
         { name: 'description', content: post.title + " - " + post.properties.resume },
-        { name: 'keywords', content: 'Ecommerce, MyStore, Blogging, ' + post.title.split(" ").join(", ") + post.properties.resume.split(" ").join(", ") },
+        { name: 'keywords', content: 'Ecommerce, Genuka, Blogging, ' + post.title.split(" ").join(", ") + post.properties.resume.split(" ").join(", ") },
         { name: 'og:title', content: post.title },
         { name: 'og:image', content: post.medias[0].link },
         { name: 'date', content: post.created_at, scheme: 'YYYY-MM-DD' },

@@ -30,13 +30,13 @@ export class BlogsComponent implements OnInit {
         this.titleService.setTitle("Blogs | " + company.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Commandez nos produits | ' + company.name + ". " + company.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' + company.name.split(" ").join(", ") + company.description.split(" ").join(", ") },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' + company.name.split(" ").join(", ") + company.description.split(" ").join(", ") },
           { name: 'og:title', content: company.name },
           { name: 'og:image', content: company.medias[0].link },
           { name: 'date', content: company.created_at, scheme: 'YYYY-MM-DD' },
           { name: 'og:description', content: 'Consultez nos articles de blogs' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:site_name', content: company.name },
           { name: 'og:url', content: window.location.href },

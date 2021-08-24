@@ -37,10 +37,10 @@ export class CollectionDetailComponent implements OnInit {
       this.collection = ret.collection
       this.products = ret.products.map(product => {
         let url = product.medias.length > 0 ? product.medias[0].link : null;
-        product.url = url ? url : 'https://shop.mystore.africa/logobusiness.svg';
+        product.url = url ? url : 'https://dashboard.genuka.com/logobusiness.svg';
         return product;
       });
-      console.log("Collection ---",ret, this.products)
+      // console.log("Collection ---",ret, this.products)
     }, err => {
       console.error("Get collection", err)
     })

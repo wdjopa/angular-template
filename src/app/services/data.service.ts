@@ -35,15 +35,17 @@ export class DataService {
         localStorage.setItem("token_shop", data.token)
         this.configService.refreshShopToken();
       }
-      console.log("something went wrong", data)
+      // console.log("something went wrong", data)
     });
   }
 
   getCompanyByUrl() {
     // alert(document.location.href)
     //  document.location.href
-    let website_url = document.location.href.split("//")[1].split("/")[0]
-    let options = "?url=" + website_url
+    // let website_url = document.location.href.split("//")[1].split("/")[0]
+    // let options = "?url=" + website_url
+    let options = "?url=" + document.location.protocol + "//" + document.location.host
+
     return this.http.get(this.configService.url + this.configService.api + "companies/byurl" + options);
   }
 
@@ -75,7 +77,7 @@ export class DataService {
   getQuartiers() {
 
     let diff = (Date.now()) - this.date;
-    console.log(diff, this.date)
+    // console.log(diff, this.date)
     if (localStorage.getItem("quartiers") && diff < 60 * 60 * 24 * 1000) {
       let quartiers = JSON.parse(localStorage.getItem("quartiers"))
       this.quartiersSubject.next(quartiers)
@@ -90,13 +92,13 @@ export class DataService {
   }
 
   postReview(restaurant, note, message) {
-    // console.log(note, message, restaurant.nom)
+    // // console.log(note, message, restaurant.nom)
     return this.http.post<any>(this.configService.url + this.configService.api + "avis", JSON.stringify({ type: "entreprise", message: message, id: restaurant.id, note: note }), this.configService.httpOptions)
   }
 
   setPaymentIntent(data) {
     this.http.post<any>(this.configService.url + this.configService.api + "payment_intent", JSON.stringify(data), this.configService.httpOptions).subscribe((data: any) => {
-      // console.log(data)
+      // // console.log(data)
     });
   }
 
@@ -149,7 +151,7 @@ export class DataService {
   }
 
   addAddress(adresse) {
-    // console.log(JSON.stringify(adresse))
+    // // console.log(JSON.stringify(adresse))
     adresse.fromApi = true;
     return this.http.post<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
   }
@@ -173,7 +175,7 @@ export class DataService {
   }
 
   paymentByToken(token, datas) {
-    console.log(datas)
+    // console.log(datas)
     return this.http.post<any>(this.configService.url + this.configService.api + "payment/charge/token/capture", { token: token, currency: datas.currency, amount: datas.totalAmount, description: datas.description }, this.configService.httpOptions)
   }
 
@@ -199,9 +201,9 @@ export class DataService {
   updateAddress(adresse) {
     adresse.fromApi = true;
     adresse.quartier_id = adresse.quartier.id;
-    // console.log(JSON.stringify(adresse))
+    // // console.log(JSON.stringify(adresse))
     this.http.put<any>(this.configService.url + this.configService.api + "clients/adresse/" + adresse.id + "/update", adresse, this.configService.httpOptions).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         this.userService.user.adresses = data.quartiers
         this.userService.emitUser()
@@ -211,10 +213,10 @@ export class DataService {
   }
 
   removeAddress(adresse) {
-    // console.log(JSON.stringify(adresse))
+    // // console.log(JSON.stringify(adresse))
 
     this.http.post<any>(this.configService.url + this.configService.api + "clients/adresse/" + this.userService.user.id + "/delete", { fromApi: true, quartier_id: adresse.quartier.id, pivot_id: adresse.id }, this.configService.httpOptions).subscribe((data: any) => {
-      // console.log(data)
+      // // console.log(data)
       if (data.success) {
         this.userService.user.adresses = data.quartiers
         this.userService.emitUser()
@@ -244,13 +246,13 @@ export class DataService {
   }
 
   checkIdentifiantExist(id) {
-    // console.log(this.configService.httpOptions)
+    // // console.log(this.configService.httpOptions)
     return this.http.get<any>(this.configService.url + this.configService.api + "wallet/checkid/" + id, this.configService.httpOptions)
   }
 
   // Lance la requete pour l'ouverture d'un compte
   openUserAccount(id) {
-    // console.log("Identifiant ", id)
+    // // console.log("Identifiant ", id)
     return this.http.post<any>(this.configService.url + this.configService.api + "wallet/create", { fromApi: true, identifiant: id }, this.configService.httpOptions);
   }
 

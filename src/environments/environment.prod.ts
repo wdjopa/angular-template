@@ -16,8 +16,8 @@ export const environment = {
   user: "contact@lamater.tech",
   password: "w]m3K55SG9",
   company_id: 6,
-  url: 'https://shop.mystore.africa',
-  storage: 'https://shop.mystore.africa/storage',
+  url: 'https://dashboard.genuka.com',
+  storage: 'https://dashboard.genuka.com/storage',
   api: '/api/2021-05/',
   stripe: 'pk_live_VN4FI0vbptnFwzv9Uxtif2rL'
 }

@@ -38,7 +38,7 @@ export class ConfigService {
     if (this.token) {
       this.http.get(this.url + this.api + "clients", this.httpOptions).subscribe((data: any) => {
         this.userService.user = data;
-        // console.log("Config")
+        // // console.log("Config")
         this.userService.emitUser(data);
       }, (err) => {
         if (err.status == 401) {

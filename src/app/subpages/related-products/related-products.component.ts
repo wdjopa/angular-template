@@ -39,7 +39,7 @@ export class RelatedProductsComponent implements OnInit {
     this.relatedProductsSubscription = this.navigationService.relatedProductsSubject.subscribe(relatedProducts => {
       if (relatedProducts) {
         this.relatedProducts = relatedProducts;
-        // console.log(relatedProducts)
+        // // console.log(relatedProducts)
         setTimeout(() => {
           window["set_related_product_slider"]()
         }, 1000);

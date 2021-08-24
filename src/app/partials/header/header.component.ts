@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
     });
     this.userService.userSubject.subscribe(user => {
       if (user.email) {
-        console.log("user in header", user)
+        // console.log("user in header", user)
         this.userLogged = true;
         this.user = user
       } else {

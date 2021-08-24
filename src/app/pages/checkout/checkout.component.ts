@@ -139,7 +139,7 @@ export class CheckoutComponent implements OnInit {
       command.source = "website";
       command.livraison = this.company.tarif_livraison
       command.total = this.cart.total
-      // console.log(this.token)
+      // // console.log(this.token)
 
       this.dataService.newCommand(command).subscribe((command: any) => {
         if (command.error) {
@@ -161,7 +161,7 @@ export class CheckoutComponent implements OnInit {
             });
 
             dialogRef.afterClosed().subscribe(result => {
-              console.log('The dialog was closed');
+              // console.log('The dialog was closed');
               if (result.success) {
                 this.navigationService.openSnackBar("Votre paiement a été effectué avec succès", "FERMER", 2000)
               } else {
@@ -174,7 +174,7 @@ export class CheckoutComponent implements OnInit {
           // this.dataService.updateUser();
         }
       }, (error) => {
-        console.log(error)
+        // console.log(error)
         this.loading = false;
         this.navigationService.openSnackBar(error.error.message, "FERMER", 20000)
       })

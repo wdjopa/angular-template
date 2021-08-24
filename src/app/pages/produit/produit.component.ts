@@ -44,9 +44,9 @@ export class ProduitComponent implements OnInit {
         this.titleService.setTitle("Produit | " + product.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Commandez nos produits | ' + product.name + ". " + product.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' + product.name.split(" ").join(", ") + product?.description?.split(" ").join(", ") },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' + product.name.split(" ").join(", ") + product?.description?.split(" ").join(", ") },
           { name: 'og:title', content: product.name },
-          { name: 'og:image', content: product.medias[0].link },
+          { name: 'og:image', content: product.medias.length > 0 ? product.medias[0].link : '' },
           { name: 'date', content: product.created_at, scheme: 'YYYY-MM-DD' },
           { name: 'og:description', content: 'Consultez notre catalogue de produits' },
         ]);
@@ -58,8 +58,14 @@ export class ProduitComponent implements OnInit {
           })
           return { ...variant, options }
         })
-        this.produitCommande.produit = this.produit
+        this.produitCommande.produit = this.produit;
+        // if (this.produit.comparaison_price == this.produit.price){
+        //   this.produitCommande.price = this.produit.price;
+        //   this.produitCommande.comparaison_price = this.produit.comparaison_price;
+        // }else{
+        // }
         this.produitCommande.price = this.produit.price;
+        this.produitCommande.comparaison_price = this.produit.comparaison_price;
         this.unitPrice = this.produit.price;
         this.navigationService.emitRelatedProducts(this.produit);
       }, (err) => {
@@ -73,7 +79,7 @@ export class ProduitComponent implements OnInit {
         this.company = company
         this.metaTagService.addTags([
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:site_name', content: company.name },
           { name: 'og:url', content: window.location.href },
@@ -103,7 +109,7 @@ export class ProduitComponent implements OnInit {
     let cart = this.navigationService.cart;
     let found = false;
     cart.produitCommandes = cart.produitCommandes.map(pC => {
-      console.log("produits panier : ", pC)
+      // console.log("produits panier : ", pC)
       if (pC.produit.id === this.produitCommande.produit.id && JSON.stringify(pC.properties) === JSON.stringify(this.produitCommande.properties)) {
         pC.quantity += this.produitCommande.quantity
         found = true;
@@ -128,7 +134,7 @@ export class ProduitComponent implements OnInit {
     } else {
       delete this.selected_variants[variante.name][option.name]
     }
-    console.log(this.selected_variants, variante.max_choices)
+    // console.log(this.selected_variants, variante.max_choices)
 
     if (Object.keys(this.selected_variants[variante.name]).length >= variante.max_choices) {
       variante.options = variante.options.map(opt => {
@@ -161,10 +167,10 @@ export class ProduitComponent implements OnInit {
     })
 
     this.produitCommande.properties = this.selected_variants;
-    // console.log(this.produit, this.selected_variants)
+    // // console.log(this.produit, this.selected_variants)
   }
-  setBigImg(id) {
-    this.bigImg = this.produit.medias.filter(media => media.id === id)[0]
+  setBigImg(link) {
+    this.bigImg = this.produit.medias.filter(media => media.link === link)[0]
   }
   ngAfterViewInit(): void {
     window["load_pro_qty"]()

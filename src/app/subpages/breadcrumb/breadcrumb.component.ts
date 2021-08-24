@@ -12,7 +12,7 @@ export class BreadcrumbComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("breadcrumbs", this.breadcrumbs)
+    // console.log("breadcrumbs", this.breadcrumbs)
   }
 
 }

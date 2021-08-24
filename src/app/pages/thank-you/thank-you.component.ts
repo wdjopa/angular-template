@@ -17,7 +17,7 @@ export class ThankYouComponent implements OnInit {
     margin: '0 auto',
   };
   animationCreated(animationItem: AnimationItem): void {
-    console.log(animationItem);
+    // console.log(animationItem);
   }
   constructor() { }
 

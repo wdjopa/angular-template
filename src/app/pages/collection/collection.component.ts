@@ -36,9 +36,9 @@ export class CollectionComponent implements OnInit {
         this.titleService.setTitle("Details collections | " + company.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Consultez les produits de la collection ' + this.collection?.name },
-          { name: 'keywords', content: 'Ecommerce, MyStore, Collections ' },
+          { name: 'keywords', content: 'Ecommerce, Genuka, Collections ' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:title', content: 'Consultez le catalogue de produits de ' + company.name },
           { name: 'og:site_name', content: company.name },

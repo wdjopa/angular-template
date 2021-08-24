@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.dataSubscription = this.authService.nextSubject.subscribe(ret => {
       if (ret.err) {
-        console.log(ret.err)
+        // console.log(ret.err)
         if (ret.err.email) {
           this.err.message = "Cet email est déjà utilisé. Veuillez vous connecter."
         } else if (ret.err.tel) {
@@ -69,9 +69,9 @@ export class LoginComponent implements OnInit {
         this.titleService.setTitle("Connexion | " + this.company.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Connectez-vous pour accéder à votre compte | ' + this.company.name + ". " + this.company.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:title', content: 'Commandez vos produits chez ' + this.company.name },
           { name: 'og:site_name', content: this.company.name },
@@ -135,7 +135,7 @@ export class LoginComponent implements OnInit {
         if (result.state == "user connected") {
           this.authService.isAuth = true;
           this.userService.emitUser(result.user, true);
-          console.log("user connecté")
+          // console.log("user connecté")
           if (this.authService.goto) {
             this.router.navigate([this.authService.goto]);
           } else {

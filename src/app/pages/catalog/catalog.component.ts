@@ -20,9 +20,9 @@ export class CatalogComponent implements OnInit {
         this.titleService.setTitle("Catalogue | " + company.name);
         this.metaTagService.addTags([
           { name: 'description', content: 'Consultez notre catalogue de produits | ' + company.name + ". " + company.description },
-          { name: 'keywords', content: 'Ecommerce, MyStore, ' },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' },
           { name: 'robots', content: 'index, follow' },
-          { name: 'author', content: 'MyStore.africa' },
+          { name: 'author', content: 'Genuka.com' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
           { name: 'og:title', content: 'Consultez le catalogue de produits de ' + company.name },
           { name: 'og:site_name', content: company.name },

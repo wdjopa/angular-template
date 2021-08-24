@@ -48,7 +48,7 @@ export class AdressesAddComponent implements OnInit {
     this.addressesSubscription = this.dataService.getAddresses(id).subscribe(address => {
       this.edition = true;
       this.address = address
-      // console.log("address", this.address, parseInt(id))
+      // // console.log("address", this.address, parseInt(id))
       if (this.address) {
         this.address_type = this.address.is_shipping == 1 ? 'shipping' : 'billing'
       }
@@ -68,7 +68,7 @@ export class AdressesAddComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // console.log("after init view")
+    // // console.log("after init view")
     // this.userService.refreshUser()
   }
 

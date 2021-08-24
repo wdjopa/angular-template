@@ -95,7 +95,7 @@ export class CartComponent implements OnInit {
         new_cart_pc.push(pC)
     })
     cart.produitCommandes = new_cart_pc;
-    // console.log(cart)
+    // // console.log(cart)
     this.navigationService.updateCart(cart);
   }
 

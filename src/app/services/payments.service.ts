@@ -18,12 +18,12 @@ export class PaymentsService {
   }
 
   postReview(restaurant, note, message) {
-    // console.log(note, message, restaurant.nom)
+    // // console.log(note, message, restaurant.nom)
     return this.http.post<any>(this.configService.url + this.configService.api + "avis", JSON.stringify({ type: "entreprise", message: message, id: restaurant.id, note: note }), this.configService.httpOptions)
   }
 
   addAddress(adresse) {
-    // console.log(JSON.stringify(adresse))
+    // // console.log(JSON.stringify(adresse))
     adresse.fromApi = true;
     return this.http.post<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
   }
