@@ -31,17 +31,6 @@ install_dependencies:
     - echo "Compile complete."
     - ls -al dist
     - ls -al dist/expressapp
-  artifacts:
-    name: "angular-app-pipeline"
-    paths:
-      - $APP_OUTPUT_PATH
-  cache:
-    key:
-      files:
-        - yarn.lock
-    paths:
-      - node_modules
-    policy: pull
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
