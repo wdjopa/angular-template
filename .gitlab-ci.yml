@@ -23,6 +23,7 @@ install_dependencies:
   tags:
     - docker
   script:
+    - npm install @angular/cli
     - yarn install
     - yarn ngcc --properties es2015 --create-ivy-entry-points
   cache:
@@ -46,7 +47,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - docker
   script:
     - echo "Compiling the code..."
-    - yarn ng build --prod
+    - ./node_modules/.bin/ng build --prod
     - echo "Compile complete."
     - ls -al
   artifacts:
