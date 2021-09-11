@@ -19,13 +19,13 @@ stages:      # List of stages for jobs, and their order of execution
 
 install_dependencies:
   stage: install
-  image: debian:stretch-slim
+  image: node:12-alpine
   tags:
     - docker
   script:
     - npm install @angular/cli
     - npm install
-    - apt-get install zip unzip
+    - apk add zip unzip
     - echo "Compiling the code..."
     - ./node_modules/.bin/ng build --prod
     - echo "Compile complete."
