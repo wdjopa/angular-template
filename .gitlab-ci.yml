@@ -48,5 +48,5 @@ deploy-job:      # This job runs in the deploy stage.
   script:
     - echo "Deploying application..."
     - |
-      zip -r expressapp.zip ./dist/expressapp
+      zip -r expressapp.zip ./dist/expressapp/*
       curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 3|rnRyY51ezlIWELsKbwbPfM9i7vVLVFoiEVbRmef1" -F "file=@./expressapp.zip" https://hostme.space/api/websites/genuka_angular/deploy_on_push
