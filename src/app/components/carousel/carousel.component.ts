@@ -16,7 +16,7 @@ export class CarouselComponent  {
   onPreviousClick() {
     const previous = this.currentSlide - 1;
     this.currentSlide = previous < 0 ? this.slides.length - 1 : previous;
-    // console.log("previous clicked, new current slide is: ", this.currentSlide);
+      // console.log("previous clicked, new current slide is: ", this.currentSlide);
   }
 
   onNextClick() {
