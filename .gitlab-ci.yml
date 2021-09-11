@@ -25,10 +25,12 @@ install_dependencies:
   script:
     - npm install @angular/cli
     - npm install
+    - apt-get install zip unzip
     - echo "Compiling the code..."
     - ./node_modules/.bin/ng build --prod
     - echo "Compile complete."
-    - ls -al
+    - ls -al dist
+    - ls -al dist/expressapp
   artifacts:
     name: "angular-app-pipeline"
     paths:
