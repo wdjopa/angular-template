@@ -24,28 +24,7 @@ install_dependencies:
     - docker
   script:
     - npm install @angular/cli
-    - yarn install
-    - yarn ngcc --properties es2015 --create-ivy-entry-points
-  cache:
-    key:
-      files:
-        - yarn.lock
-    paths:
-      - node_modules
-  only:
-    changes:
-      - yarn.lock
-
-variables:
-  PROJECT_PATH: "$CI_PROJECT_DIR"
-  APP_OUTPUT_PATH: "$CI_PROJECT_DIR/artifacts/app"
-
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  image: node:12-alpine
-  tags:
-    - docker
-  script:
+    - npm install
     - echo "Compiling the code..."
     - ./node_modules/.bin/ng build --prod
     - echo "Compile complete."
