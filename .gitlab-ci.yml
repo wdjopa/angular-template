@@ -23,7 +23,7 @@ install_dependencies:
   script:
     - npm install @angular/cli
     - npm install
-    - apk add zip unzip
+    - apk add zip unzip curl
     - echo "Compiling the code..."
     - ./node_modules/.bin/ng build --prod
     - echo "Compile complete."
