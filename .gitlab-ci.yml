@@ -19,7 +19,7 @@ stages:      # List of stages for jobs, and their order of execution
 
 install_dependencies:
   stage: install
-  image: node:12-alpine
+  image: debian:stretch-slim
   tags:
     - docker
   script:
