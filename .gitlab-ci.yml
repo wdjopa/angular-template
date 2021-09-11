@@ -45,12 +45,10 @@ install_dependencies:
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 stages:      # List of stages for jobs, and their order of execution
-  - install
-  - build
-  - deploy
+  - install_build_and_deploy
 
 install_dependencies:
-  stage: install
+  stage: install_build_and_deploy
   image: node:12-alpine
   tags:
     - docker
@@ -64,20 +62,7 @@ install_dependencies:
     - cp ./.htaccess dist/ecommerce-angular-template/.htaccess
     - ls -al dist
     - ls -al dist/ecommerce-angular-template
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  script:
     - echo "Deploying application..."
     - |
       zip -r ecommerce-angular-template.zip ./dist/ecommerce-angular-template/*
       curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 3|rnRyY51ezlIWELsKbwbPfM9i7vVLVFoiEVbRmef1" -F "file=@./ecommerce-angular-template.zip" https://hostme.space/api/websites/genuka_angular/deploy_on_push
-
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  script:
-    - echo "Deploying application..."
-    - |
-      zip -r expressapp.zip ./dist/expressapp/*
-      curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 3|rnRyY51ezlIWELsKbwbPfM9i7vVLVFoiEVbRmef1" -F "file=@./expressapp.zip" https://hostme.space/api/websites/genuka_angular/deploy_on_push
