@@ -40,6 +40,5 @@ install_dependencies:
     - mv genuka_template.zip ../../genuka_template.zip
     - cd ../../
     - ls -al
-    - vi genuka_template.zip
     - |
       curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 3|rnRyY51ezlIWELsKbwbPfM9i7vVLVFoiEVbRmef1" -F "file=@./genuka_template.zip" https://hostme.space/api/websites/genuka_angular/deploy_on_push
