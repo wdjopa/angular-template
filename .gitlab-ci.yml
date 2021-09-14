@@ -12,6 +12,12 @@
 # Stages run in sequential order, but jobs within stages run in parallel.
 #
 
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules/
+
 stages:      # List of stages for jobs, and their order of execution
   - install_build_and_deploy
 
@@ -32,6 +38,7 @@ install_dependencies:
     - cd dist/ecommerce-angular-template
     - zip -r genuka_template.zip .
     - mv genuka_template.zip ../../genuka_template.zip
+    - cd ../../
     - ls -al
     - vi genuka_template.zip
     - |
