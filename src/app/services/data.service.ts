@@ -102,18 +102,24 @@ export class DataService {
     });
   }
 
-  getCompanyCollections(route = undefined, per_page = "&per_page=16", {company_id, collection_id }) {
+  getCompanyCollections(route = undefined, per_page = "&per_page=16", { company_id, collection_id }) {
     if (!route) {
-      route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections/"+collection_id
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + collection_id
       per_page = "?per_page=16"
     }
     return this.http.get(route + per_page);
   }
-  getProducts(route = undefined, per_page = "&per_page=16", company_id = localStorage.getItem("company_id")) {
+
+  getProducts(route = undefined, per_page = localStorage.getItem("get_products.per_page") ?? "&per_page=16", company_id = localStorage.getItem("company_id")) {
     if (!route) {
-      route = this.configService.url + this.configService.api + "companies/" + company_id + "/products"
-      per_page = "?per_page=16"
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/products";
+      if (per_page === "&per_page=16"){
+        per_page = "?per_page=16"
+      }
     }
+    if(route.includes("?") && per_page.includes("?"))
+    per_page = per_page.replace("?","&")
+    localStorage.setItem("get_products.per_page", per_page)
     return this.http.get(route + per_page);
   }
   getProduct(id, company_id = localStorage.getItem("company_id")) {
@@ -127,7 +133,7 @@ export class DataService {
     return this.http.get(route + (route.includes("?") ? "&per_page=" : '?per_page=') + per_page);
   }
   getCollection(id, company_id = localStorage.getItem("company_id")) {
-    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id);
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id + "?per_page=8");
   }
 
   getBlogInfos(company_id = localStorage.getItem("company_id")) {

@@ -13,6 +13,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 export class ProduitComponent implements OnInit {
   produitCommande: any = { produit: undefined, price: undefined, quantity: 1, complement: "", note: "" };
   produit: any;
+  product_id : number;
   company: any;
   companySubscription: Subscription;
   error: string;
@@ -36,41 +37,8 @@ export class ProduitComponent implements OnInit {
     let id = this.route.snapshot.params['produit'];
     this.route.params.subscribe(params => {
       id = params['produit'];
+      this.product_id = id;
       // this.navigationService.emitCompany();
-      this.loading = true;
-      this.dataService.getProduct(id).subscribe((product: any) => {
-        this.bigImg = product.medias.length > 0 ? product.medias[0] : ''
-        this.loading = false;
-        this.titleService.setTitle("Produit | " + product.name);
-        this.metaTagService.addTags([
-          { name: 'description', content: 'Commandez nos produits | ' + product.name + ". " + product.description },
-          { name: 'keywords', content: 'Ecommerce, Genuka, ' + product.name.split(" ").join(", ") + product?.description?.split(" ").join(", ") },
-          { name: 'og:title', content: product.name },
-          { name: 'og:image', content: product.medias.length > 0 ? product.medias[0].link : '' },
-          { name: 'date', content: product.created_at, scheme: 'YYYY-MM-DD' },
-          { name: 'og:description', content: 'Consultez notre catalogue de produits' },
-        ]);
-
-        this.produit = product
-        this.produit.variants.forEach(variant => {
-          let options = variant.options.map(option => {
-            return { ...option, disabled: false }
-          })
-          return { ...variant, options }
-        })
-        this.produitCommande.produit = this.produit;
-        // if (this.produit.comparaison_price == this.produit.price){
-        //   this.produitCommande.price = this.produit.price;
-        //   this.produitCommande.comparaison_price = this.produit.comparaison_price;
-        // }else{
-        // }
-        this.produitCommande.price = this.produit.price;
-        this.produitCommande.comparaison_price = this.produit.comparaison_price;
-        this.unitPrice = this.produit.price;
-        this.navigationService.emitRelatedProducts(this.produit);
-      }, (err) => {
-        this.loading = false;
-      })
       // this.initialiseState(); // reset and set based on new parameter this time
     });
 
@@ -85,6 +53,41 @@ export class ProduitComponent implements OnInit {
           { name: 'og:url', content: window.location.href },
 
         ]);
+
+        this.loading = true;
+        this.dataService.getProduct(this.product_id).subscribe((product: any) => {
+          this.bigImg = product.medias.length > 0 ? product.medias[0] : ''
+          this.loading = false;
+          this.titleService.setTitle("Produit | " + product.name);
+          this.metaTagService.addTags([
+            { name: 'description', content: 'Commandez nos produits | ' + product.name + ". " + product.description },
+            { name: 'keywords', content: 'Ecommerce, Genuka, ' + product.name.split(" ").join(", ") + product?.description?.split(" ").join(", ") },
+            { name: 'og:title', content: product.name },
+            { name: 'og:image', content: product.medias.length > 0 ? product.medias[0].link : '' },
+            { name: 'date', content: product.created_at, scheme: 'YYYY-MM-DD' },
+            { name: 'og:description', content: 'Consultez notre catalogue de produits' },
+          ]);
+
+          this.produit = product
+          this.produit.variants.forEach(variant => {
+            let options = variant.options.map(option => {
+              return { ...option, disabled: false }
+            })
+            return { ...variant, options }
+          })
+          this.produitCommande.produit = this.produit;
+          // if (this.produit.comparaison_price == this.produit.price){
+          //   this.produitCommande.price = this.produit.price;
+          //   this.produitCommande.comparaison_price = this.produit.comparaison_price;
+          // }else{
+          // }
+          this.produitCommande.price = this.produit.price;
+          this.produitCommande.comparaison_price = this.produit.comparaison_price;
+          this.unitPrice = this.produit.price;
+          this.navigationService.emitRelatedProducts(this.produit);
+        }, (err) => {
+          this.loading = false;
+        })
       }
     });
     this.navigationService.emitCompany();

@@ -17,7 +17,7 @@ export class ShopSectionComponent implements OnInit {
   filters: any = { search: "", collection: "" };
   pagination: any = {};
   productsSubscription: Subscription;
-  collectionsSubscription : Subscription;
+  collectionsSubscription: Subscription;
   constructor(private navigationService: NavigationService, private dataService: DataService) {
   }
 
@@ -45,8 +45,8 @@ export class ShopSectionComponent implements OnInit {
     })
   }
 
-  getProducts(route = undefined) {
-    this.productsSubscription = this.dataService.getProducts(route).subscribe((response: any) => {
+  getProducts(route = undefined, params = undefined) {
+    this.productsSubscription = this.dataService.getProducts(route, params).subscribe((response: any) => {
       this.products = response.data.map(product => {
         return { ...product, url: 'url(' + (product.medias.length > 0 ? product.medias[0].thumb : '') + ')' }
       });
@@ -66,36 +66,41 @@ export class ShopSectionComponent implements OnInit {
 
   updateList(value) {
     if (value === "") {
-      this.products = this.company.produits;
+      this.getProducts(undefined, "?order_dir=desc&order_by=updated_at&per_page=16")
+      // this.products = this.company.produits;
     } else {
       switch (value) {
         case "name_asc":
-          this.products = this.company.produits.sort((a, b) => {
-            if (a.name > b.name)
-              return 1
-            else return -1
-          })
+          this.getProducts(undefined, "?order_dir=asc&order_by=name&per_page=16")
+          // this.products = this.company.produits.sort((a, b) => {
+          //   if (a.name > b.name)
+          //     return 1
+          //   else return -1
+          // })
           break;
         case "name_desc":
-          this.products = this.company.produits.sort((a, b) => {
-            if (a.name < b.name)
-              return 1
-            else return -1
-          })
+          this.getProducts(undefined, "?order_by=name&per_page=16")
+          // this.products = this.company.produits.sort((a, b) => {
+          //   if (a.name < b.name)
+          //     return 1
+          //   else return -1
+          // })
           break;
         case "price_desc":
-          this.products = this.company.produits.sort((a, b) => {
-            if (a.price < b.price)
-              return 1
-            else return -1
-          })
+          this.getProducts(undefined, "?order_dir=desc&order_by=price&per_page=16")
+          // this.products = this.company.produits.sort((a, b) => {
+          //   if (a.price < b.price)
+          //     return 1
+          //   else return -1
+          // })
           break;
         case "price_asc":
-          this.products = this.company.produits.sort((a, b) => {
-            if (a.price > b.price)
-              return 1
-            else return -1
-          })
+          this.getProducts(undefined, "?order_dir=asc&order_by=price&per_page=16")
+          // this.products = this.company.produits.sort((a, b) => {
+          //   if (a.price > b.price)
+          //     return 1
+          //   else return -1
+          // })
           break;
 
         default:

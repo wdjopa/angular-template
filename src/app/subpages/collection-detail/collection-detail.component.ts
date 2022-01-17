@@ -34,8 +34,9 @@ export class CollectionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.collectionSubscription = this.dataService.getCollection(this.collection_id).subscribe((ret: any) => {
+      console.log(ret)
       this.collection = ret.collection
-      this.products = ret.products.map(product => {
+      this.products = ret.products.data.map(product => {
         let url = product.medias.length > 0 ? product.medias[0].link : null;
         product.url = url ? url : 'https://dashboard.genuka.com/logobusiness.svg';
         return product;

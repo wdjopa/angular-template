@@ -8,7 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable({
   providedIn: 'root'
 })
-export class NavigationService {
+export class 
+NavigationService {
   public cart: any = { subtotal: 0, total: 0, discount: undefined, produitCommandes: [] }
   private companies: any[];
   private company: any;
