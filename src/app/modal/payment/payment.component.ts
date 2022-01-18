@@ -58,7 +58,7 @@ export class PaymentComponent implements OnInit {
         this.dialogRef.close({ success : true, resp });
       }, (err) => {
         console.error(err)
-        this.err = {message : "Une erreur est survenue, veuillez réessayer avec un autre numéro"}
+        this.err = {message : "Erreur : Vérifiez votre solde ou réessayez avec un autre numéro"}
         this.loading = false;
       });
       // 

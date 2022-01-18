@@ -122,7 +122,7 @@ export class RegisterComponent implements OnInit {
     }
 
     if (nom != "" && email != "" && tel != "" && password != "") {
-      let data_user = { firstname: nom, surname: prenom, email, tel, password, phone_verified: false, fromApi: true, entreprise: this.company.id, other: { legal: { accept_cgu: true, for_company: this.company.id, date: new Date(), } } };
+      let data_user = { last_name: nom, first_name: prenom, email, tel, password, phone_verified: false, fromApi: true, entreprise: this.company.id, other: { legal: { accept_cgu: true, for_company: this.company.id, date: new Date(), } } };
       // // console.log(JSON.stringify(data_user))
       this.authService.saveUser(data_user);
       

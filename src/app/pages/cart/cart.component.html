@@ -38,7 +38,7 @@
                 <td class="product__cart__item">
                   <div class="product__cart__item__pic">
                     <img [src]="productInCart.produit?.medias?.length > 0 ? productInCart.produit.medias[0].link : ''"
-                      style="max-width: 100px; max-height: 100px;" alt="">
+                      style="width: 100px; object-fit: cover;height: 100px;" alt="">
                   </div>
                   <div class="product__cart__item__text">
                     <h6><a class="text-accent" [routerLink]="['/produits/'+productInCart.produit.id]">

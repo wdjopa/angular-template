@@ -146,12 +146,12 @@ export class AuthService {
         };
         // window["subscribe"](user.id);
 
-        this.navigationService.openSnackBar(`Coucou ${data.user.surname + ' ' + data.user.firstname} ❤`, "FEMER")
+        this.navigationService.openSnackBar(`Coucou ${data.user.first_name + ' ' + data.user.last_name} ❤`, "FEMER")
         // // console.log(this.configService.httpOptions)
-        if (user.surname && user.surname.trim() != "") {
-          user.name = user.surname
-        } else if (user.surname && user.firstname.trim() != "") {
-          user.name = user.firstname
+        if (user.first_name && user.first_name.trim() != "") {
+          user.name = user.first_name
+        } else if (user.first_name && user.last_name.trim() != "") {
+          user.name = user.last_name
         } else {
           user.name = "Vous";
         }

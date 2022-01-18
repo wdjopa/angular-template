@@ -19,14 +19,14 @@
             <div class="checkout__input">
               <p>Type d'adresse<span>*</span></p>
               <select name="address_type" [(ngModel)]="address_type" id="" required>
-                <option [selected]="address.is_shipping == 1" value="shipping">Livraison</option>
+                <option [selected]="!address_type || address.is_shipping === undefined || address.is_shipping == 1" value="shipping">Livraison</option>
                 <option [selected]="address.is_billing == 1" value="billing">Facturation</option>
               </select>
             </div>
 
             <div class="checkout__input">
               <p>Label<span>*</span></p>
-              <input [(ngModel)]="address.label" name="label" type="text" [value]="address?.label || ''">
+              <input [(ngModel)]="address.label" name="label" type="text" [value]="address?.label || ''" placeholder="Ex : Maison, Bureau, Ecoleetc">
             </div>
 
             <div class="row">
@@ -46,7 +46,7 @@
             </div>
             <div class="checkout__input">
               <p>Tel<span>*</span></p>
-              <input [(ngModel)]="address.attributes.tel" name="tel" type="tel" required
+              <input [(ngModel)]="address.attributes.tel" name="tel" type="tel" required placeholder="Avec indicatif"
                 [value]="address?.attributes?.tel || ''">
             </div>
             <div class="checkout__input">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { DataService } from 'src/app/services/data.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
@@ -17,17 +18,21 @@ export class AdressesAddComponent implements OnInit {
   user: any;
   commandes: any;
   address: any = {
-    family_name: "", given_name: "", label: "", city: "", country: "", street: "", additional_address: "", postal_code: "", billing: "", shipping: "", attributes: { tel : "" }
+    family_name: "", given_name: "", label: "", city: "", country: "", street: "", additional_address: "", postal_code: "9999", billing: "", shipping: "", attributes: { tel : "" }
   };
   err: any = {};
   edition: boolean = false;
   address_type: any;
+  from: any;
   userSubscription: Subscription;
   companySubscription: Subscription;
   addressesSubscription: Subscription;
 
   constructor(private userService: UserService, private navigationService: NavigationService, private route: ActivatedRoute, private router: Router, private dataService: DataService) {
+    console.log({route : this.route,router: this.router})
+
     let id = this.route.snapshot.params['addressId'];
+    this.from = this.route.snapshot.queryParams['from'];
 
     this.companySubscription = this.navigationService.companySubject.subscribe(company => {
       if (company) {
@@ -101,6 +106,8 @@ export class AdressesAddComponent implements OnInit {
 
       }
       form.reset()
+      if(this.from)
+      this.router.navigate(["/"+this.from])
     } else {
       this.err.field = "all"
       this.err.message = "Veuillez remplir tous les champs présentant un astérisque (*)"

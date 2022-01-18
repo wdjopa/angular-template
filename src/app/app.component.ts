@@ -29,7 +29,7 @@ export class AppComponent {
     private canonicalService: CanonicalService
 
   ) {
-    this.companySubscription = this.navigationService.companySubject.subscribe((company:any) => {
+    this.companySubscription = this.navigationService.companySubject.subscribe((company: any) => {
       if (company) {
         this.company = company
         this.updateCustomProperties()
@@ -237,7 +237,10 @@ export class AppComponent {
         .canvas__open {
           color: ${color};
         }
-  }
+      }
+      .bg-accent{
+    background-color: ${color} !important;
+      }
     `)
     window["update_logo"](this?.company?.logo)
     // console.log("set property", this.elRef.nativeElement.style)
