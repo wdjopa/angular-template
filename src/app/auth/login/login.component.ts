@@ -127,6 +127,7 @@ export class LoginComponent implements OnInit {
         this.user.tel = this.login;
       }
       this.user.password = this.password;
+      this.user.company_id = this.company.id;
       this.user.fromApi = true;
       this.authService.login(this.user)
       this.authSubscription = this.authService.nextSubject.subscribe((result: any) => {

@@ -54,7 +54,7 @@
             </div>
             <div class="product__item__text">
               <h6><a href="#">{{product.name}}</a></h6>
-              <div class="product__item__price text-accent">{{product.price | number }}
+              <div class="product__item__price text-accent">{{product.discounted_price | number }}
                 {{company.devise.symbol}}</div>
               <div class="cart_add">
                 <span (click)="addToCart(product.id)">Voir le produit</span>
