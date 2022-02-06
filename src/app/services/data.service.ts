@@ -119,6 +119,10 @@ export class DataService {
     }
     if(route.includes("?") && per_page.includes("?"))
     per_page = per_page.replace("?","&")
+    if(!per_page.includes("?") && !route.includes("?") ){
+    per_page = per_page.replace("&","?")
+    }
+
     localStorage.setItem("get_products.per_page", per_page)
     return this.http.get(route + per_page);
   }
@@ -132,8 +136,9 @@ export class DataService {
     }
     return this.http.get(route + (route.includes("?") ? "&per_page=" : '?per_page=') + per_page);
   }
-  getCollection(id, company_id = localStorage.getItem("company_id")) {
-    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id + "?per_page=8");
+
+  getCollection(id, company_id = localStorage.getItem("company_id"), query = "per_page=8") {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id + "?"+query);
   }
 
   getBlogInfos(company_id = localStorage.getItem("company_id")) {

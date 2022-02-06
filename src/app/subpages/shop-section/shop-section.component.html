@@ -1,17 +1,12 @@
 <!-- Shop Section Begin -->
 <section class="shop spad">
   <div class="container">
-    <div class="shop__option">
-      <div class="row">
+    <div class="shop__option d-none">
+      <div class="row ">
         <div class="col-lg-7 col-md-7">
           <div class="shop__option__search">
             <form action="#">
-              <select class="nice-select" (change)="updateCollection($event.target.value)">
-                <option value="">Collections</option>
-                <option *ngFor="let collection of collections" [value]="collection.name">
-                  {{collection.name}}
-                </option>
-              </select>
+
               <input type="search" (keyup)="search($event.target.value)" placeholder="Recherche" />
               <!-- <button (click)="search('')" type="submit"><i class="fa fa-search"></i></button> -->
             </form>
@@ -33,16 +28,35 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="!products">
-       	<ngx-skeleton-loader count="16" animation="pulse" [theme]="{
-    'border-radius': '5px',
-    height: '320px',
-    width: '265px',
-    'background-color': '#323232',
-    border: '1px solid #323232',
-    'animation-duration': '2s'
-  }"></ngx-skeleton-loader>
+      <div class="col-sm-12">
+        <span class="pill" (click)="updateCollection('all')">
+          Tout voir
+        </span>
+        <span class="pill" *ngFor="let collection of collections"
+          [ngClass]="{'active': filters.collection === collection.id}" (click)="updateCollection(collection.id)">
+          {{collection.name}}
+        </span>
       </div>
+      <!-- <select class="nice-select" (change)="updateCollection($event.target.value)">
+        <option value="">Collections</option>
+        <option *ngFor="let collection of collections" [value]="collection.name">
+          {{collection.name}}
+        </option>
+      </select> -->
+    </div>
+    <div style="flex: 0 0 100%;
+    max-width: 100%;" *ngIf="!products">
+      <ngx-skeleton-loader count="16" animation="pulse" style="display: flex; flex-wrap: wrap; justify-content: space-between;" [theme]="{
+       'border-radius': '5px',
+       height: '320px',
+       width: '265px',
+       'background-color': '#EDEDED',
+       border: '1px solid #EDEDED',
+       'animation-duration': '2s'
+     }"></ngx-skeleton-loader>
+    </div>
+    <div class="row">
+
       <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
         <a [routerLink]="'/produits/'+product.id">
           <div class="product__item">
@@ -67,7 +81,7 @@
     <div class="shop__last__option">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
-          <bottom-pagination (getRequest)="getProducts($event)" [pagination]="pagination">
+          <bottom-pagination (getRequest)="paginationChanged($event)" [pagination]="pagination">
           </bottom-pagination>
           <!-- 
           <div class="shop__pagination">

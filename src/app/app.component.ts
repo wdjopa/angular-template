@@ -83,20 +83,24 @@ export class AppComponent {
         src: url("${custom_font_url}");
       }
       ` : ''}
-
+      
       .font-customer {
         font-family: "${font}", montserrat,sans-serif !important;
         color: ${color} !important;
       }
-
+      
       .section-title span {
         font-family:  "${font}", montserrat,sans-serif !important;
+      }
+      
+      :root {
+        --primary-color: ${color};
       }
 
       .basket-content::after {
         background: ${color};
       }
-
+      
       .basket-box {
         color: ${color};
         box-shadow: 0px 0px 2px 5px ${color};
