@@ -237,7 +237,7 @@ const appRoutes: Routes = [
     PaymentComponent,
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule.withServerTransition({ appId: 'serverApp' }), 
     NgxSkeletonLoaderModule.forRoot(),
     AppRoutingModule,
     FormsModule,
@@ -248,7 +248,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     CarouselModule,
     MatDialogModule,
-    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy', initialNavigation: 'enabled' }),
     LottieModule.forRoot({ player: playerFactory }),
     BrowserAnimationsModule
   ],
