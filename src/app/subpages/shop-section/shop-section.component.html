@@ -32,9 +32,11 @@
         <span class="pill" (click)="updateCollection('all')">
           Tout voir
         </span>
-        <span class="pill" *ngFor="let collection of collections"
-          [ngClass]="{'active': filters.collection === collection.id}" (click)="updateCollection(collection.id)">
-          {{collection.name}}
+        <span *ngFor="let collection of collections">
+          <span class="pill" *ngIf="collection.products.length > 0"
+            [ngClass]="{'active': filters.collection === collection.id}" (click)="updateCollection(collection.id)">
+            {{collection.name}}
+          </span>
         </span>
       </div>
       <!-- <select class="nice-select" (change)="updateCollection($event.target.value)">
@@ -46,7 +48,8 @@
     </div>
     <div style="flex: 0 0 100%;
     max-width: 100%;" *ngIf="!products">
-      <ngx-skeleton-loader count="16" animation="pulse" style="display: flex; flex-wrap: wrap; justify-content: space-between;" [theme]="{
+      <ngx-skeleton-loader count="16" animation="pulse"
+        style="display: flex; flex-wrap: wrap; justify-content: space-between;" [theme]="{
        'border-radius': '5px',
        height: '320px',
        width: '265px',
