@@ -8,12 +8,12 @@
     <div *ngIf="price_in_eur >= 0">
       <br>
       <a target="_blank" [href]="data.payment.link+'/'+price_in_eur+'eur'"
-        class="btn primary-btn  w-100 text-light">Payer en euro : {{price_in_eur}}€</a>
+        class="btn primary-btn  w-100 text-light">Payer en euro : {{price_in_eur | number : '1.0-0'}}€</a>
     </div>
     <div *ngIf="price_in_usd >= 0">
       <br>
       <a target="_blank" [href]="data.payment.link+'/'+price_in_usd+'usd'"
-        class="btn primary-btn w-100 text-light">Payer en dollars américains : {{price_in_usd}}$</a>
+        class="btn primary-btn w-100 text-light">Payer en dollars américains : {{price_in_usd | number : '1.0-0'}}$</a>
     </div>
   </div>
   <div *ngIf="!(price_in_eur >= 0 || price_in_usd >= 0)">

@@ -32,7 +32,7 @@
         <span class="pill" (click)="updateCollection('all')">
           Tout voir
         </span>
-        <span class="pill" *ngFor="let collection of collections"
+        <span class="pill" *ngFor="let collection of collections" *ngIf="collection.products.length > 0"
           [ngClass]="{'active': filters.collection === collection.id}" (click)="updateCollection(collection.id)">
           {{collection.name}}
         </span>

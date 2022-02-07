@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ConfigService } from 'src/app/services/config.service';
@@ -10,6 +10,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./related-products.component.scss']
 })
 export class RelatedProductsComponent implements OnInit {
+  @Input() product_id!: any;
 
   company: any;
   companySubscription: Subscription;
@@ -29,7 +30,7 @@ export class RelatedProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let product_id;
+    // let product_id;
     // this.router.events.subscribe((val) => {
     //   // see also 
     //   this.navigationService.emitCompany();
@@ -49,13 +50,13 @@ export class RelatedProductsComponent implements OnInit {
       if (company) {
         this.company = company
         if(company.produits){
-          let produits = company.produits?.filter(produit => produit.id === parseInt(product_id))
+          let produits = company.produits?.filter(produit => produit.id === parseInt(this.product_id))
           if(produits.length > 0)
           this.navigationService.emitRelatedProducts(produits[0]);
         }
       }
     });
-    product_id = this.route.snapshot.params['produit'];
+    // product_id = this.route.snapshot.params['produit'];
     this.navigationService.emitCompany();
   }
 

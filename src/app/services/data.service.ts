@@ -126,6 +126,7 @@ export class DataService {
     localStorage.setItem("get_products.per_page", per_page)
     return this.http.get(route + per_page);
   }
+  
   getProduct(id, company_id = localStorage.getItem("company_id")) {
     return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/products/" + id);
   }
