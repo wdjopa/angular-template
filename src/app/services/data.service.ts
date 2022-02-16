@@ -139,7 +139,7 @@ export class DataService {
   }
 
   getCollection(id, company_id = localStorage.getItem("company_id"), query = "per_page=8") {
-    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id + "?"+query);
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections" + (id ? '/'+id: '') + "?"+query);
   }
 
   getBlogInfos(company_id = localStorage.getItem("company_id")) {
