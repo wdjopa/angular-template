@@ -10,7 +10,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class FooterComponent implements OnInit {
 
-
+  version = "1.1.4"
   company: any;
   companySubscription: Subscription;
   storage_url: string;
