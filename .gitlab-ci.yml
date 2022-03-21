@@ -41,4 +41,4 @@ install_dependencies:
     - cd ../../
     - ls -al
     - |
-      curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 40|qLsozWkKmUx9OKTosNXYRm7GuSAmJQrOtotoJhG4" -F "file=@./genuka_template.zip" https://hostme.space/api/websites/genuka_angular/deploy_on_push
+      curl -v -X POST -H "Accept: application/json" -H "Authorization: Bearer 40|qLsozWkKmUx9OKTosNXYRm7GuSAmJQrOtotoJhG4" -F "file=@./genuka_template.zip" https://hostme.space/api/websites/genuka-angular/deploy_on_push
