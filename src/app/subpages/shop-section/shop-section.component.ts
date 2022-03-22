@@ -14,7 +14,7 @@ export class ShopSectionComponent implements OnInit {
   collections: any[] = [];
   company: any;
   companySubscription: Subscription;
-  filters: any = { search: "", collection: "" };
+  filters: any = { search: "", collection: "all" };
   pagination: any = {};
   filter_string : string;
   productsSubscription: Subscription;
@@ -56,7 +56,8 @@ export class ShopSectionComponent implements OnInit {
   }
 
   paginationChanged(route = undefined){
-    if(this.filters.collection != "all"){
+    console.log(this.filters, route)
+    if(this.filters.collection != "all" && this.filters.collection != ""){
       let query = undefined
       if(this.filter_string){
         query = this.filter_string.replace("per_page=16", "per_page=8")
@@ -65,7 +66,6 @@ export class ShopSectionComponent implements OnInit {
       if(!query){
         query = "page="+new_page+"&per_page=8"
       }
-      console.log(route, query)
       this.dataService.getCollection(this.filters.collection, undefined, query).subscribe((response: any) => {
         this.products = response.products.data.map(product => {
           return { ...product, url: 'url(' + (product.medias.length > 0 ? product.medias[0].thumb : '') + ')' }

@@ -3,26 +3,16 @@
 <footer class="footer set-bg" [style.backgroundImage]="'url('+company?.datas?.settings?.footer?.image+')'">
     <div class="container" *ngIf="company">
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col" *ngIf="company?.datas?.settings?.horaires?.length > 0">
                 <div class="footer__widget">
                     <h6>HORAIRES DE TRAVAIL</h6>
                     <ul *ngIf="company?.datas?.settings?.horaires?.length > 0">
-                        <!-- <li>Horaires de livraison:</li> -->
                         <li *ngFor="let horaire of company?.datas?.settings?.horaires">{{horaire.day}} : {{horaire.hours}}</li>
                     </ul>
-                    <!-- <p>{{company?.description}}</p> -->
                 </div>
-                <!-- 
-          <div class="footer__widget">
-          <ul>
-              <li>Monday - Friday: 08:00 am – 08:30 pm</li>
-              <li>Saturday: 10:00 am – 16:30 pm</li>
-              <li>Sunday: 10:00 am – 16:30 pm</li>
-            </ul>
-          </div>
-           -->
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
+          
+            <div class="col">
                 <div class="footer__about">
                     <div class="footer__logo">
                         <a [routerLink]="['/accueil']"><img *ngIf="company.logo" [src]="company?.logo" [alt]="'Logo de '+company?.name" style="width: 50px;border-radius: 200px;"> <span class="font-customer footer_logo">&nbsp;
@@ -45,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="col-sm-4 d-none">
                 <div class="footer__newslatter">
                     <h6>Newsletter</h6>
                     <p>Ne manquez plus nos offres et promotions. Inscrivez-vous à notre newsletter en enregistrant votre email/ numéro de téléphone.</p>
