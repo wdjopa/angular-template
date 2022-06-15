@@ -17,4 +17,8 @@ export class UserService {
     this.userSubject.next(this.user)
   }
 
+  refreshUser(){
+    this.userSubject.next(this.user)
+  }
+
 }

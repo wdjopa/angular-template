@@ -26,31 +26,36 @@ export class AuthService {
       this.isAuth = false;
       this.userService.emitUser(null, true);
     } else {
-      this.http.get(this.configService.url + this.configService.api + "user", this.configService.httpOptions).subscribe((data: any) => {
+      this.http.get(this.configService.url + this.configService.api + "clients", this.configService.httpOptions).subscribe((data: any) => {
         if (data.message && data.message.toLowerCase() == "unauthenticated") {
           this.isAuth = false;
           localStorage.removeItem("token")
-          console.log("Signin")
+          // console.log("Signin")
 
           this.userService.emitUser(null, true);
         } else {
           this.isAuth = true;
           this.userService.user = data;
-          console.log("Signin error 1")
+          // console.log("Signin error 1")
           this.userService.emitUser(data, true);
         }
       }, (error) => {
-        console.log(error)
+        // console.log(error)
         if (error.status == 401) {
           this.isAuth = false;
           localStorage.removeItem("token")
           window.location.reload()
           // this.router.navigate(["/connexion"])
-          console.log("Signin error")
+          // console.log("Signin error")
           this.userService.emitUser(null, true);
         }
       })
     }
+  }
+
+
+  resetPassword(email, sender_name) {
+    return this.http.post<any>(this.configService.url + this.configService.api + "clients/reset_password" , { email, sender: sender_name })
   }
 
   signUp(user, appVerifier) {
@@ -65,14 +70,14 @@ export class AuthService {
       }).catch(function (error) {
         that.nextSubject.next({ state: "error", err: error })
 
-        // console.log("erreur", error)
+        // // console.log("erreur", error)
         // Error; SMS not sent
         // ...
       });
   }
 
   signInCodeVerification(confirmationResult, code, user) {
-    // console.log(user, code, confirmationResult)
+    // // console.log(user, code, confirmationResult)
     let that = this;
     confirmationResult.confirm(`${code}`).then(function (result) {
       // User signed in successfully.
@@ -91,11 +96,11 @@ export class AuthService {
     // let that = this;
     user.firebaseUser = result;
     this.http.post<any>(this.configService.url + this.configService.api + "clients/register", user).subscribe(data => {
-      // console.log(data)
+      // // console.log(data)
       if (data.status && data.status == "error") {
         this.nextSubject.next({ state: "error", err: data.message })
       } else {
-        window["subscribe"](user.id);
+        // window["subscribe"](user.id);
         localStorage.setItem("token", data.access_token);
         this.configService.token = data.access_token;
         this.configService.httpOptions = {
@@ -115,7 +120,7 @@ export class AuthService {
         }
       }
     }, (error) => {
-      console.log(error)
+      // console.log(error)
       this.nextSubject.next({ state: "error", err: error.error.message })
     })
   }
@@ -128,7 +133,7 @@ export class AuthService {
         data.state = "error"
         that.nextSubject.next(data)
       } else {
-        // console.log(data)
+        // // console.log(data)
         user = data.user
         this.isAuth = true;
         localStorage.setItem("token", data.access_token);
@@ -139,21 +144,21 @@ export class AuthService {
             'Authorization': 'Bearer ' + data.access_token
           })
         };
-        window["subscribe"](user.id);
+        // window["subscribe"](user.id);
 
-        this.navigationService.openSnackBar(`Coucou ${data.user.surname + ' ' + data.user.firstname} ❤`, "FEMER")
-        // console.log(this.configService.httpOptions)
-        if (user.surname && user.surname.trim() != "") {
-          user.name = user.surname
-        } else if (user.surname && user.firstname.trim() != "") {
-          user.name = user.firstname
+        this.navigationService.openSnackBar(`Coucou ${data.user.first_name + ' ' + data.user.last_name} ❤`, "FEMER")
+        // // console.log(this.configService.httpOptions)
+        if (user.first_name && user.first_name.trim() != "") {
+          user.name = user.first_name
+        } else if (user.first_name && user.last_name.trim() != "") {
+          user.name = user.last_name
         } else {
           user.name = "Vous";
         }
         this.userService.user = user;
         this.userService.emitUser(user, true);
         that.nextSubject.next({ state: "user connected", user: user })
-        window["menu"]()
+        // window["menu"]()
       }
     }, (err) => {
       that.nextSubject.next({ state: "error server", error: err })
@@ -166,8 +171,8 @@ export class AuthService {
     this.userService.emitUser(null, true);
     localStorage.removeItem("token")
     this.router.navigate(['/accueil'])
-    window["menu"]()
-    // window.location.reload();
+    //window["menu"]()
+    //window.location.reload();
 
   }
 

@@ -1,9 +1,12 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { CountryCodeService } from '../../services/country-code.service';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CountryCodeService } from 'src/app/services/country-code.service';
+import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +26,14 @@ export class LoginComponent implements OnInit {
   err: any = {};
   user: any = {};
   confirmationResult: any;
-  constructor(private elRef: ElementRef, private countryService: CountryCodeService, private userService: UserService, private authService: AuthService, private router: Router) {
+  breadcrumbs = [{ "name": "Accueil", "link": "/accueil" }]
+  authSubscription: Subscription;
+  dataSubscription: Subscription;
+
+  company: any;
+  companySubscription: Subscription;
+
+  constructor(private elRef: ElementRef, private countryService: CountryCodeService, private navigationService: NavigationService, private titleService: Title, private metaTagService: Meta,  private userService: UserService, private authService: AuthService, private router: Router) {
     if (this.authService.isLoggedIn === true) {
       if (this.authService.goto)
         router.navigate(["" + this.authService.goto]);
@@ -33,7 +43,57 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSubscription = this.authService.nextSubject.subscribe(ret => {
+      if (ret.err) {
+        // console.log(ret.err)
+        if (ret.err.email) {
+          this.err.message = "Cet email est déjà utilisé. Veuillez vous connecter."
+        } else if (ret.err.tel) {
+          this.err.message = "Ce numéro de téléphone est déjà utilisé. Veuillez vous connecter."
+        }
+        else {
+          this.err.message = "Un problème est survenu lors de votre inscription. Si le problème persiste, contactez-nous au " + this.company.tel
+        }
+        this.err.field = "registration"
+      } else {
+        if (ret.user) {
+          
+        }
+      }
+
+    })
+
+    this.companySubscription = this.navigationService.companySubject.subscribe(company => {
+      if (company) {
+        this.company = company
+        this.titleService.setTitle("Connexion | " + this.company.name);
+        this.metaTagService.addTags([
+          { name: 'description', content: 'Connectez-vous pour accéder à votre compte | ' + this.company.name + ". " + this.company.description },
+          { name: 'keywords', content: 'Ecommerce, Genuka, ' },
+          { name: 'robots', content: 'index, follow' },
+          { name: 'author', content: 'Genuka.com' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+          { name: 'og:title', content: 'Commandez vos produits chez ' + this.company.name },
+          { name: 'og:site_name', content: this.company.name },
+          { name: 'og:description', content: 'Connectez-vous pour accéder à votre compte ' },
+          { name: 'og:url', content: window.location.href },
+          { name: 'og:image', content: this.company.logo },
+          { name: 'date', content: this.company.created_at, scheme: 'YYYY-MM-DD' },
+        ]);
+      }
+    });
     this.numeros = this.countryService.countryList;
+  }
+
+  ngOnDestroy(){
+
+    if (this.companySubscription)
+      this.companySubscription.unsubscribe()
+    if (this.authSubscription)
+    this.authSubscription.unsubscribe()
+
+    if (this.dataSubscription)
+      this.dataSubscription.unsubscribe()
   }
 
   OnSubmit(form: NgForm) {
@@ -64,18 +124,19 @@ export class LoginComponent implements OnInit {
       if (this.login.includes("@")) {
         this.user.email = this.login;
       } else {
-        this.user.tel = this.indicatif + this.login;
+        this.user.tel = this.login;
       }
       this.user.password = this.password;
-      this.user.fromApi = "true";
+      this.user.company_id = this.company.id;
+      this.user.fromApi = true;
       this.authService.login(this.user)
-      this.authService.nextSubject.subscribe((result: any) => {
+      this.authSubscription = this.authService.nextSubject.subscribe((result: any) => {
         this.load = false;
         this.enableAll()
         if (result.state == "user connected") {
           this.authService.isAuth = true;
           this.userService.emitUser(result.user, true);
-          console.log("user connecté")
+          // console.log("user connecté")
           if (this.authService.goto) {
             this.router.navigate([this.authService.goto]);
           } else {

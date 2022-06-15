@@ -1,0 +1,37 @@
+<!-- Product Section Begin -->
+<section class="product spad" *ngIf="collection">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="about__text">
+          <div class="section-title">
+            <span>{{collection.name}}</span>
+          </div>
+          <!-- <p>{{collection.description}}</p> -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
+        <a [routerLink]="'/produits/'+product.id">
+          <div class="product__item">
+            <div class="product__item__pic set-bg" [attr.data-setbg]="" 
+              [ngStyle]="{'background-image' : 'url('+product.url+')'}">
+              <div class="product__label">
+                <span>{{ product.collections[0]}}</span>
+              </div>
+            </div>
+            <div class="product__item__text">
+              <h6><a href="#">{{product.name}}</a></h6>
+              <div class="product__item__price text-accent">{{product.discounted_price}} {{company.devise.symbol}}</div>
+              <div class="cart_add">
+                <span>Voir le produit</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Product Section End -->

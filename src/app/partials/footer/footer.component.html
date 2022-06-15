@@ -1,1 +1,78 @@
-<p>footer works!</p>
+<!-- Footer Section Begin -->
+<!-- <div> -->
+<footer class="footer set-bg" [style.backgroundImage]="'url('+company?.datas?.settings?.footer?.image+')'">
+    <div class="container" *ngIf="company">
+        <div class="row">
+            <div class="col" *ngIf="company?.datas?.settings?.horaires?.length > 0">
+                <div class="footer__widget">
+                    <h6>HORAIRES DE TRAVAIL</h6>
+                    <ul *ngIf="company?.datas?.settings?.horaires?.length > 0">
+                        <li *ngFor="let horaire of company?.datas?.settings?.horaires">{{horaire.day}} : {{horaire.hours}}</li>
+                    </ul>
+                </div>
+            </div>
+          
+            <div class="col">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a [routerLink]="['/accueil']"><img *ngIf="company.logo" [src]="company?.logo" [alt]="'Logo de '+company?.name" style="width: 50px;border-radius: 200px;"> <span class="font-customer footer_logo">&nbsp;
+                {{company?.name}}</span></a>
+                    </div>
+                    <p>{{company?.description}}</p>
+                    <p>Suivez-nous sur les réseaux</p>
+                    <div class="footer__social">
+                        <a *ngIf='company?.datas?.settings?.social?.facebook' [href]="company?.datas?.settings?.social?.facebook || 'https://facebook.com'"><i
+                class="fa fa-facebook"></i></a>
+                        <a *ngIf='company?.datas?.settings?.social?.twitter' [href]="company?.datas?.settings?.social?.twitter || 'https://twitter.com'"><i
+                class="fa fa-twitter"></i></a>
+                        <a *ngIf='company?.datas?.settings?.social?.instagram' [href]="company?.datas?.settings?.social?.instagram || 'https://instagram.com'"><i
+                class="fa fa-instagram"></i></a>
+                        <a *ngIf='company?.datas?.settings?.social?.linkedin' [href]="company?.datas?.settings?.social?.linkedin || 'https://linkedin.com'"><i
+                class="fa fa-linkedin"></i></a>
+                        <a *ngIf='company?.datas?.settings?.social?.youtube' [href]="company?.datas?.settings?.social?.youtube || 'https://youtube.com'"><i
+                class="fa fa-youtube-play"></i></a>
+                        <!-- <a href="#"><i class="fa fa-youtube-play"></i></a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 d-none">
+                <div class="footer__newslatter">
+                    <h6>Newsletter</h6>
+                    <p>Ne manquez plus nos offres et promotions. Inscrivez-vous à notre newsletter en enregistrant votre email/ numéro de téléphone.</p>
+                    <form action="#">
+                        <input type="text" ngModel name="contact" placeholder="Email ou portable">
+                        <button type="submit"><i class="fa fa-send-o"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <p class="copyright__text text-white">
+                        <!-- Copyright &copy;<script>
+              document.write(new Date().getFullYear());
+
+            </script>  -->
+                        All rights reserved, <a [href]="company?.website?.includes('http') ? company?.website:
+              'https://'+company?.website">{{company?.name}}</a>. Boutique propulsée par <a href="https://genuka.com" class="text-white" target="_blank" style="text-decoration: underline;">Genuka</a>. Version {{version}}
+                    </p>
+                </div>
+                <!-- <div class="col-lg-5">
+          <div class="copyright__widget">
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms & Conditions</a></li>
+              <li><a href="#">Site Map</a></li>
+            </ul>
+          </div>
+        </div> -->
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- </div> -->
+
+<!-- Footer Section End -->
