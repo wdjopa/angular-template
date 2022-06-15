@@ -1,0 +1,10 @@
+  <a class="facebook"  *ngIf='company?.datas?.settings?.social?.facebook'
+    [href]="company?.datas?.settings?.social?.facebook || 'https://facebook.com'"><i class="fa fa-facebook"></i></a>
+  <a class="twitter" *ngIf='company?.datas?.settings?.social?.twitter'
+    [href]="company?.datas?.settings?.social?.twitter || 'https://twitter.com'"><i class="fa fa-twitter"></i></a>
+  <a class="instagram" *ngIf='company?.datas?.settings?.social?.instagram'
+    [href]="company?.datas?.settings?.social?.instagram || 'https://instagram.com'"><i class="fa fa-instagram"></i></a>
+  <a class="linkedin" *ngIf='company?.datas?.settings?.social?.linkedin'
+    [href]="company?.datas?.settings?.social?.linkedin || 'https://linkedin.com'"><i class="fa fa-linkedin"></i></a>
+  <a class="youtube" *ngIf='company?.datas?.settings?.social?.youtube'
+    [href]="company?.datas?.settings?.social?.youtube || 'https://youtube.com'"><i class="fa fa-youtube-play"></i></a>

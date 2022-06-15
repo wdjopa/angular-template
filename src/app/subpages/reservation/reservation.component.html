@@ -1,0 +1,30 @@
+<!-- Class Section Begin -->
+<section class="class spad" *ngIf="company?.datas?.settings?.homescreen?.event_image">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="class__form">
+          <div class="section-title">
+            <span>Traiteur évenementiel</span>
+            <h2>Un évènement à venir ?<br />Nous sommes prêts</h2>
+          </div>
+          <form #f="ngForm" (ngSubmit)="OnSubmit(f)">
+            <input type="text" name="name" ngModel placeholder="Votre nom">
+            <input type="tel" name="tel" ngModel placeholder="Numéro de téléphone">
+            <input type="datetime-local" ngModel name="date" placeholder="Date de l'évènement ">
+            <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+            <input type="text" name="precisions" ngModel placeholder="Des précisions ?">
+            <small>Vous serez recontacté très vite</small>
+            <button type="submit" class="site-btn">Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="class__video set-bg" *ngIf="company?.datas"
+      [ngStyle]="{'background-image': 'url(\''+company?.datas?.settings?.homescreen?.event_image+'\')'}">
+      <!-- <a href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1"
+        class="play-btn video-popup"><i class="fa fa-play"></i></a> -->
+    </div>
+  </div>
+</section>
+<!-- Class Section End -->

@@ -21,7 +21,7 @@ export class CommandService {
   }
 
   newCommand(cart, results, reduction, total, payment_intent, blockchain = null) {
-    // console.log(cart, results);
+    // // console.log(cart, results);
     let command: any = {}
     command.restaurant_id = cart.restaurant.id;
     command.produits = cart.produits;
@@ -42,12 +42,12 @@ export class CommandService {
       mode: results[3].result.payment.mode,
       intent: payment_intent
     }
-    command.source = "express";
+    command.source = "website";
     command.livraison = results[2].result.shipping.price
     command.total = total
-    console.log(command)
-    console.log(JSON.stringify({ ...command, blockchain }))
-    // console.log(this.token)
+    // console.log(command)
+    // console.log(JSON.stringify({ ...command, blockchain }))
+    // // console.log(this.token)
     this.http.post(this.configService.url + this.configService.api + "commands", { ...command, blockchain }, this.configService.httpOptions).subscribe((command: any) => {
       if (command.error) {
         this.navigationService.openSnackBar("Une erreur est survenue lors du passage de votre comamnde", "FERMER")
@@ -57,13 +57,13 @@ export class CommandService {
         this.dataService.updateUser();
         this.navigationService.currentRestaurantUpdated()
         this.http.get(this.configService.url + this.configService.api + "sendmail/" + command.id, this.configService.httpOptions).subscribe((mail) => {
-          // console.log("Le mail vous a été envoyé")
-          // console.log(mail)
+          // // console.log("Le mail vous a été envoyé")
+          // // console.log(mail)
           this.navigationService.openSnackBar("Un email de récapitulatif de commande vous a été envoyé", "FEMER")
         })
       }
     }, (error) => {
-      console.log(error)
+      // console.log(error)
       this.navigationService.openSnackBar(error.error.message, "FERMER", 20000)
       this.commandSubject.next({})
     })

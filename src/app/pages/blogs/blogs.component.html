@@ -1,0 +1,82 @@
+<section class="blog spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="blog__item" *ngFor="let post of posts">
+          <div class="blog__item__pic set-bg"
+            [ngStyle]="{'background-image' : post?.url, 'background-size': 'cover' }">
+            <div class="blog__pic__inner">
+              <div class="label">{{post.tags.length > 0 ? post.tags[0].name : 'Sans catégorie'}}</div>
+              <ul>
+                <li>Rédigé par <span>{{post.author}}</span></li>
+                <li>{{post.updated_at | date}}</li>
+                <!-- <li>{{post.medias.length > 0 ? post.medias[0].link : ''}}</li> -->
+                <!-- <li>112 Views</li> -->
+              </ul>
+            </div>
+          </div>
+          <div class="blog__item__text">
+            <h2>{{post.title}}</h2>
+            <div [innerHTML]="post.properties.resume"></div>
+            <a [routerLink]="['/blogs/'+post.slug]" routerLinkActive="router-link-active">LIRE PLUS</a>
+          </div>
+        </div>
+        <!-- <bottom-pagination (getRequest)="getBlogPosts($event)"
+          [pagination]="pagination">
+        </bottom-pagination> -->
+      {{pagination | json}}
+      </div>
+      <div class="col-lg-4">
+        <div class="blog__sidebar">
+          <!-- <div class="blog__sidebar__search">
+            <form action="#">
+              <input type="text" placeholder="Enter keyword">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div> -->
+          <div class="blog__sidebar__item">
+            <h5>Suivez-nous</h5>
+            <div class="blog__sidebar__social">
+              <app-social-links></app-social-links>
+            </div>
+          </div>
+          <div class="blog__sidebar__item">
+            <h5>Articles récents</h5>
+            <div class="blog__sidebar__recent">
+              <a [routerLink]="['/blogs/'+post.slug]"  class="blog__sidebar__recent__item" *ngFor="let post of blog.recents_posts">
+                <div class="blog__sidebar__recent__item__pic">
+                  <img [src]="post?.medias?.length > 0 ? post.medias[0].link : ''" style="width: 50px;">
+                </div>
+                <div class="blog__sidebar__recent__item__text">
+                  <h4>{{post.title}}</h4>
+                  <span>{{post.updated_at | date}}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="blog__sidebar__item">
+            <h5>Tags</h5>
+            <div class="blog__sidebar__item__categories">
+              <ul>
+                <li *ngFor="let tag of blog.tags"><a>{{tag.name}} <span>{{tag.count}}</span></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="blog__sidebar__item">
+            <h5>Newsletter</h5>
+            <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
+            <form action="#">
+              <input type="text" placeholder="Your email">
+              <label for="agg">
+                I agree to the terms & conditions
+                <input type="checkbox" id="agg">
+                <span class="checkmark"></span>
+              </label>
+              <button type="submit" class="site-btn">Subscribe</button>
+            </form>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

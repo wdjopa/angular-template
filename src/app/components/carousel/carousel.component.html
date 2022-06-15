@@ -1,0 +1,25 @@
+<div class="carousel" *ngIf="slides.length > 0">
+  <ng-container *ngFor="let slide of slides; let i = index">
+    <div *ngIf="i === currentSlide"  class="slide" [ngStyle]="{'background-image': 'url(\''+slide.image+'\')', 'background-size': 'cover'}">
+      <!-- <img  [src]="slide.image" /> -->
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <div class="text_carousel">
+              <h2>{{slide.text}}</h2>
+              <a [href]="slide.action_link" class="primary-btn">{{slide.action_text}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- controls -->
+  <button class="control prev" (click)="onPreviousClick()">
+    <span class="arrow left"></span>
+  </button>
+  <button class="control next" (click)="onNextClick()">
+    <span class="arrow right"></span>
+  </button>
+</div>

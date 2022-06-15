@@ -15,9 +15,17 @@ export const environment = {
     appId: "1:881908901174:web:1d81cb1f31d1da1678bf97",
     measurementId: "G-YQKY8B0BV5"
   },
-  url: 'http://localhost:8010',
-  // url: 'https://admin.lamater.net',
-  api: '/api/2020-04/',
+  mail_url : "https://mail.api.lamaterservice.com",
+  host: "mail.lamater.tech",
+  user: "contact@lamater.tech",
+  password: "w]m3K55SG9",
+  // url: 'http://localhost:8010',
+  // storage: 'http://localhost:8010/storage',
+  url: 'https://dashboard.genuka.com',
+  storage: 'https://dashboard.genuka.com/storage',
+  company_id: 15,
+  // api: '/api/2020-04/',
+  api: '/api/2021-05/',
   stripe: 'pk_test_93YuwyRJP23j8pPtIxCdbAre'
 };
 
@@ -28,4 +36,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.

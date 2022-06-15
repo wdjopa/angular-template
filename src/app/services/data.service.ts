@@ -19,20 +19,42 @@ export class DataService {
 
   constructor(private http: HttpClient, private configService: ConfigService, private userService: UserService) { }
 
-  getAllRestaurants(villeId = localStorage.getItem("ville")) {
+  getAllCompanies(villeId = localStorage.getItem("ville")) {
     return this.http.get(this.configService.url + this.configService.api + "restaurants/city/" + villeId);
   }
 
-  getRestaurant(id) {
-    return this.http.get(this.configService.url + this.configService.api + "companies/details/" + id);
+  sendMail({ from, to, subject, message }) {
+    return this.http.post(this.configService.mail_url + "/sendmail", {
+      from, to, subject, message, host: this.configService.host, user: this.configService.user, password: this.configService.password
+    })
   }
 
+  loginShop(id) {
+    this.http.get(this.configService.url + this.configService.api + "shops/" + id).subscribe((data: any) => {
+      if (data.token) {
+        localStorage.setItem("token_shop", data.token)
+        this.configService.refreshShopToken();
+      }
+      // console.log("something went wrong", data)
+    });
+  }
+
+  getCompanyByUrl() {
+    // alert(document.location.href)
+    //  document.location.href
+    // let website_url = document.location.href.split("//")[1].split("/")[0]
+    // let options = "?url=" + website_url
+    let options = "?url=" + document.location.protocol + "//" + document.location.host
+
+    return this.http.get(this.configService.url + this.configService.api + "companies/byurl" + options);
+  }
 
   updateUser() {
     this.http.get<any>(this.configService.url + this.configService.api + "user/" + this.userService.user.id, this.configService.httpOptions).subscribe((data: any) => {
       this.userService.emitUser(data, false)
     });
   }
+
 
   getVillesWithRestaurants() {
     return this.http.get(this.configService.url + this.configService.api + "villesAvecRestaurants", this.configService.httpOptions)
@@ -55,7 +77,7 @@ export class DataService {
   getQuartiers() {
 
     let diff = (Date.now()) - this.date;
-    console.log(diff, this.date)
+    // console.log(diff, this.date)
     if (localStorage.getItem("quartiers") && diff < 60 * 60 * 24 * 1000) {
       let quartiers = JSON.parse(localStorage.getItem("quartiers"))
       this.quartiersSubject.next(quartiers)
@@ -70,35 +92,101 @@ export class DataService {
   }
 
   postReview(restaurant, note, message) {
-    // console.log(note, message, restaurant.nom)
+    // // console.log(note, message, restaurant.nom)
     return this.http.post<any>(this.configService.url + this.configService.api + "avis", JSON.stringify({ type: "entreprise", message: message, id: restaurant.id, note: note }), this.configService.httpOptions)
   }
 
   setPaymentIntent(data) {
     this.http.post<any>(this.configService.url + this.configService.api + "payment_intent", JSON.stringify(data), this.configService.httpOptions).subscribe((data: any) => {
-      // console.log(data)
+      // // console.log(data)
     });
   }
 
-  addAddress(adresse) {
-    // console.log(JSON.stringify(adresse))
-    adresse.fromApi = true;
-    this.http.post<any>(this.configService.url + this.configService.api + "clients/" + this.userService.user.id + "/adresses", adresse, this.configService.httpOptions).subscribe((data: any) => {
-      console.log(data)
-      if (data.success) {
-        this.userService.user.adresses = data.quartiers
-        this.userService.emitUser()
-        this.UserSubject.next({ message: "L'adresse a bien été ajoutée" })
+  getCompanyCollections(route = undefined, per_page = "&per_page=16", { company_id, collection_id }) {
+    if (!route) {
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + collection_id
+      per_page = "?per_page=16"
+    }
+    return this.http.get(route + per_page);
+  }
+
+  getProducts(route = undefined, per_page = localStorage.getItem("get_products.per_page") ?? "&per_page=16", company_id = localStorage.getItem("company_id")) {
+    if (!route) {
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/products";
+      if (per_page === "&per_page=16"){
+        per_page = "?per_page=16"
       }
-    })
+    }
+    if(route.includes("?") && per_page.includes("?"))
+    per_page = per_page.replace("?","&")
+    if(!per_page.includes("?") && !route.includes("?") ){
+    per_page = per_page.replace("&","?")
+    }
+
+    localStorage.setItem("get_products.per_page", per_page)
+    return this.http.get(route + per_page);
+  }
+  getProduct(id, company_id = localStorage.getItem("company_id")) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/products/" + id);
+  }
+
+  getCollections(route = undefined, per_page = 16, company_id = localStorage.getItem("company_id")) {
+    if (!route) {
+      route = this.configService.url + this.configService.api + "companies/" + company_id + "/collections"
+    }
+    return this.http.get(route + (route.includes("?") ? "&per_page=" : '?per_page=') + per_page);
+  }
+
+  getCollection(id, company_id = localStorage.getItem("company_id"), query = "per_page=8") {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/collections/" + id + "?"+query);
+  }
+
+  getBlogInfos(company_id = localStorage.getItem("company_id")) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/" + company_id + "/blogs/infos");
+  }
+  getBlogPosts(route = undefined, per_page = "&per_page=5", company_id = localStorage.getItem("company_id")) {
+    if (!route) { per_page = "?per_page=5"; route = this.configService.url + this.configService.api + "companies/" + company_id + "/blogs" }
+    return this.http.get(route + per_page);
+  }
+  getBlogPostBySlug(blog_slug = undefined) {
+    return this.http.get(this.configService.url + this.configService.api + "companies/blogs/by_slug" + (blog_slug ? '/' + blog_slug : ""));
+  }
+
+
+  getCommands(id = undefined) {
+    return this.http.get(this.configService.url + this.configService.api + "clients/commands" + (id ? '/' + id : ""), this.configService.httpOptions);
+  }
+
+  getAddresses(id = undefined) {
+    return this.http.get(this.configService.url + this.configService.api + "clients/addresses" + (id ? '/' + id : ""), this.configService.httpOptions);
+  }
+
+  addAddress(adresse) {
+    // // console.log(JSON.stringify(adresse))
+    adresse.fromApi = true;
+    return this.http.post<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
+  }
+
+  editAddress(adresse) {
+    adresse.fromApi = true;
+    return this.http.put<any>(this.configService.url + this.configService.api + "clients/addresses", adresse, this.configService.httpOptions)
+  }
+
+  delAddress(adresse) {
+    adresse.fromApi = true;
+    return this.http.delete<any>(this.configService.url + this.configService.api + "clients/addresses?address_id=" + adresse.id, this.configService.httpOptions)
   }
 
   checkPassword(password) {
     return this.http.post<any>(this.configService.url + this.configService.api + "clients/checkpassword", { password: password }, this.configService.httpOptions);
   }
 
+  checkDiscountCode(code, cart_subtotal, company_id = localStorage.getItem("company_id")) {
+    return this.http.post<any>(this.configService.url + this.configService.api + "companies/discount/check", { code, amount: cart_subtotal, company_id }, this.configService.httpOptionsShop);
+  }
+
   paymentByToken(token, datas) {
-    console.log(datas)
+    // console.log(datas)
     return this.http.post<any>(this.configService.url + this.configService.api + "payment/charge/token/capture", { token: token, currency: datas.currency, amount: datas.totalAmount, description: datas.description }, this.configService.httpOptions)
   }
 
@@ -111,6 +199,12 @@ export class DataService {
     })
   }
 
+
+  newCommand(command) {
+    return this.http.post(this.configService.url + this.configService.api + "commands", { ...command }, this.configService.httpOptions)
+
+  }
+
   // commandWithBlockchain({amount}){
   //   return this.http.post<any>(this.configService.url + this.configService.api +"wallet/pay/", {amount:amount}, this.configService.httpOptions);
   // }
@@ -118,9 +212,9 @@ export class DataService {
   updateAddress(adresse) {
     adresse.fromApi = true;
     adresse.quartier_id = adresse.quartier.id;
-    // console.log(JSON.stringify(adresse))
+    // // console.log(JSON.stringify(adresse))
     this.http.put<any>(this.configService.url + this.configService.api + "clients/adresse/" + adresse.id + "/update", adresse, this.configService.httpOptions).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         this.userService.user.adresses = data.quartiers
         this.userService.emitUser()
@@ -130,10 +224,10 @@ export class DataService {
   }
 
   removeAddress(adresse) {
-    // console.log(JSON.stringify(adresse))
+    // // console.log(JSON.stringify(adresse))
 
     this.http.post<any>(this.configService.url + this.configService.api + "clients/adresse/" + this.userService.user.id + "/delete", { fromApi: true, quartier_id: adresse.quartier.id, pivot_id: adresse.id }, this.configService.httpOptions).subscribe((data: any) => {
-      console.log(data)
+      // // console.log(data)
       if (data.success) {
         this.userService.user.adresses = data.quartiers
         this.userService.emitUser()
@@ -163,13 +257,13 @@ export class DataService {
   }
 
   checkIdentifiantExist(id) {
-    console.log(this.configService.httpOptions)
+    // // console.log(this.configService.httpOptions)
     return this.http.get<any>(this.configService.url + this.configService.api + "wallet/checkid/" + id, this.configService.httpOptions)
   }
 
   // Lance la requete pour l'ouverture d'un compte
   openUserAccount(id) {
-    console.log("Identifiant ", id)
+    // // console.log("Identifiant ", id)
     return this.http.post<any>(this.configService.url + this.configService.api + "wallet/create", { fromApi: true, identifiant: id }, this.configService.httpOptions);
   }
 
