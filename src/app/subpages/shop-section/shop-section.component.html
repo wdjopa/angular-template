@@ -1,0 +1,108 @@
+<!-- Shop Section Begin -->
+<section class="shop spad">
+  <div class="container">
+    <div class="shop__option d-none">
+      <div class="row ">
+        <div class="col-lg-7 col-md-7">
+          <div class="shop__option__search">
+            <form action="#">
+
+              <input type="search" (keyup)="search($event.target.value)" placeholder="Recherche" />
+              <!-- <button (click)="search('')" type="submit"><i class="fa fa-search"></i></button> -->
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-5">
+          <div class="shop__option__right">
+            <select class="nice-select" (change)="updateList($event.target.value)">
+              <option value="">Automatique </option>
+              <option value="name_desc">Alphabétique décroissant </option>
+              <option value="name_asc">Alphabétique croissant</option>
+              <option value="price_desc">Prix décroissant</option>
+              <option value="price_asc">Prix croissant</option>
+            </select>
+            <!-- <a href="#"><i class="fa fa-list"></i></a>
+            <a href="#"><i class="fa fa-reorder"></i></a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <span class="pill" (click)="updateCollection('all')">
+          Tout voir
+        </span>
+        <span *ngFor="let collection of collections">
+          <span class="pill" *ngIf="collection.products.length > 0"
+            [ngClass]="{'active': filters.collection === collection.id}" (click)="updateCollection(collection.id)">
+            {{collection.name}}
+          </span>
+        </span>
+      </div>
+      <!-- <select class="nice-select" (change)="updateCollection($event.target.value)">
+        <option value="">Collections</option>
+        <option *ngFor="let collection of collections" [value]="collection.name">
+          {{collection.name}}
+        </option>
+      </select> -->
+    </div>
+    <div style="flex: 0 0 100%;
+    max-width: 100%;" *ngIf="!products">
+      <ngx-skeleton-loader count="16" animation="pulse"
+        style="display: flex; flex-wrap: wrap; justify-content: space-between;" [theme]="{
+       'border-radius': '5px',
+       height: '320px',
+       width: '265px',
+       'background-color': '#EDEDED',
+       border: '1px solid #EDEDED',
+       'animation-duration': '2s'
+     }"></ngx-skeleton-loader>
+    </div>
+    <div class="row">
+
+      <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
+        <a [routerLink]="'/produits/'+product.id">
+          <div class="product__item">
+            <div class="product__item__pic set-bg" [attr.data-setbg]=""
+              [ngStyle]="{'background-image': getUrl(product) }">
+              <div class="product__label">
+                <span>{{ product.collections.join(" ")}}</span>
+              </div>
+            </div>
+            <div class="product__item__text">
+              <h6><a href="#">{{product.name}}</a></h6>
+              <div class="product__item__price text-accent">{{product.discounted_price | number }}
+                {{company.devise.symbol}}</div>
+              <div class="cart_add">
+                <span (click)="addToCart(product.id)">Voir le produit</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="shop__last__option">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <bottom-pagination (getRequest)="paginationChanged($event)" [pagination]="pagination">
+          </bottom-pagination>
+          <!-- 
+          <div class="shop__pagination">
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#"><span class="arrow_carrot-right"></span></a>
+        </div>
+    -->
+        </div>
+
+        <div *ngIf="products" class="col-lg-6 col-md-6 col-sm-6">
+          <div class="shop__last__text">
+            <p>{{products.length}} produits affichés</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Shop Section End -->

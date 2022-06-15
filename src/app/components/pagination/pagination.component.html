@@ -1,0 +1,8 @@
+  <div class="shop__pagination" *ngIf="pagination && pagination.links">
+    <a (click)="onClick(pagination?.links?.prev)" *ngIf="pagination?.links?.prev"><span
+        class="arrow_carrot-left"></span></a>
+    <a (click)="onClick(pagination?.meta?.path+'?page='+page)" *ngFor="let page of pagination.total_pages"
+      [ngClass]="{'text-accent': page === pagination.meta.current_page}">{{page}}</a>
+    <a (click)="onClick(pagination?.links?.next)" *ngIf="pagination?.links?.next"><span
+        class="arrow_carrot-right"></span></a>
+  </div>

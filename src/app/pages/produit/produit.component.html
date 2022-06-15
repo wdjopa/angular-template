@@ -1,1 +1,125 @@
-<p>produit works!</p>
+<app-breadcrumb [title]="produit?.name || ''" [breadcrumbs]='breadcrumbs' [end_breadcrumb]="produit?.name ? 'Produit ' + produit?.name : ''">
+</app-breadcrumb>
+<!-- Shop Details Section Begin -->
+<section class="product-details spad">
+    <div class="container my-5 py-5 " *ngIf="loading">
+        Loading ...
+    </div>
+    <div class="container" *ngIf="produit && !loading">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__img">
+                    <div class="product__details__big__img">
+                        <img class="big_img" [src]="bigImg.link" [alt]="produit?.name || ''">
+                    </div>
+                    <div class="product__details__thumb">
+                        <div *ngFor="let media of produit.medias" class="pt__item" (click)="setBigImg(media.link)">
+                            <img [src]="media.thumb" [alt]="produit?.name || ''">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product__details__text">
+                    <div *ngIf="produit.collections.length > 0" class="product__label">
+                        {{ produit ? produit.collections.join(" ") : ''}}
+                    </div>
+                    <h4>{{produit.name}}</h4>
+                    <h4>
+                        <strong class="text-accent" style="text-decoration: line-through;" *ngIf="produitCommande.comparaison_price !=
+              produitCommande.price &&
+              produitCommande.comparaison_price >
+              produitCommande.price">{{produitCommande.comparaison_price  | number : '1.0-0'}}</strong>
+                        <strong class="ml-2 text-accent">{{produitCommande.price  | number : '1.0-0'}}</strong> {{company?.devise?.symbol}}
+                    </h4>
+                    <p [innerHTML]="produit.description"></p>
+                    <ul>
+                        <!-- <li>SKU: <span>17</span></li>
+            <li>Category: <span>Biscuit cake</span></li> -->
+                        <!-- <li>Tags: <span>{{produit ? produit?.tags.join(", "): ''}}</span></li> -->
+                    </ul>
+                    <div *ngIf='produit.variants.length > 0'>
+                        <div class="variant_product" *ngFor="let variante of produit.variants">
+                            <!-- {{variante | json}} -->
+                            <div class=" border-bottom">
+                                <!-- <span class="title pl-4 pb-4">{{variante.name}}</span> -->
+                                <h6 style="font-size: 1.35rem;" class="text-dark">{{variante.name}}
+                                    <small>
+
+                    {{variante.required ? '(obligatoire)': '(facultatif)'}}
+                  </small>
+                                </h6>
+                                <small class="text-secondary">{{variante.description}}. </small>
+                                <small class="text-accent">{{variante.max_choices}} choix max.</small>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item pl-0" *ngFor="let option of variante.options">
+                                    <mat-checkbox class="example-margin" [disabled]='option.disabled' [checked]="option.checked" (change)="addVariant(option, variante, $event)">
+                                        {{option.name}} <small class="text-accent" *ngIf="option.additionnal_fee > 0">(+{{option.additionnal_fee}}
+                      {{company?.devise?.symbol}})</small>
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product__details__option">
+                        <div class="quantity">
+                            <div class="pro-qty">
+                                <span class="dec qtybtn" (click)='updateQuantity(-1)'>-</span>
+                                <input type="text" [(ngModel)]="produitCommande.quantity" value="1">
+                                <span class="inc qtybtn" (click)='updateQuantity(+1)'>+</span>
+                            </div>
+                        </div>
+                        <span class="primary-btn" style="cursor: pointer;" (click)="addToCart()">Ajouter au panier</span>
+                        <!-- <a href="#" class="heart__btn"><span class="icon_heart_alt"></span></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product__details__tab" *ngIf="false">
+            <div class="col-lg-12">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Additional information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Previews(1)</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-lg-8">
+                                <p>This delectable Strawberry Pie is an extraordinary treat filled with sweet and tasty chunks of delicious strawberries. Made with the freshest ingredients, one bite will send you to summertime. Each gift arrives in an elegant
+                                    gift box and arrives with a greeting card of your choice that you can personalize online!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tabs-2" role="tabpanel">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-lg-8">
+                                <p>This delectable Strawberry Pie is an extraordinary treat filled with sweet and tasty chunks of delicious strawberries. Made with the freshest ingredients, one bite will send you to summertime. Each gift arrives in an elegant
+                                    gift box and arrives with a greeting card of your choice that you can personalize online!2
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tabs-3" role="tabpanel">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-lg-8">
+                                <p>This delectable Strawberry Pie is an extraordinary treat filled with sweet and tasty chunks of delicious strawberries. Made with the freshest ingredients, one bite will send you to summertime. Each gift arrives in an elegant
+                                    gift box and arrives with a greeting card of your choice that you can personalize online!3
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Details Section End -->
+<!-- <app-related-products [product_id]="product?.id"></app-related-products> -->

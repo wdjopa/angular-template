@@ -1,1 +1,183 @@
-<p>header works!</p>
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+  <div class="offcanvas__cart">
+    <!-- <div class="offcanvas__cart__links"> -->
+      <!-- <a href="#" class="search-switch"><img src="./assets/img/icon/search.png" alt=""></a> -->
+      <!-- <a href="#"><img src="./assets/img/icon/heart.png" alt=""></a> -->
+    <!-- </div> -->
+    <app-cart-header></app-cart-header>
+  </div>
+  <!-- <div class="offcanvas__logo">
+    <a href="./index.html"><img src="./assets/img/logo.png" alt=""></a>
+  </div> -->
+  <div id="mobile-menu-wrap"></div>
+  <div class="offcanvas__option">
+    <ul>
+      <!-- <li>XAF <span class="arrow_carrot-down"></span>
+        <ul>
+          <li>XAF</li>
+          <li>EUR</li>
+          <li>USD</li>
+        </ul>
+      </li>
+      <li>FRA <span class="arrow_carrot-down"></span>
+        <ul>
+          <li>FRA</li>
+          <li>ENG</li>
+        </ul>
+      </li> -->
+      <li *ngIf="userLogged">
+        <a [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent">Hello
+          {{user?.first_name}}</a>
+        <span class="arrow_carrot-down"></span>
+        <ul>
+          <li class="py-2">
+            <a [routerLink]="['/compte/commandes']" routerLinkActive="active text-accent"
+              class="text-light">Commandes</a>
+          </li>
+          <li class="py-2">
+            <a [routerLink]="['/compte/adresses']" routerLinkActive="active text-accent" class="text-light">Adresses</a>
+          </li>
+          <!-- <li class="py-2">
+            <a [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent"
+              class="text-light">Paramètres</a>
+          </li> -->
+          <li class="py-2">
+            <a [routerLink]="['/deconnexion']" routerLinkActive="active text-accent" class="text-light">Déconnexion</a>
+          </li>
+        </ul>
+      </li>
+      <li *ngIf="!userLogged">
+        <span>Inscription/Connexion</span>
+        <span class="arrow_carrot-down"></span>
+        <ul>
+          <li>
+            <a [routerLink]="['/inscription']" class="text-light">Inscription</a>
+          </li>
+          <li>
+            <a [routerLink]="['/connexion']" class="text-light">Connexion</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- Offcanvas Menu End -->
+
+<!-- Header Section Begin -->
+<header class="header">
+  <div class="header__top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="header__top__inner">
+            <div class="header__top__left">
+              <ul>
+                <!-- <li>XAF <span class="arrow_carrot-down"></span>
+                  <ul>
+                    <li>XAF</li>
+                    <li>EUR</li>
+                    <li>USD</li>
+                  </ul>
+                </li>
+                <li>FRA <span class="arrow_carrot-down"></span>
+                  <ul>
+                    <li>FRA</li>
+                    <li>ENG</li>
+                  </ul>
+                </li> -->
+                <li *ngIf="userLogged">
+                  <a [routerLink]="['/compte/parametres']" routerLinkActive="active text-accent">Hello
+                    {{user?.first_name}}</a>
+                  <span class="arrow_carrot-down"></span>
+                  <ul>
+                    <li class="py-2">
+                      <a [routerLink]="['/compte/commandes']" class="text-light">Commandes</a>
+                    </li>
+                    <li class="py-2">
+                      <a [routerLink]="['/compte/adresses']" class="text-light">Adresses</a>
+                    </li>
+                    <!-- <li class="py-2">
+                      <a [routerLink]="['/compte/parametres']" class="text-light">Paramètres</a>
+                    </li> -->
+                    <li class="py-2">
+                      <a [routerLink]="['/deconnexion']" class="text-light">Déconnexion</a>
+                    </li>
+                  </ul>
+                </li>
+                <li *ngIf="!userLogged">
+                  <span>Inscription/Connexion</span>
+                  <span class="arrow_carrot-down"></span>
+                  <ul>
+                    <li>
+                      <a [routerLink]="['/inscription']" class="text-light">Inscription</a>
+                    </li>
+                    <li>
+                      <a [routerLink]="['/connexion']" class="text-light">Connexion</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="header__logo">
+              <a href="/"><img *ngIf="company?.logo" [src]="company?.logo" [alt]="'Logo '"
+                  style="width: 50px;border-radius: 200px;"> <span class="font-customer title">&nbsp;
+                  {{company?.name}}</span></a>
+            </div>
+            <div class="header__top__right">
+              <div class="header__top__right__links">
+                <!-- <a href="#" class="search-switch"><img src="assets/img/icon/search.png" alt=""></a> -->
+                <!-- <a href="#"><img src="assets/img/icon/heart.png" alt=""></a> -->
+              </div>
+              <app-cart-header></app-cart-header>
+              <!-- <div class="header__top__right__cart">
+                <a href="#"><img src="assets/img/icon/cart.png" alt=""> <span>{{cart?.produitCommandes?.length}}</span></a>
+                <div class="cart__price">Panier: <span>{{cart.total}} {{company?.devise?.symbol}}</span></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <nav class="header__menu mobile-menu">
+          <ul>
+            <li routerLink="/accueil" routerLinkActive="active text-accent-phone"><a routerLink="/accueil"
+                routerLinkActive="active text-accent-phone">Accueil</a></li>
+            <!-- <li routerLink="/about" routerLinkActive="active"><a routerLink="/about" routerLinkActive="active">À
+                propos</a></li> -->
+            <li routerLink="/catalogue" routerLinkActive="active text-accent-phone"><a routerLink="/catalogue"
+                routerLinkActive="active text-accent-phone">Produits</a></li>
+            <!-- <li><a href="#">Pages</a>
+              <ul class="dropdown">
+                <li><a href="./shop-details.html">Shop Details</a></li>
+                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                <li><a href="./checkout.html">Check Out</a></li>
+                <li><a href="./wisslist.html">Wisslist</a></li>
+                <li><a href="./Class.html">Class</a></li>
+                <li><a href="./blogs-details.html">Blog Details</a></li>
+              </ul>
+            </li> -->
+            <li *ngIf="posts && posts.length > 0" routerLink="/blogs" routerLinkActive="active text-accent-phone"><a routerLink="/blogs"
+                routerLinkActive="active text-accent-phone">Blogs</a>
+            </li>
+            <li routerLink="/contact" routerLinkActive="active text-accent-phone"><a routerLink="/contact"
+                routerLinkActive="active text-accent-phone">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="basket-box shadow pointer" [routerLink]="['/panier']">
+  <div class="basket-content" [attr.data-count]="totalElement">
+    <i class="fa fa-shopping-cart"></i>
+  </div>
+</div>
+<!-- Header Section End -->

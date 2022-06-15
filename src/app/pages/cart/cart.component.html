@@ -1,1 +1,117 @@
-<p>cart works!</p>
+<app-breadcrumb [title]="'Votre panier'" [breadcrumbs]='breadcrumbs' [end_breadcrumb]="'Mon panier'">
+</app-breadcrumb>
+
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad"
+  *ngIf="!(cart && cart.produitCommandes && cart.produitCommandes.length > 0 && company != undefined)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        Votre panier est vide pour l'instant.
+        <br>
+      </div>
+      <div class="col-lg-4">
+        <div class="continue__btn">
+          <a [routerLink]="['/catalogue']">Continuer mes achats</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="shopping-cart spad"
+  *ngIf="cart && cart.produitCommandes && cart.produitCommandes.length > 0 && company != undefined">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="shopping__cart__table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Art.</th>
+                <th>Qtés</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let productInCart of cart.produitCommandes">
+                <td class="product__cart__item">
+                  <div class="product__cart__item__pic">
+                    <img [src]="productInCart.produit?.medias?.length > 0 ? productInCart.produit.medias[0].link : ''"
+                      style="width: 100px; object-fit: cover;height: 100px;" alt="">
+                  </div>
+                  <div class="product__cart__item__text">
+                    <h6><a class="text-accent" [routerLink]="['/produits/'+productInCart.produit.id]">
+                        {{productInCart.produit.name}}</a></h6>
+                    <h5>{{productInCart.price| number: '1.0-0'}} {{company.devise.symbol}}</h5>
+                    <small>{{productInCart.properties_printed}}</small>
+                  </div>
+                </td>
+                <td class="quantity__item">
+                  <div class="quantity">
+                    <div class="pro-qty d-flex">
+                      <span class="btn-click" (click)="reduceQuantity(productInCart)">-</span>
+                      <input type="text" [value]="productInCart.quantity">
+                      <span class="btn-click" (click)="addQuantity(productInCart)">+</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="cart__price text-accent">{{productInCart.price * productInCart.quantity | number: '1.0-0'}}
+                  {{company.devise.symbol}}</td>
+                <td class="cart__close " style="cursor: pointer;" (click)="removeProduct(productInCart)"><span
+                    class="icon_close"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="continue__btn">
+              <a [routerLink]="['/catalogue']">Continuer mes achats</a>
+            </div>
+          </div>
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="continue__btn update__btn">
+              <a href="#"><i class="fa fa-spinner"></i> Mettre à jour le panier</a>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="cart__discount">
+          <h6>Réductions
+            <br>
+            <small>Vous avez un code de réduction ?</small>
+          </h6>
+          <form action="#">
+            <input type="text" placeholder="code de réduction" [(ngModel)]="discount_code" name="discount_code">
+            <button type="button" (click)="applyDiscountCode()">Appliquer</button>
+          </form>
+        </div>
+        <div class="cart__total">
+          <h6>Récapitulatif</h6>
+          <ul>
+            <li>Sous-total <span class="text-dark">{{cart.subtotal| number: '1.0-0'}}
+                {{company.devise.symbol}}</span></li>
+            <li *ngIf="cart.discount">Réduction
+              {{cart.discount.mesure === "pourcentage" ? '('+cart.discount.value.split(".")[0]+'%)': ''}} <span
+                class="text-accent">-{{cart.discount.discount_value | number: '1.0-0'}}
+                {{company.devise.symbol}}</span></li>
+            <li>Livraison <span class="text-dark"
+                *ngIf="company.tarif_livraison">{{company.tarif_livraison | number: '1.0-0'}}
+                {{company.devise.symbol}}</span>
+                <span class="text-accent"
+                  *ngIf="!company.tarif_livraison">OFFERTE</span>
+              </li>
+            <li><br></li>
+            <li>
+              <h4 class="text-dark">Total</h4> <span class="text-accent">{{cart.total | number: '1.0-0'}}
+                {{company.devise.symbol}}</span></li>
+          </ul>
+          <a [routerLink]="['/caisse']" class="primary-btn">Procéder au paiement</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Shopping Cart Section End -->

@@ -1,0 +1,71 @@
+<!-- Contact Section Begin -->
+<section class="contact spad">
+    <div class="container">
+        <!-- <div class="contact__address">
+      <div class="row">
+        
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <div class="contact__address__item">
+            <h6>san bernardino</h6>
+            <ul>
+              <li>
+                <span class="icon_pin_alt"></span>
+                <p>1000 Lakepoint Dr, Frisco, CO 80443, USA</p>
+              </li>
+              <li><span class="icon_headphones"></span>
+                <p>+1 800-786-1000</p>
+              </li>
+              <li><span class="icon_mail_alt"></span>
+                <p>Sweetcake@support.com</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="contact__text">
+                    <h3>Contactez nous</h3>
+                    <ul>
+                        <li *ngIf="company?.datas?.settings?.address">
+                            <span class="icon_pin_alt"></span>&nbsp; {{company?.datas?.settings?.address}}
+                        </li>
+                        <li><span class="icon_phone"></span>&nbsp;
+                            <a [href]="'tel:'+company?.tel" class="text-accent">{{company?.tel}}</a>
+                        </li>
+                        <li *ngIf="company?.email">
+                            <span class="icon_mail_alt"></span> &nbsp;
+                            <a class="text-accent" [href]="'mailto:'+company?.email">{{company?.email}}</a>
+                        </li>
+                    </ul>
+                    <ul *ngIf="company?.datas?.settings?.horaires?.length > 0">
+                        <li>Horaires de livraison:</li>
+                        <li *ngFor="let horaire of company?.datas?.settings?.horaires">{{horaire.day}} : {{horaire.hours}}</li>
+                    </ul>
+                    <img src="./assets/img/cake-piece.png" alt="">
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="contact__form">
+                    <form action="#" #f="ngForm" (ngSubmit)="OnSubmit(f)">
+                        <div class="row" *ngIf="response" class="text-success mb-4">Le message a bien été envoyé ! On vous revient au plus vite.</div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" name="name" ngModel placeholder="Name">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="email" name="email" ngModel placeholder="Email">
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea name="message" ngModel placeholder="Message"></textarea>
+                                <button type="submit" class="site-btn" [disabled]="loading">{{loading === false ? "Envoyer" : "Envoi en cours ..."}}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
