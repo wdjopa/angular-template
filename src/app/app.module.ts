@@ -72,6 +72,8 @@ import { PasswordForgottenComponent } from './pages/password-forgotten/password-
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { PaymentComponent } from './modal/payment/payment.component';
 
+
+
 export function playerFactory() {
   return import(/* webpackChunkName: 'lottie-web' */ 'lottie-web');
 }
@@ -237,7 +239,7 @@ const appRoutes: Routes = [
     PaymentComponent,
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule.withServerTransition({ appId: 'serverApp' }), 
     NgxSkeletonLoaderModule.forRoot(),
     AppRoutingModule,
     FormsModule,
@@ -248,7 +250,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     CarouselModule,
     MatDialogModule,
-    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy', initialNavigation: 'enabled' }),
     LottieModule.forRoot({ player: playerFactory }),
     BrowserAnimationsModule
   ],

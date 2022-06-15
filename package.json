@@ -9,7 +9,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc",
+    "dev:ssr": "ng run ecommerce-angular-template:serve-ssr",
+    "serve:ssr": "node dist/ecommerce-angular-template/server/main.js",
+    "build:ssr": "ng build --prod && ng run ecommerce-angular-template:server:production",
+    "prerender": "ng run ecommerce-angular-template:prerender"
   },
   "private": true,
   "dependencies": {
@@ -23,8 +27,11 @@
     "@angular/material": "^9.2.4",
     "@angular/platform-browser": "~11.0.5",
     "@angular/platform-browser-dynamic": "~11.0.5",
+    "@angular/platform-server": "~11.0.5",
     "@angular/router": "~11.0.5",
+    "@nguniversal/express-engine": "^11.0.1",
     "angular-responsive-carousel": "^2.0.2",
+    "express": "^4.15.2",
     "firebase": "^7.13.1",
     "lottie-web": "^5.7.8",
     "ngx-drag-scroll": "^11.0.0-beta.1",
@@ -40,6 +47,8 @@
     "@angular/cli": "~11.0.5",
     "@angular/compiler-cli": "~11.0.5",
     "@types/node": "^12.11.1",
+    "@nguniversal/builders": "^11.0.1",
+    "@types/express": "^4.17.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "codelyzer": "^6.0.0",
